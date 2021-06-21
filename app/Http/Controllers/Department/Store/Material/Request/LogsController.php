@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\Material;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use App\Models\admin\MRLogs;
+use App\Models\Admin\MRLogs;
 
 class LogsController extends Controller
 {
