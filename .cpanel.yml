@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/rabbitde/csprojecttemp.rabbitdevs.com/
+    - /bin/cp -R * $DEPLOYPATH
