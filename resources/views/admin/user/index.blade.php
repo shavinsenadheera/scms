@@ -1,5 +1,5 @@
 @can('user_handling')
-@extends('Template.index')
+@extends('template.index')
 @section('content')
     <div class="content-wrapper">
         <div class="row">

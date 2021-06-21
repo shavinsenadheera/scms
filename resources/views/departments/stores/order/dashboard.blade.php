@@ -1,4 +1,4 @@
-@extends('Template.index')
+@extends('template.index')
 @section('head-js')
     <script type="text/javascript">
 
