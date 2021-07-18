@@ -13,7 +13,7 @@ class StatusController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['role:super_admin','permission:status_handling']);
+        $this->middleware(['role:super_admin|it_admin','permission:status_handling']);
     }
 
     public function index()

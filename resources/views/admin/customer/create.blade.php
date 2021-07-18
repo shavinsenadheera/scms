@@ -106,8 +106,9 @@
                                     <div class="form-group{{ $errors->has('city') ? 'has-error' : '' }}">
                                         <label for="cities_id">{{ __('customer.city') }} *</label>
                                         <select class="form-control js-example-basic-single" name="cities_id" id="cities_id" data-live-search="true">
-                                            <option value="1">Kandy</option>
-                                            <option value="2">Colombo</option>
+                                            @foreach($cities as $data)
+                                                <option value="{{ $data->id }}">{{ $data->name }}</option>
+                                            @endforeach
                                         </select>
                                         @error('city')
                                         <p class="text-small text-danger">{{ $errors->first() }}</p>

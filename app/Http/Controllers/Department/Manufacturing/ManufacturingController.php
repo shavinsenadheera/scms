@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Department\Manufacturing;
 
 use App\Http\Controllers\Controller;
+use App\Mail\Customer\OrderProcess;
 use App\Models\Admin\Employee;
 use App\Models\Admin\Order;
 use App\Models\Admin\OrderStatus;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ManufacturingController extends Controller
 {
@@ -53,12 +55,18 @@ class ManufacturingController extends Controller
                     }
                     else
                     {
+
                         $order_status->status_3 = 3;
                         $order_status->status_3_empid = $employee_id;
                         $order_status->status_3_datetime = now();
                         $order_status->save();
                         $order[0]->current_status_id = 3;
                         $order[0]->save();
+                        $details = [
+                            'order_no'      => $order[0]->order_no,
+                            'status'        => $order[0]->status->description,
+                        ];
+                        Mail::to($order[0]->customer->email)->send(new OrderProcess($details));
                         return response()->json(['success' => 'Successfully scanned the order!']);
                     }
                 }

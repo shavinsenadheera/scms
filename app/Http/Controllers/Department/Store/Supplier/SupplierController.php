@@ -12,6 +12,13 @@ use Illuminate\Http\Request;
 
 class SupplierController extends Controller
 {
+    public $title = "Supplier handling";
+
+    public function __construct()
+    {
+        $this->middleware(['role:super_admin|store_manager|store_coordinator','permission:supplier_handling']);
+    }
+
     public function index()
     {
         try
@@ -20,7 +27,8 @@ class SupplierController extends Controller
             $cities = City::all();
             $params = [
                 'suppliers' => $suppliers,
-                'cities' => $cities,
+                'cities'    => $cities,
+                'title'     => $this->title,
             ];
             return view('departments.stores.supplier.index')->with($params);
         }
@@ -40,6 +48,7 @@ class SupplierController extends Controller
             $cities = City::all();
             $params = [
                 'cities' => $cities,
+                'title'  => $this->title,
             ];
             return view('departments.stores.supplier.create')->with($params);
         }
@@ -100,6 +109,7 @@ class SupplierController extends Controller
             $params = [
                 'supplier'  => $supplier,
                 'cities'    => $cities,
+                'title'     => $this->title,
             ];
             return view('departments.stores.supplier.show')->with($params);
         }
@@ -160,7 +170,8 @@ class SupplierController extends Controller
         try
         {
             $params = [
-                'id'=>decrypt($id),
+                'id'    => decrypt($id),
+                'title' => $this->title,
             ];
             return view('departments.stores.supplier.delete')->with($params);
         }

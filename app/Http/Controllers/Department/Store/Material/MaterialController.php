@@ -16,9 +16,11 @@ use Illuminate\Support\Facades\Auth;
 
 class MaterialController extends Controller
 {
+    public $title = "Material handling";
+
     public function __construct()
     {
-        $this->middleware(['role:super_admin']);
+        $this->middleware(['role:super_admin|store_manager|store_coordinator','permission:material_handling']);
     }
 
     public function index()
@@ -35,6 +37,7 @@ class MaterialController extends Controller
                 'metrics'       => $metrics,
                 'suppliers'     => $suppliers,
                 'mtransactions' => $mtransactions,
+                'title'         => $this->title
             ];
 
             return view('departments.stores.material.index')->with($params);
@@ -97,6 +100,7 @@ class MaterialController extends Controller
                 'material'  => $material,
                 'suppliers' => $suppliers,
                 'metrics'   => $metrics,
+                'title'     => $this->title
             ];
 
             return view('departments.stores.material.show')->with($params);
@@ -177,7 +181,8 @@ class MaterialController extends Controller
     public function delete($id)
     {
         $params = [
-            'id'    => decrypt($id)
+            'id'    => decrypt($id),
+            'title'     => $this->title
         ];
         return view('departments.stores.material.delete')->with($params);
     }

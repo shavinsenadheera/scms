@@ -21,24 +21,24 @@
                             <thead>
                                 <tr>
                                     <th>{{ __('order.action') }}</th>
-                                    <th>{{ __('order.order_no') }}</th>
+                                    <th>{{ __('order.orderno') }}</th>
                                     <th>{{ __('order.priority') }}</th>
                                     <th>{{ __('order.customer') }}</th>
                                     <th>{{ __('order.delivery_date') }}</th>
                                     <th>{{ __('order.label_type') }}</th>
-                                    <th>{{ __('order.total_qty') }}</th>
+                                    <th>{{ __('order.totalqty') }}</th>
                                     <th>{{ __('order.days_rem') }}</th>
                                 </tr>
                             </thead>
                             <tfoot>
                             <tr>
                                 <th>{{ __('order.action') }}</th>
-                                <th>{{ __('order.order_no') }}</th>
+                                <th>{{ __('order.orderno') }}</th>
                                 <th>{{ __('order.priority') }}</th>
                                 <th>{{ __('order.customer') }}</th>
                                 <th>{{ __('order.delivery_date') }}</th>
                                 <th>{{ __('order.label_type') }}</th>
-                                <th>{{ __('order.total_qty') }}</th>
+                                <th>{{ __('order.totalqty') }}</th>
                                 <th>{{ __('order.days_rem') }}</th>
                             </tr>
                             </tfoot>

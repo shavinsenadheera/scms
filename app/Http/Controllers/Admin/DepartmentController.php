@@ -14,7 +14,7 @@ class DepartmentController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['role:super_admin','permission:department_handling']);
+        $this->middleware(['role:super_admin|it_admin','permission:department_handling']);
     }
 
     public function index()
@@ -84,7 +84,6 @@ class DepartmentController extends Controller
             }
         }
     }
-
 
     public function update(Request $request, $id)
     {

@@ -1,7 +1,7 @@
 <?php
     return [
-        'view_all'          => 'View all',
-        'view_done'         => 'View done',
+        'view_all'          => 'Taken/Not Taken orders',
+        'view_done'         => 'Delivered orders',
         'yesterday'         => 'Yesterday',
         'early'             => 'Early',
         'no_orders'         => 'No orders',
@@ -41,6 +41,6 @@
         'monitor_pb'        => 'Monitor Planning Board',
         'timeline'          => 'Order timeline',
         'delayed_orders'    => 'Delayed orders',
-        'view_delayed'      => 'View delayed',
+        'view_delayed'      => 'Delayed orders',
     ]
 ?>

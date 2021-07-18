@@ -6,7 +6,8 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#!">{{ __('general.breadcrumb.dashboard') }}</a></li>
                     <li class="breadcrumb-item"><a href="#!">{{ __('general.breadcrumb.general_management') }}</a></li>
-                    <li  class="breadcrumb-item active" aria-current="page">{{ __('general.breadcrumb.prioritytype.prioritytype_handling') }}</li>
+                    <li class="breadcrumb-item active"
+                        aria-current="page">{{ __('general.breadcrumb.prioritytype.prioritytype_handling') }}</li>
                 </ol>
             </nav>
             <div class="col-lg-12 col-md-12 col-sm-12 stretch-card">
@@ -22,7 +23,7 @@
                             <thead>
                             <tr>
                                 <th> {{ __('general.form.general.action') }} </th>
-                                <th> # </th>
+                                <th> #</th>
                                 <th> {{ __('prioritytype.code') }}</th>
                                 <th> {{ __('prioritytype.name') }}</th>
                             </tr>
@@ -30,7 +31,7 @@
                             <tfoot>
                             <tr>
                                 <th> {{ __('general.form.general.action') }} </th>
-                                <th> # </th>
+                                <th> #</th>
                                 <th> {{ __('prioritytype.code') }}</th>
                                 <th> {{ __('prioritytype.name') }}</th>
                             </tr>
@@ -42,12 +43,18 @@
                                     <tr>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a class="btn btn-primary" href="{{ route('prioritytype.show',encrypt($data->id)) }}">
-                                                    <i class="mdi mdi-pencil"></i>
-                                                </a>
-                                                <a class="btn btn-danger" href="{{ route('prioritytype.delete',encrypt($data->id)) }}">
-                                                    <i class="mdi mdi-delete"></i>
-                                                </a>
+                                                @can('edit')
+                                                    <a class="btn btn-primary"
+                                                       href="{{ route('prioritytype.show',encrypt($data->id)) }}">
+                                                        <i class="mdi mdi-pencil"></i>
+                                                    </a>
+                                                @endcan
+                                                @can('delete')
+                                                    <a class="btn btn-danger"
+                                                       href="{{ route('prioritytype.delete',encrypt($data->id)) }}">
+                                                        <i class="mdi mdi-delete"></i>
+                                                    </a>
+                                                @endcan
                                             </div>
                                         </td>
                                         <td> {{ $i++ }} </td>
@@ -67,7 +74,7 @@
 @section('custom-js')
     @if (session()->has('success_msg'))
         <script>
-            swal('Good job!','{{ session('success_msg') }}','success');
+            swal('Good job!', '{{ session('success_msg') }}', 'success');
         </script>
     @endif
 @endsection

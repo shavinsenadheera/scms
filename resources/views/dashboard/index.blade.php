@@ -3,49 +3,61 @@
     <div class="content-wrapper">
         <div class="row justify-content-center">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 my-2">
-                @role('super_admin')
+                @hasanyrole('super_admin|it_admin')
                 <div class="card">
                     <div class="card-header p-2 font-weight-bold">
                         <i class="mdi mdi-link"></i> Quick links
                     </div>
                     <div class="class-body">
                         <div class="row">
-                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
-                                <div class="card bg-primary text-center text-white">
-                                    <div class="card-header p-3 bg-primary">
-                                        <a href="{{ route('user.index') }}" class="text-white text-decoration-none font-weight-bold">
-                                            <i class="mdi mdi-link-plus"></i> User creation
-                                        </a>
+                            @can('user_handling')
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                    <div class="card bg-primary text-center text-white">
+                                        <div class="card-header p-3 bg-primary">
+                                            <a href="{{ route('user.index') }}"
+                                               class="text-white text-decoration-none font-weight-bold">
+                                                <i class="mdi mdi-link-plus"></i> User creation
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
-                                <div class="card bg-primary text-center text-white">
-                                    <div class="card-header p-3 bg-primary">
-                                        <a href="{{ route('role.index') }}" class="text-white text-decoration-none font-weight-bold">
-                                            <i class="mdi mdi-link-plus"></i> Role creation
-                                        </a>
+                            @endcan
+                            @can('role_handling')
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                    <div class="card bg-primary text-center text-white">
+                                        <div class="card-header p-3 bg-primary">
+                                            <a href="{{ route('role.index') }}"
+                                               class="text-white text-decoration-none font-weight-bold">
+                                                <i class="mdi mdi-link-plus"></i> Role creation
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
-                                <div class="card bg-primary text-center text-white">
-                                    <div class="card-header p-3 bg-primary">
-                                        <a href="{{ route('permission.index') }}" class="text-white text-decoration-none font-weight-bold">
-                                            <i class="mdi mdi-link-plus"></i> Permission creation
-                                        </a>
+                            @endcan
+                            @can('permission_handling')
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                    <div class="card bg-primary text-center text-white">
+                                        <div class="card-header p-3 bg-primary">
+                                            <a href="{{ route('permission.index') }}"
+                                               class="text-white text-decoration-none font-weight-bold">
+                                                <i class="mdi mdi-link-plus"></i> Permission creation
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
-                                <div class="card bg-primary text-center text-white">
-                                    <div class="card-header p-3 bg-primary">
-                                        <a href="{{ route('employee.index') }}" class="text-white text-decoration-none font-weight-bold">
-                                            <i class="mdi mdi-link-plus"></i> Employee creation
-                                        </a>
+                            @endcan
+                            @can('employee_handling')
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                    <div class="card bg-primary text-center text-white">
+                                        <div class="card-header p-3 bg-primary">
+                                            <a href="{{ route('employee.index') }}"
+                                               class="text-white text-decoration-none font-weight-bold">
+                                                <i class="mdi mdi-link-plus"></i> Employee creation
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endcan
                         </div>
                     </div>
                 </div>
@@ -95,7 +107,8 @@
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                                 <div class="card bg-transparent text-center text-white p-0">
                                     <div class="card-header p-3 bg-warning">
-                                        <a href="{{ route('error.index') }}" class="text-white text-decoration-none font-weight-bold">
+                                        <a href="{{ route('error.index') }}"
+                                           class="text-white text-decoration-none font-weight-bold">
                                             <i class="fa fa-link"></i> Go to errors
                                         </a>
                                     </div>
@@ -104,7 +117,7 @@
                         </div>
                     </div>
                 </div>
-                @endrole
+                @endhasanyrole
                 @role('cs_manager')
                 <div class="card">
                     <div class="card-header p-2">
@@ -128,25 +141,26 @@
                                         </div>
                                         <div class="float-right">
                                             <td>
-                                                <a href="{{ route('order.index') }}" class="btn btn-sm btn-primary"><i class="mdi mdi-more"></i> @lang('dashboard.more')</a>
+                                                <a href="{{ route('order.index') }}" class="btn btn-sm btn-primary"><i
+                                                        class="mdi mdi-more"></i> @lang('dashboard.more')</a>
                                             </td>
                                         </div>
                                     </div>
                                     <div class="card-body p-2 bg-light text-white">
                                         <table class="table table-borderless">
                                             <tbody>
-                                                <tr class="bg-danger">
-                                                    <th class="text-white">Delayed orders</th>
-                                                    <td class="text-white">{{ $delayedOrderCount }}</td>
-                                                </tr>
-                                                <tr class="bg-warning">
-                                                    <th class="text-white">Pending orders</th>
-                                                    <td class="text-white">{{ (int)$totalJobCount - (int)$takenJobCount }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Total orders</th>
-                                                    <td>{{ $totalJobCount }}</td>
-                                                </tr>
+                                            <tr class="bg-danger">
+                                                <th class="text-white">Delayed orders</th>
+                                                <td class="text-white">{{ $delayedOrderCount }}</td>
+                                            </tr>
+                                            <tr class="bg-warning">
+                                                <th class="text-white">Pending orders</th>
+                                                <td class="text-white">{{ (int)$totalJobCount - (int)$takenJobCount }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Total orders</th>
+                                                <td>{{ $totalJobCount }}</td>
+                                            </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -176,7 +190,8 @@
                                             <i class="mdi mdi-shopping"></i> {{ __('dashboard.my_job_sum') }}
                                         </div>
                                         <div class="card-body p-2  bg-primary text-white">
-                                            @lang('dashboard.notice_1_1') @isset($myJobsCount){{ $myJobsCount }} @else 0 @endif @lang('dashboard.notice_1_2')
+                                            @lang('dashboard.notice_1_1') @isset($myJobsCount){{ $myJobsCount }} @else
+                                                0 @endif @lang('dashboard.notice_1_2')
                                         </div>
                                         <div class="card-footer">
                                             <a class="btn btn-primary"
@@ -223,8 +238,10 @@
                                         <div class="card-header p-2">
                                             <i class="mdi mdi-summit"></i> Total job summary
                                         </div>
-                                        <div class="card-body p-2 {{ (int)$totalJobCount - (int)$takenJobCount > 0 ? 'bg-warning' : 'bg-success' }} text-white">
-                                            @if((int)$totalJobCount - (int)$takenJobCount > 0)orders are pending @else all orders are processing @endif
+                                        <div
+                                            class="card-body p-2 {{ (int)$totalJobCount - (int)$takenJobCount > 0 ? 'bg-warning' : 'bg-success' }} text-white">
+                                            @if((int)$totalJobCount - (int)$takenJobCount > 0)orders are pending @else
+                                                all orders are processing @endif
                                         </div>
                                         <div class="card-footer">
                                             <a class="btn btn-primary"
@@ -243,18 +260,18 @@
                                                 <div class="card card-body">
                                                     <table style="font-size: 12px" class="w-100">
                                                         <tbody>
-                                                            <tr class="bg-primary text-white">
-                                                                <th class="p-1">Total orders</th>
-                                                                <td class="p-1">{{ $totalJobCount }}</td>
-                                                            </tr>
-                                                            <tr class="bg-success text-white">
-                                                                <th class="p-1">Taken orders</th>
-                                                                <td class="p-1">{{ $takenJobCount }}</td>
-                                                            </tr>
-                                                            <tr class="bg-warning text-white">
-                                                                <th class="p-1">Pending Orders</th>
-                                                                <td class="p-1">{{ (int)$totalJobCount - (int)$takenJobCount }}</td>
-                                                            </tr>
+                                                        <tr class="bg-primary text-white">
+                                                            <th class="p-1">Total orders</th>
+                                                            <td class="p-1">{{ $totalJobCount }}</td>
+                                                        </tr>
+                                                        <tr class="bg-success text-white">
+                                                            <th class="p-1">Taken orders</th>
+                                                            <td class="p-1">{{ $takenJobCount }}</td>
+                                                        </tr>
+                                                        <tr class="bg-warning text-white">
+                                                            <th class="p-1">Pending Orders</th>
+                                                            <td class="p-1">{{ (int)$totalJobCount - (int)$takenJobCount }}</td>
+                                                        </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -265,6 +282,11 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                @endhasanyrole
+                @hasanyrole('super_admin|store_manager|store_coordinator')
+                <div class="mt-3">
+
                 </div>
                 @endhasanyrole
             </div>
@@ -357,11 +379,11 @@
                 name: 'Brands',
                 colorByPoint: true,
                 data: [{
-                    'y':myFinJobsCount,
-                    'name':'Delivered orders',
-                },{
-                    'y':myProJobsCount,
-                    'name':'Processing orders',
+                    'y': myFinJobsCount,
+                    'name': 'Delivered orders',
+                }, {
+                    'y': myProJobsCount,
+                    'name': 'Processing orders',
                 }]
             }],
             colors: ['#326aff', '#064c7b']
@@ -369,8 +391,8 @@
     </script>
 
     <script type="text/javascript">
-        var customerIds = <?php echo  json_encode($customerIds) ?>;
-        var totalCounts = <?php echo  json_encode($totalCount) ?>;
+        var customerIds = <?php echo json_encode($customerIds) ?>;
+        var totalCounts = <?php echo json_encode($totalCount) ?>;
 
         Highcharts.chart('myjobs', {
             chart: {
@@ -455,11 +477,11 @@
                 name: 'Order counts',
                 colorByPoint: true,
                 data: [{
-                    'y':myFinJobsCount,
-                    'name':'Delivered orders',
-                },{
-                    'y':myProJobsCount,
-                    'name':'Processing orders',
+                    'y': myFinJobsCount,
+                    'name': 'Delivered orders',
+                }, {
+                    'y': myProJobsCount,
+                    'name': 'Processing orders',
                 }]
             }],
             colors: ['#326aff', '#064c7b']
@@ -501,7 +523,7 @@
                 name: 'Order counts',
                 colorByPoint: true,
                 data: [
-                    @for($i=0; $i < count($mCustomerIds); $i++)
+                        @for($i=0; $i < count($mCustomerIds); $i++)
                     {
                         name: "{{ $mCustomerIds[$i] }}",
                         y: {{ $mTotalCount[$i] }}

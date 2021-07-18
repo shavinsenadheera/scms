@@ -35,18 +35,22 @@
                                 <tr>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Basic example">
+                                            @can('edit')
                                             <a
                                                 class="btn btn-primary"
                                                 href="{{ route('metric.show',encrypt($data->id)) }}"
                                             >
                                                 <i class="mdi mdi-pencil"></i>
                                             </a>
+                                            @endcan
+                                            @can('delete')
                                             <a
                                                 class="btn btn-danger"
                                                 href="{{ route('metric.delete',encrypt($data->id)) }}"
                                             >
                                                 <i class="mdi mdi-trash-can"></i>
                                             </a>
+                                            @endcan
                                         </div>
                                     </td>
                                     <td>{{ $data->name  }}</td>

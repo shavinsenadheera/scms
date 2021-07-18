@@ -12,6 +12,11 @@ class LogsController extends Controller
 {
     public $title = "Logs";
 
+    public function __construct()
+    {
+        $this->middleware(['role:super_admin|store_manager|store_coordinator|production_manager|production_coordinator','permission:logs_handling']);
+    }
+
     public function index()
     {
         try

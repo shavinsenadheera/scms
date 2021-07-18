@@ -1,3 +1,4 @@
+@can('delete')
 @extends('template.index')
 @section('content')
     <div class="content-wrapper">
@@ -41,3 +42,4 @@
         </script>
     @endif
 @endsection
+@endcan

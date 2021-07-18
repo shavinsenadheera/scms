@@ -7,6 +7,7 @@ use App\Models\Admin\Employee;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
@@ -16,7 +17,7 @@ class UserController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['role:super_admin','permission:user_handling']);
+        $this->middleware(['role:super_admin|it_admin','permission:user_handling']);
     }
 
     public function index()
@@ -150,6 +151,90 @@ class UserController extends Controller
             return view('admin.user.create')->with($params);
         }catch (ModelNotFoundException $ex){
             if ($ex instanceof ModelNotFoundException){
+                return response()->view('errors.'.'404');
+            }
+        }
+    }
+
+    public function changeProfile($id)
+    {
+        return view('generalPages.profileChange');
+    }
+
+    public function updateProfile(Request $request, $id)
+    {
+        try
+        {
+            if($request->name || $request->email)
+            {
+                if($request->name){
+                    $this->validate($request, [
+                        'name'  => 'string',
+                    ]);
+                }
+
+                if($request->email){
+                    $this->validate($request, [
+                        'email'  => 'email',
+                    ]);
+                }
+
+                $user = User::findOrFail(Auth::id());
+                $user->name = $request->name && $request->name;
+                $user->email = $request->email && $request->email;
+                $user->save();
+
+                return back()->with('success_msg', 'Successfully updated user ' . $user->name);
+            }
+            else
+            {
+                return back()->with('error_msg', 'Please enter what do you want to change!');
+            }
+        }
+        catch(ModelNotFoundException $ex)
+        {
+            if ($ex instanceof ModelNotFoundException){
+                return response()->view('errors.'.'404');
+            }
+        }
+    }
+
+    public function updatePassword(Request $request, $id)
+    {
+        try
+        {
+           $this->validate($request, [
+               'current_password'  => 'required',
+               'new_password' => 'required|min:8|max:16',
+               'password_confirmation' => 'required',
+           ]);
+
+            $user = User::findOrFail(Auth::id());
+
+            if(password_verify($request->current_password, $user->password))
+            {
+                if($request->new_password===$request->password_confirmation)
+                {
+                    $new_password = Hash::make($request->new_password);
+                    $user->password = $new_password;
+                    $user->save();
+
+                    return back()->with('success_msg', 'Successfully updated user ' . $user->name. ' password!');
+                }
+                else
+                {
+                    return back()->with('error_msg', 'Password does not match!');
+                }
+            }
+            else
+            {
+                return back()->with('error_msg', 'Current password is not valid');
+            }
+        }
+        catch(ModelNotFoundException $ex)
+        {
+            if ($ex instanceof ModelNotFoundException)
+            {
                 return response()->view('errors.'.'404');
             }
         }

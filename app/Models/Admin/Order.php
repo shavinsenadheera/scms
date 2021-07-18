@@ -46,7 +46,7 @@ class Order extends Model
         return $this->belongsTo(LabelSize::class,'size_no');
     }
 
-    public function  status()
+    public function status()
     {
         return $this->belongsTo(Status::class, 'current_status_id');
     }

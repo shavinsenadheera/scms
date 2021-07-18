@@ -3,17 +3,24 @@
 namespace App\Http\Controllers\Department\Planning;
 
 use App\Http\Controllers\Controller;
+use App\Mail\Customer\OrderProcess;
 use App\Models\Admin\Employee;
 use App\Models\Admin\Order;
 use App\Models\Admin\OrderStatus;
 use App\Models\Admin\PriorityType;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Excel;
 
 class PlanningController extends Controller
 {
     public $title = "Order planning";
+
+    public function __construct()
+    {
+        $this->middleware(['role:super_admin|planning_coordinator|planning_manager|cs_manager|cs_coordinator']);
+    }
 
     public function index()
     {
@@ -124,6 +131,11 @@ class PlanningController extends Controller
                         $order_status->save();
                         $order[0]->current_status_id = 2;
                         $order[0]->save();
+                        $details = [
+                            'order_no'      => $order_no,
+                            'status'        => $order[0]->status->description,
+                        ];
+                        Mail::to($order[0]->customer->email)->send(new OrderProcess($details));
                         return response()->json(['success' => 'Successfully scanned the order!']);
                     }
                 }

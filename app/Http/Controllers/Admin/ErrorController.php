@@ -13,7 +13,7 @@ class ErrorController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['role:super_admin','permission:error_handling']);
+        $this->middleware(['role:super_admin|it_admin','permission:error_handling']);
     }
 
     public function index()

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\City;
 use App\Models\Customer\Customer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -11,12 +12,12 @@ use Illuminate\Support\Facades\Hash;
 
 class CustomerController extends Controller
 {
+    public $title = "Customer handling";
+
     public function __construct()
     {
-        $this->middleware(['role:super_admin','permission:customer_handling']);
+        $this->middleware(['role:super_admin|cs_manager|cs_coordinator','permission:customer_handling']);
     }
-
-    public $title = "Customer handling";
 
     public $admin_statuses = [
         [
@@ -58,6 +59,7 @@ class CustomerController extends Controller
         $params = [
             'admin_statuses'    => $this->admin_statuses,
             'title'     => $this->title,
+            'cities'    => City::all(),
         ];
         return view('admin.customer.create')->with($params);
     }

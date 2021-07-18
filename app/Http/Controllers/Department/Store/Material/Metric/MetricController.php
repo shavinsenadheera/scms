@@ -10,6 +10,13 @@ use App\Models\Admin\MMetric;
 
 class MetricController extends Controller
 {
+    public $title = "Metric handling";
+
+    public function __construct()
+    {
+        $this->middleware(['role:super_admin|store_manager|store_coordinator','permission:metric_handling']);
+    }
+
     public function index()
     {
         try
@@ -17,7 +24,7 @@ class MetricController extends Controller
             $metrics = MMetric::all();
             $params = [
                 'metrics'   => $metrics,
-                'title'     => 'Metric'
+                'title'     => $this->title
             ];
         }
         catch(ModelNotFoundException $exception)
@@ -69,6 +76,7 @@ class MetricController extends Controller
             $metric = MMetric::findOrFail(decrypt($id));
             $params = [
                 'metric'    => $metric,
+                'title'     => $this->title
             ];
 
             return view('departments.stores.metric.show')->with($params);
@@ -136,6 +144,7 @@ class MetricController extends Controller
     {
         $params = [
             'id'    => decrypt($id),
+            'title'     => $this->title
         ];
         return view('departments.stores.metric.delete')->with($params);
     }

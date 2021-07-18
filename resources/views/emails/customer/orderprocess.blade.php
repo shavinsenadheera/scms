@@ -1,13 +1,10 @@
 @component('mail::message')
 Hey valuable customer,
 
-Your order (#{{ $details['order_no'] }}) is starting to process.
+Order - #{{ $details['order_no'] }} {{ $details['status'] }}.
 <br>
-Please use following link to track your order,
-@component('mail::button', ['url' => ''])
-Track order
-@endcomponent
-
+Check on ABCTL customer side system.
+<br>
 Thanks,<br>
 {{ config('app.name') }}
 @endcomponent

@@ -20,9 +20,6 @@
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addMetric">
                         <i class="fa fa-plus"></i> {{__('material.index.add_metric')}}
                     </button>
-                    <button class="btn btn-primary">
-                        <i class="fa fa-eye"></i> {{__('log.index')}}
-                    </button>
                 </div>
             </div>
         </div>
@@ -130,12 +127,14 @@
                                 >
                                     <i class="mdi mdi-pencil"></i>
                                 </a>
+                                @can('delete')
                                 <a
-                                    class="btn btn-danger @can('material_delete') '' @else disabled @endcan "
+                                    class="btn btn-danger"
                                     href="{{ route('material.delete',encrypt($data->id)) }}"
                                 >
                                     <i class="mdi mdi-trash-can"></i>
                                 </a>
+                                @endcan
                             </div>
                         </td>
                         <td>{{ $data->name  }}</td>
@@ -182,7 +181,6 @@
             </table>
         </div>
     </div>
-
 
 @endsection
 @section('custom-js')

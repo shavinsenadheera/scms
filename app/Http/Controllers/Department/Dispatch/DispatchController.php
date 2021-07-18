@@ -3,19 +3,21 @@
 namespace App\Http\Controllers\Department\Dispatch;
 
 use App\Http\Controllers\Controller;
+use App\Mail\Customer\OrderProcess;
 use App\Models\Admin\Employee;
 use App\Models\Admin\Order;
 use App\Models\Admin\OrderStatus;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class DispatchController extends Controller
 {
-    public $title = "Dispatch handling";
+    public $title = "Dispatch";
 
     public function __construct()
     {
-        $this->middleware(['role:super_admin|dispatch_manager|dispatch_coordinator','permission:dispatch_handling|dispatch_scanning|dispatch_done_scanning']);
+        $this->middleware(['role:super_admin|dispatch_manager|dispatch_coordinator|qa_manager|qa_coordinator','permission:dispatch_handling|dispatch_scanning|dispatch_done_scanning']);
     }
 
 
@@ -68,6 +70,11 @@ class DispatchController extends Controller
                         $order_status->save();
                         $order[0]->current_status_id = 5;
                         $order[0]->save();
+                        $details = [
+                            'order_no'      => $order[0]->order_no,
+                            'status'        => $order[0]->status->description,
+                        ];
+                        Mail::to($order[0]->customer->email)->send(new OrderProcess($details));
                         return response()->json(['success' => 'Successfully scanned the order!']);
                     }
                 }
@@ -92,8 +99,6 @@ class DispatchController extends Controller
             {
                 return response()->json(['orderno_invalid' => 'Order no is not valid!']);
             }
-
-            return response()->json(['error' => $validating->errors()->all()]);
         }
         catch (ModelNotFoundException $exception)
         {
@@ -152,6 +157,11 @@ class DispatchController extends Controller
                         $order_status->save();
                         $order[0]->current_status_id = 6;
                         $order[0]->save();
+                        $details = [
+                            'order_no'      => $order[0]->order_no,
+                            'status'        => $order[0]->status->description,
+                        ];
+                        Mail::to($order[0]->customer->email)->send(new OrderProcess($details));
                         return response()->json(['success' => 'Successfully scanned the order!']);
                     }
                 }

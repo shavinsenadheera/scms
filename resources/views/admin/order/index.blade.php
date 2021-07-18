@@ -22,10 +22,10 @@
                     <i class="mdi mdi-truck-delivery"></i> {{ __('order.view_done') }}
                 </a>
             </div>
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 stretch-card">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 stretch-card p-0">
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                     <div class="card">
-                        <div class="card-header pt-3">
+                        <div class="card-header pt-3 font-weight-bold">
                             {{ __('order.early') }}
                         </div>
                         @isset($orders)
@@ -54,7 +54,7 @@
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                     <div class="card">
-                        <div class="card-header pt-3">
+                        <div class="card-header pt-3 font-weight-bold">
                             {{ __('order.today') }}
                         </div>
                         @if($orders)
@@ -92,27 +92,29 @@
                         <thead>
                             <tr>
                                 <th>{{ __('order.action') }}</th>
-                                <th>{{ __('order.order_time') }}</th>
+                                <th>{{ __('order.orderno') }}</th>
                                 <th>{{ __('order.customer') }}</th>
+                                <th>{{ __('order.order_time') }}</th>
                                 <th>{{ __('order.delivery_date') }}</th>
-                                <th>{{ __('order.label_type') }}</th>
-                                <th>{{ __('order.totalqty') }}</th>
                                 <th>{{ __('order.days_rem') }}</th>
                                 <th>{{ __('order.coordinate_status') }}</th>
                                 <th>{{ __('order.current_status') }}</th>
+                                <th>{{ __('order.label_type') }}</th>
+                                <th>{{ __('order.totalqty') }}</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
                                 <th>{{ __('order.action') }}</th>
-                                <th>{{ __('order.order_time') }}</th>
+                                <th>{{ __('order.orderno') }}</th>
                                 <th>{{ __('order.customer') }}</th>
+                                <th>{{ __('order.order_time') }}</th>
                                 <th>{{ __('order.delivery_date') }}</th>
-                                <th>{{ __('order.label_type') }}</th>
-                                <th>{{ __('order.totalqty') }}</th>
                                 <th>{{ __('order.days_rem') }}</th>
                                 <th>{{ __('order.coordinate_status') }}</th>
                                 <th>{{ __('order.current_status') }}</th>
+                                <th>{{ __('order.label_type') }}</th>
+                                <th>{{ __('order.totalqty') }}</th>
                             </tr>
                         </tfoot>
                         <tbody>
@@ -123,11 +125,10 @@
                                 @endforeach
                             <tr>
                                 <td><a href="{{ route('order.show',encrypt($data->id)) }}" class="btn btn-sm btn-primary"><i class="mdi mdi-eye"></i></a></td>
-                                <td>{{ date('Y-m-j', strtotime($data->created_at)) }}</td>
+                                <td>{{ $data->order_no }}</td>
                                 <td>{{ $data->customer->name }}</td>
+                                <td>{{ date('Y-m-j', strtotime($data->created_at)) }}</td>
                                 <td>{{ $data->delivery_date }}</td>
-                                <td>{{ $data->labeltype->name }}</td>
-                                <td>{{ $total_qty }}</td>
                                 <span hidden>{{ $diffOriginDate = strtotime($data->delivery_date) - strtotime((date("Y-m-j",strtotime($data->created_at)))) }}</span>
                                 <span hidden>{{ $diffNowDate = strtotime($data->delivery_date) - time() }}</span>
                                 <span hidden>{{ $origindays = round($diffOriginDate / (60 * 60 * 24)) }}</span>
@@ -140,6 +141,8 @@
                                 </td>
                                 <td class="{{ $data->taken_by ? 'bg-primary text-white' : 'bg-warning text-white' }}">@if($data->taken_by) Taken @else Not taken @endif</td>
                                 <td>@if($data->current_status_id){{ $data->status->description }} @else Pending @endif</td>
+                                <td>{{ $data->labeltype->name }}</td>
+                                <td>{{ $total_qty }}</td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -156,25 +159,27 @@
                         <thead>
                         <tr>
                             <th>{{ __('order.action') }}</th>
-                            <th>{{ __('order.order_time') }}</th>
+                            <th>{{ __('order.orderno') }}</th>
                             <th>{{ __('order.customer') }}</th>
+                            <th>{{ __('order.order_time') }}</th>
                             <th>{{ __('order.delivery_date') }}</th>
-                            <th>{{ __('order.label_type') }}</th>
-                            <th>{{ __('order.totalqty') }}</th>
                             <th>{{ __('order.coordinate_status') }}</th>
                             <th>{{ __('order.current_status') }}</th>
+                            <th>{{ __('order.label_type') }}</th>
+                            <th>{{ __('order.totalqty') }}</th>
                         </tr>
                         </thead>
                         <tfoot>
                         <tr>
                             <th>{{ __('order.action') }}</th>
-                            <th>{{ __('order.order_time') }}</th>
+                            <th>{{ __('order.orderno') }}</th>
                             <th>{{ __('order.customer') }}</th>
+                            <th>{{ __('order.order_time') }}</th>
                             <th>{{ __('order.delivery_date') }}</th>
-                            <th>{{ __('order.label_type') }}</th>
-                            <th>{{ __('order.totalqty') }}</th>
                             <th>{{ __('order.coordinate_status') }}</th>
                             <th>{{ __('order.current_status') }}</th>
+                            <th>{{ __('order.label_type') }}</th>
+                            <th>{{ __('order.totalqty') }}</th>
                         </tr>
                         </tfoot>
                         <tbody>
@@ -185,13 +190,14 @@
                             @endforeach
                             <tr>
                                 <td><a href="{{ route('order.show',encrypt($data->id)) }}" class="btn btn-sm btn-primary"><i class="mdi mdi-eye"></i></a></td>
-                                <td>{{ date('Y-m-j', strtotime($data->created_at)) }}</td>
+                                <td>{{ $data->order_no }}</td>
                                 <td>{{ $data->customer->name }}</td>
+                                <td>{{ date('Y-m-j', strtotime($data->created_at)) }}</td>
                                 <td>{{ $data->delivery_date }}</td>
-                                <td>{{ $data->labeltype->name }}</td>
-                                <td>{{ $total_qty }}</td>
                                 <td class="{{ $data->taken_by ? 'bg-primary text-white' : 'bg-warning text-white' }}">@if($data->taken_by) Taken @else Not taken @endif</td>
                                 <td>@if($data->current_status_id){{ $data->status->description }} @else Pending @endif</td>
+                                <td>{{ $data->labeltype->name }}</td>
+                                <td>{{ $total_qty }}</td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -201,32 +207,34 @@
 
             <div class="row my-3">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 text-center">
-                    <button class="btn btn-sm btn-success"><i class="mdi mdi-truck-delivery"></i> @lang('order.view_done')</button>
+                    <button class="btn btn-sm btn-success"><i class="mdi mdi-truck-delivery"></i> {{ __('order.view_done') }}</button>
                 </div>
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 bg-white mt-3" id="view_done">
                     <table id="datatable-4" class="table table-hover w-100">
                         <thead>
                             <tr>
                                 <th>{{ __('order.action') }}</th>
-                                <th>{{ __('order.order_time') }}</th>
+                                <th>{{ __('order.orderno') }}</th>
                                 <th>{{ __('order.customer') }}</th>
+                                <th>{{ __('order.order_time') }}</th>
                                 <th>{{ __('order.delivery_date') }}</th>
-                                <th>{{ __('order.label_type') }}</th>
-                                <th>{{ __('order.totalqty') }}</th>
                                 <th>{{ __('order.coordinate_status') }}</th>
                                 <th>{{ __('order.current_status') }}</th>
+                                <th>{{ __('order.label_type') }}</th>
+                                <th>{{ __('order.totalqty') }}</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
                                 <th>{{ __('order.action') }}</th>
-                                <th>{{ __('order.order_time') }}</th>
+                                <th>{{ __('order.orderno') }}</th>
                                 <th>{{ __('order.customer') }}</th>
+                                <th>{{ __('order.order_time') }}</th>
                                 <th>{{ __('order.delivery_date') }}</th>
-                                <th>{{ __('order.label_type') }}</th>
-                                <th>{{ __('order.totalqty') }}</th>
                                 <th>{{ __('order.coordinate_status') }}</th>
                                 <th>{{ __('order.current_status') }}</th>
+                                <th>{{ __('order.label_type') }}</th>
+                                <th>{{ __('order.totalqty') }}</th>
                             </tr>
                         </tfoot>
                         <tbody>
@@ -237,13 +245,14 @@
                                 @endforeach
                             <tr>
                                 <td><a href="{{ route('order.show',encrypt($data->id)) }}" class="btn btn-sm btn-primary"><i class="mdi mdi-eye"></i></a></td>
-                                <td>{{ date('Y-m-j', strtotime($data->created_at)) }}</td>
+                                <td>{{ $data->order_no }}</td>
                                 <td>{{ $data->customer->name }}</td>
+                                <td>{{ date('Y-m-j', strtotime($data->created_at)) }}</td>
                                 <td>{{ $data->delivery_date }}</td>
-                                <td>{{ $data->labeltype->name }}</td>
-                                <td>{{ $total_qty }}</td>
                                 <td class="{{ $data->taken_by ? 'bg-primary text-white' : 'bg-warning text-white' }}">@if($data->taken_by) Taken @else Not taken @endif</td>
                                 <td>@if($data->current_status_id){{ $data->status->description }} @else Pending @endif</td>
+                                <td>{{ $data->labeltype->name }}</td>
+                                <td>{{ $total_qty }}</td>
                             </tr>
                             @endforeach
                         </tbody>

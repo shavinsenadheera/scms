@@ -35,7 +35,7 @@
                                 <tbody>
                                 @foreach($normal_orders as $data)
                                     <tr>
-                                        <form action="{{ route('planning.scan',encrypt($data->id)) }}" method="POST">
+                                        <form action="{{ route('planning.scanUpdate',encrypt($data->id)) }}" method="POST">
                                         @csrf
                                         {{ method_field('PUT') }}
                                         <td>{{ $data->order_no }}</td>
@@ -79,7 +79,7 @@
                                 <tbody>
                                 @foreach($speed_orders as $data)
                                     <tr>
-                                        <form action="{{ route('planning.scan',encrypt($data->id)) }}" method="POST">
+                                        <form action="{{ route('planning.scanUpdate',encrypt($data->id)) }}" method="POST">
                                         @csrf
                                         {{ method_field('PUT') }}
                                         <td>{{ $data->order_no }}</td>
@@ -123,7 +123,7 @@
                                 <tbody>
                                 @foreach($rapid_orders as $data)
                                     <tr>
-                                        <form action="{{ route('planning.scan',encrypt($data->id)) }}" method="POST">
+                                        <form action="{{ route('planning.scanUpdate',encrypt($data->id)) }}" method="POST">
                                         @csrf
                                         {{ method_field('PUT') }}
                                         <td>{{ $data->order_no }}</td>

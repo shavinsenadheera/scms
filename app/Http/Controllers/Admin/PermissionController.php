@@ -14,7 +14,7 @@ class PermissionController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['role:super_admin','permission:permission_handling']);
+        $this->middleware(['role:super_admin|it_admin','permission:permission_handling']);
     }
 
     public function index()
@@ -125,7 +125,10 @@ class PermissionController extends Controller
 
     public function create()
     {
-        return view('admin.permission.create');
+        $params = [
+            'title' => $this->title
+        ];
+        return view('admin.permission.create')->with($params);
     }
 
 }

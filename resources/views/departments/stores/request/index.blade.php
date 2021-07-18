@@ -49,7 +49,7 @@
                                     </td>
                                     <td>{{ $data->users->name }}</td>
                                     <td>{{ $data->materials->name }}</td>
-                                    <td>{{ $data->request_count }}</td>
+                                    <td>{{ $data->request_count }} {{ $data->materials->metrics->code }}</td>
                                     <td>{{ $data->created_at }}</td>
                                 </tr>
                             @endforeach

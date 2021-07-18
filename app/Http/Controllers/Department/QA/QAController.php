@@ -3,14 +3,23 @@
 namespace App\Http\Controllers\Department\QA;
 
 use App\Http\Controllers\Controller;
+use App\Mail\Customer\OrderProcess;
 use App\Models\Admin\Employee;
 use App\Models\Admin\Order;
 use App\Models\Admin\OrderStatus;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class QAController extends Controller
 {
+    public $title = "QA";
+
+    public function __construct()
+    {
+        $this->middleware(['role:super_admin|production_manager|production_coordinator','permission:qa_scanning']);
+    }
+
     public function scanView()
     {
         try
@@ -19,6 +28,7 @@ class QAController extends Controller
                                           ->get();
             $params = [
                 'manufacturing_employees' => $planning_employees,
+                'title'                   => $this->title
             ];
             return view('departments.qa.scan')->with($params);
         }
@@ -59,6 +69,11 @@ class QAController extends Controller
                         $order_status->save();
                         $order[0]->current_status_id = 4;
                         $order[0]->save();
+                        $details = [
+                            'order_no'      => $order[0]->order_no,
+                            'status'        => $order[0]->status->description,
+                        ];
+                        Mail::to($order[0]->customer->email)->send(new OrderProcess($details));
                         return response()->json(['success' => 'Successfully scanned the order!']);
                     }
                 }

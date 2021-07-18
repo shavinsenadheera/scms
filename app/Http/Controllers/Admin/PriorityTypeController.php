@@ -11,6 +11,11 @@ class PriorityTypeController extends Controller
 {
     public $title = "Priority type";
 
+    public function __construct()
+    {
+        $this->middleware(['role:super_admin|it_admin|planning_manager|planning_coordinator','permission:priority_type_handling']);
+    }
+
     public function index()
     {
         try {

@@ -19,7 +19,7 @@ class OrderCompleted extends Mailable
     public function build()
     {
         return $this->markdown('emails.customer.ordercompleted')
-                    ->subject('Order no (#'.$this->details['order_no'].') delivered')
+                    ->subject('Order (#'.$this->details['order_no'].') delivered')
                     ->with($this->details);
     }
 }

@@ -147,6 +147,7 @@ class OrderController extends Controller
                 'order_id'      => decrypt($id),
                 'order_no'      => $order->order_no,
                 'customer_name' => $order->customer->name,
+                'status'        => $order->status->description,
             ];
             Mail::to('rabbitdevs@gmail.com')->send(new PlanningNewOrder($details));
             Mail::to($order->customer->email)->send(new OrderProcess($details));

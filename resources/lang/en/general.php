@@ -28,6 +28,7 @@
             'metric_management'         => 'Metric management',
             'production_management'     => 'Production management',
             'log_management'            => 'Log management',
+            'user_profile'              => 'User Profile',
             'department' =>[
                 'department_handling'   => 'Department handling',
                 'department_create'     => 'Department create',

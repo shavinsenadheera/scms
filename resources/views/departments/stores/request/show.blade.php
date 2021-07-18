@@ -30,11 +30,11 @@
                                 </tr>
                                 <tr>
                                     <th>Request count</th>
-                                    <td>{{ $mrlog->request_count }}</td>
+                                    <td>{{ $mrlog->request_count }} {{ $mrlog->materials->metrics->code }}</td>
                                 </tr>
                                 <tr>
                                     <th>Material current quantity</th>
-                                    <td>{{ $mrlog->materials->current_count }}</td>
+                                    <td>{{ $mrlog->materials->current_count }} {{ $mrlog->materials->metrics->code }}</td>
                                 </tr>
                                 </thead>
                             </table>

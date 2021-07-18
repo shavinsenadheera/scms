@@ -9,9 +9,15 @@ use App\Models\Admin\Supplier;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class OrderController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:super_admin|store_manager|store_coordinator','permission:material_order_handling']);
+    }
+
     public function index()
     {
         $materials =  Material::all();
@@ -49,7 +55,6 @@ class OrderController extends Controller
                 $material->current_count += $request->quantity[$i];
                 $material->save();
             }
-
             return back()->with('success_msg', 'Successfully create the material order!');
         }
         catch(ModelNotFoundException $exception)

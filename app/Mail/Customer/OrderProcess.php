@@ -19,7 +19,7 @@ class OrderProcess extends Mailable
     public function build()
     {
         return $this->markdown('emails.customer.orderprocess')
-                    ->subject('Order no (#'.$this->details['order_no'].') start to process')
+                    ->subject('Order (#'.$this->details['order_no'].') alert')
                     ->with($this->details);
     }
 }

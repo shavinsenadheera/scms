@@ -36,7 +36,11 @@ Route::group(['middleware' => 'auth','namespace'=>'App\Http\Controllers'],functi
 
         //User
         Route::resource('user','UserController');
+        Route::put('user/update-profile/{id}', 'UserController@updateProfile')->name('user.updateProfile');
+        Route::put('user/update-password/{id}', 'UserController@updatePassword')->name('user.updatePassword');
+        Route::get('user/profile-change/{id}', 'UserController@changeProfile')->name('user.changeProfile');
         Route::get('user/delete/{id}','UserController@delete')->name('user.delete');
+
 
         //Customer
         Route::resource('customer','CustomerController');

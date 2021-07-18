@@ -26,7 +26,7 @@
                                             {{ old('materials_id')==$data->id ? 'selected' : '' }}
                                             value="{{ $data->id }}" {{ !$data->qty && 'disabled' }}
                                         >
-                                            {{ $data->name }}
+                                            {{ $data->name }} - {{ $data->metrics->name }}
                                         </option>
                                     @endforeach
                                 </select>
