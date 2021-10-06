@@ -7,6 +7,8 @@ use App\Mail\Customer\OrderProcess;
 use App\Models\Admin\Employee;
 use App\Models\Admin\Order;
 use App\Models\Admin\OrderStatus;
+use App\Models\Concern;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -15,46 +17,38 @@ class ManufacturingController extends Controller
 {
     public function scanView()
     {
-        try
-        {
-            $planning_employees = Employee::where('department_id','=',6)
-                                          ->get();
+        try {
+            $planning_employees = Employee::where('department_id', '=', 6)
+                ->get();
             $params = [
                 'planning_employees' => $planning_employees,
             ];
             return view('departments.manufacturing.scan')->with($params);
-        }
-        catch(ModelNotFoundException $exception)
-        {
-            if($exception instanceof ModelNotFoundException)
-            {
-                return response()->view('errors.'.'404');
+        } catch (ModelNotFoundException $exception) {
+            if ($exception instanceof ModelNotFoundException) {
+                return response()->view('errors.' . '404');
             }
         }
     }
+
     public function scan(Request $request)
     {
         try {
             $validating = $this->validate($request, [
-                'order_no'      => 'required',
-                'employee_id'   => 'required',
+                'order_no' => 'required',
+                'employee_id' => 'required',
             ]);
             $order_no = $request->order_no;
             $employee_id = $request->employee_id;
             $order = Order::where('order_no', '=', $order_no)
                 ->get();
-            if (count($order) == 1)
-            {
-                if ($order[0]->current_status_id > 1)
-                {
+            if (count($order) == 1) {
+                if ($order[0]->current_status_id > 1) {
                     $order_status = OrderStatus::where('order_id', '=', $order[0]->id)
                         ->first();
-                    if ($order_status->status_3 and $order_status->status_3_empid and $order_status->status_3_datetime)
-                    {
+                    if ($order_status->status_3 and $order_status->status_3_empid and $order_status->status_3_datetime) {
                         return response()->json(['success' => 'Order is already scanned by ' . $order_status->status3employee->name . ' at ' . $order_status->status_3_datetime . '!']);
-                    }
-                    else
-                    {
+                    } else {
 
                         $order_status->status_3 = 3;
                         $order_status->status_3_empid = $employee_id;
@@ -63,34 +57,25 @@ class ManufacturingController extends Controller
                         $order[0]->current_status_id = 3;
                         $order[0]->save();
                         $details = [
-                            'order_no'      => $order[0]->order_no,
-                            'status'        => $order[0]->status->description,
+                            'order_no' => $order[0]->order_no,
+                            'status' => $order[0]->status->description,
                         ];
                         Mail::to($order[0]->customer->email)->send(new OrderProcess($details));
                         return response()->json(['success' => 'Successfully scanned the order!']);
                     }
-                }
-                elseif($order[0]->current_status_id==2)
-                {
+                } elseif ($order[0]->current_status_id == 2) {
                     return response()->json(['orderno_invalid' => 'Order is not scanned at Planning!']);
-                }
-                else
-                {
+                } else {
                     return response()->json(['orderno_invalid' => 'Order is not confirmed at Customer Service!']);
                 }
-            }
-            else
-            {
+            } else {
                 return response()->json(['orderno_invalid' => 'Order no is not valid!']);
             }
 
             return response()->json(['error' => $validating->errors()->all()]);
-        }
-        catch (ModelNotFoundException $exception)
-        {
-            if($exception instanceof ModelNotFoundException)
-            {
-                return response()->view('errors.'.'404');
+        } catch (ModelNotFoundException $exception) {
+            if ($exception instanceof ModelNotFoundException) {
+                return response()->view('errors.' . '404');
             }
         }
     }
@@ -99,5 +84,4 @@ class ManufacturingController extends Controller
     {
         return view('admin.mr.index');
     }
-
 }

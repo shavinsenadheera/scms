@@ -170,6 +170,20 @@ if ($hour < 12) {
                     </div>
                 </li>
                 @endrole
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#order-concerns" aria-expanded="false" aria-controls="auth">
+                        <i class="menu-icon typcn typcn-document-add"></i>
+                        <span class="menu-title">Common</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="order-concerns">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('concerns.index') }}"> Order Concerns </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
                 @hasanyrole('super_admin|cs_manager|cs_coordinator')
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="collapse" href="#order" aria-expanded="false" aria-controls="auth">
@@ -184,6 +198,9 @@ if ($hour < 12) {
                                     <a class="nav-link" href="{{ route('order.index') }}"> Order Handling </a>
                                 </li>
                             @endcan
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('order.concerns') }}"> Order Concerns </a>
+                            </li>
                         </ul>
                     </div>
                 </li>
@@ -233,6 +250,10 @@ if ($hour < 12) {
                                     <a class="nav-link" href="{{ route('request.index') }}"> Material request </a>
                                 </li>
                             @endcan
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('manufacturing.orderconcerns') }}"> Order
+                                    Concerns </a>
+                            </li>
                         </ul>
                     </div>
                 </li>

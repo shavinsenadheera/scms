@@ -8,6 +8,7 @@ use App\Mail\Internal\PlanningNewOrder;
 use App\Models\Admin\LabelSize;
 use App\Models\Admin\Order;
 use App\Models\Admin\OrderStatus;
+use App\Models\Concern;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -162,4 +163,39 @@ class OrderController extends Controller
             }
         }
     }
+
+    public function concerns()
+    {
+        try
+        {
+            $concerns = Concern::with([
+                'concernedFrom' => function ($query) {
+                    $query->select('id', 'name');
+                },
+                'concernedTo' => function ($query) {
+                    $query->select('id', 'name');
+                },
+                'order' => function ($query) {
+                    $query->select('id', 'order_no', 'customer_id', 'delivery_date', 'order_date');
+                },
+                'order.customer' => function ($query) {
+                    $query->select('id', 'name', 'email');
+                }
+            ])
+            ->select('id', 'orderId', 'concernedBy', 'replyBy', 'status', 'concern', 'reason')
+            ->where('replyBy', '=', Auth::id())
+            ->paginate(5);
+
+            $params = [
+                'concerns' => $concerns
+            ];
+            return view('departments.cs.concern')->with($params);
+        }
+        catch(ModelNotFoundException $exception)
+        {
+            return response()->view('errors.'.'404');
+        }
+    }
+
+
 }

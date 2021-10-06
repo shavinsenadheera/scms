@@ -54,6 +54,7 @@ class MakeOrderController extends Controller
                 'customer_name' => $new_order->customer->name,
                 'order_no'      => $new_order->order_no,
                 'order_id'      => $new_order->id,
+                'order_date'      => $new_order->order_date,
             ];
             Mail::to('shavinsenadeera@gmail.com')->send(new NewOrder($details));
             return response()->json('Order make successfully!', '204');

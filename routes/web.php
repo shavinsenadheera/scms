@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,6 +33,7 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth','namespace'=>'App\Http\Controllers'],function(){
     Route::group(['namespace'=>'Admin', 'prefix'=>'admin'],function(){
+
         //Permission
         Route::resource('permission','PermissionController');
         Route::get('permission/delete/{id}','PermissionController@delete')->name('permission.delete');
@@ -70,6 +70,7 @@ Route::group(['middleware' => 'auth','namespace'=>'App\Http\Controllers'],functi
         Route::resource('order','OrderController');
         Route::get('order/cs/confirmation/{id}','OrderController@cs_confirmation_view')->name('order.cs.confirmation');
         Route::get('order/cs/confirm/{id}','OrderController@cs_confirmation')->name('order.cs.confirm');
+        Route::get('order/cs/concerns','OrderController@concerns')->name('order.concerns');
 
         //Statuses
         Route::resource('status','StatusController');
@@ -121,6 +122,8 @@ Route::group(['middleware' => 'auth','namespace'=>'App\Http\Controllers'],functi
             Route::post('manufacturing','ManufacturingController@scan')->name('manufacturing.scan');
             Route::get('manufacturing/scan', 'ManufacturingController@scanView')->name('manufacturing.scanview');
             Route::get('manufacturing/mr', 'ManufacturingController@mrIndex')->name('manufacturing.mrindex');
+            Route::get('manufacturing/order-concerns', 'ManufacturingController@orderConcerns')->name('manufacturing.orderconcerns');
+            Route::post('manufacturing/order-concerns', 'ManufacturingController@orderConcernsAdd')->name('manufacturing.orderconcernsadd');
         });
 
         //QA
@@ -174,4 +177,9 @@ Route::group(['middleware' => 'auth','namespace'=>'App\Http\Controllers'],functi
         });
         //
     });
+    //Concerns
+    Route::get('concerns', 'ConcernController@index')->name('concerns.index');
+    Route::get('concerns/inform', 'ConcernController@informConcern')->name('concerns.inform');
+    Route::post('concern/production','ConcernController@productionInsert')->name('concern.productioninsert');
+    Route::put('concern/{id}/customer-care','ConcernController@csInsert')->name('concern.csinsert');
 });

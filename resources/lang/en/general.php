@@ -29,6 +29,7 @@
             'production_management'     => 'Production management',
             'log_management'            => 'Log management',
             'user_profile'              => 'User Profile',
+            'label_management'          => 'Label management',
             'department' =>[
                 'department_handling'   => 'Department handling',
                 'department_create'     => 'Department create',
@@ -140,7 +141,8 @@
             ],
             'production'  =>[
                 'production_scan'       => 'Production order scan',
-                'material_request'      => 'Material request'
+                'material_request'      => 'Material request',
+                'order_concerns'        => 'Order Concerns'
             ],
             'qa'  =>[
                 'qa_scan'               => 'QA order scan',
