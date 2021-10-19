@@ -16,7 +16,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title"><i class="mdi mdi-pencil"></i> {{ __('general.breadcrumb.employee.employee_edit') }}</h4>
-                        <form class="needs-validation" action="{{ route('employee.update',$employee->id) }}" method="POST" novalidate>
+                        <form class="needs-validation" action="{{ route('employee.update', encrypt($employee->id)) }}" method="POST" novalidate>
                             @csrf
                             {{ method_field('PUT') }}
                             <div class="form-group{{ $errors->has('epfno') ? 'has-error' : '' }}">

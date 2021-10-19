@@ -22,7 +22,6 @@
                             <thead>
                                 <tr>
                                     <th> {{ __('general.form.general.action') }} </th>
-                                    <th> # </th>
                                     <th> {{ __('labeltype.code') }} </th>
                                     <th> {{ __('labeltype.name') }} </th>
                                 </tr>
@@ -37,20 +36,18 @@
                             </tfoot>
                             <tbody>
                             @if($labeltypes)
-                                <span hidden>{{ $i=1 }}</span>
                                 @foreach($labeltypes as $data)
                                     <tr>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a class="btn btn-primary" href="{{ route('labeltype.show',$data->id) }}">
+                                                <a class="btn btn-primary" href="{{ route('labeltype.show',encrypt($data->id)) }}">
                                                     <i class="mdi mdi-pencil"></i>
                                                 </a>
-                                                <a class="btn btn-danger" href="{{ route('labeltype.delete',$data->id) }}">
+                                                <a class="btn btn-danger" href="{{ route('labeltype.delete',encrypt($data->id)) }}">
                                                     <i class="mdi mdi-delete"></i>
                                                 </a>
                                             </div>
                                         </td>
-                                        <td> {{ $i++ }} </td>
                                         <td> {{ $data->code }} </td>
                                         <td> {{ $data->name }} </td>
                                     </tr>

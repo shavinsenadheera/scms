@@ -2,14 +2,13 @@
 # Message for order concern
 
 Order No - {{$orderNo}}
-
+<br>
 Order Date - {{$orderDate}}
-
+<br>
 Delivery Date - {{$deliveryDate}}
 
 # Concern
-
-# {{$message}}
+{{$message}}
 
 Thanks,<br>
 {{ config('app.name') }}

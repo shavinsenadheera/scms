@@ -46,7 +46,9 @@
                                     >
                                         <option selected disabled value="">{{ __('general.form.selector.disabled_option') }}</option>
                                         @foreach($suppliers as $data)
-                                            <option {{ $data->id===$material->suppliers_id && 'selected' }} value="{{ $data->id }}">{{ $data->name }}</option>
+                                            <option
+                                                {{ $data->id==$material->suppliers_id ? 'selected' : '' }}
+                                                value="{{ $data->id }}">{{ $data->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('phone_no')
@@ -64,7 +66,10 @@
                                     >
                                         <option selected disabled value="">{{ __('general.form.selector.disabled_option') }}</option>
                                         @foreach($metrics as $data)
-                                            <option {{ $data->id===$material->m_metric_id && 'selected' }} value="{{ $data->id }}">{{ $data->name }} ({{ $data->code }})</option>
+                                            <option
+                                                {{ $data->id==$material->m_metrics_id ? 'selected' : '' }}
+                                                value="{{ $data->id }}"
+                                            >{{ $data->name }} ({{ $data->code }})</option>
                                         @endforeach
                                     </select>
                                     @error('phone_no')

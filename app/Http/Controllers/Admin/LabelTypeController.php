@@ -71,7 +71,7 @@ class LabelTypeController extends Controller
     public function show($id)
     {
         try {
-            $labeltype = LabelType::findOrFail($id);
+            $labeltype = LabelType::findOrFail(decrypt($id));
             $params = [
                 'labeltype' => $labeltype,
                 'title' => $this->title,
@@ -87,7 +87,7 @@ class LabelTypeController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $labeltype = LabelType::findOrFail($id);
+            $labeltype = LabelType::findOrFail(decrypt($id));
 
             if ($labeltype->code != $request->code or !$request->code) {
                 $this->validate($request, [
@@ -122,7 +122,7 @@ class LabelTypeController extends Controller
     public function destroy($id)
     {
         try {
-            $labeltype = LabelType::findOrFail($id);
+            $labeltype = LabelType::findOrFail(decrypt($id));
             $name = $labeltype->name;
             $labeltype->delete();
             return redirect()->route('labeltype.index')->with('success_msg', 'Successfully deleted label type ' . $name);

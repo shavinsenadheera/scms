@@ -15,8 +15,16 @@
             <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title"><i class="mdi mdi-pencil"></i> {{ __('general.breadcrumb.labeltype.labeltype_edit') }}</h4>
-                        <form class="needs-validation" action="{{ route('labeltype.update',$labeltype->id) }}" method="POST" novalidate>
+                        <h4 class="card-title">
+                            <i class="mdi mdi-pencil"></i>
+                            {!! trans('general.breadcrumb.labeltype.labeltype_edit') !!}
+                        </h4>
+                        <form
+                            class="needs-validation"
+                            action="{{ route('labeltype.update',encrypt($labeltype->id)) }}"
+                            method="POST"
+                            novalidate
+                        >
                             @csrf
                             {{ method_field('PUT') }}
                             <div class="form-group{{ $errors->has('code') ? 'has-error' : ''}}">

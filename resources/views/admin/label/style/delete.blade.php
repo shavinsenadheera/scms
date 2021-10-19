@@ -17,7 +17,7 @@
                     <div class="card-body">
                         <h4 class="card-title"><i class="mdi mdi-trash-can"></i> {{ __('general.breadcrumb.labelstyle.labelstyle_delete') }}</h4>
                         <h4 class="card-description text-danger">{{ __('general.form.delete_topic') }}</h4>
-                        <form class="needs-validation" action="{{ route('labelstyle.destroy',$id) }}" method="POST">
+                        <form class="needs-validation" action="{{ route('labelstyle.destroy', encrypt($id)) }}" method="POST">
                             @csrf
                             {{ method_field('DELETE') }}
                             <button type="submit" class="btn btn-success mr-2">{{ __('general.form.delete') }}</button>

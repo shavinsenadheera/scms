@@ -36,7 +36,7 @@
                                 <i class="mdi mdi-file-document"></i>{{ __('general.form.add_details') }}
                             </button>
                             <a class="btn btn-light" href="{{ route('labelsize.index') }}">
-                                {{ __('general.form.back' }}
+                                {{ __('general.form.back') }}
                             </a>
                         </form>
                     </div>

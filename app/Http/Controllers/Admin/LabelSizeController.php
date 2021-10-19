@@ -84,7 +84,7 @@ class LabelSizeController extends Controller
     {
         try
         {
-            $labelsize = LabelSize::findOrFail($id);
+            $labelsize = LabelSize::findOrFail(decrypt($id));
             $params = [
                 'labelsize' => $labelsize,
                 'title' => $this->title,
@@ -104,7 +104,7 @@ class LabelSizeController extends Controller
     {
         try
         {
-            $labelsize = LabelSize::findOrFail($id);
+            $labelsize = LabelSize::findOrFail(decrypt($id));
 
             if ($labelsize->code != $request->code or !$request->code)
             {
@@ -146,7 +146,7 @@ class LabelSizeController extends Controller
     {
         try
         {
-            $labelsize = LabelSize::findOrFail($id);
+            $labelsize = LabelSize::findOrFail(decrypt($id));
             $name = $labelsize->name;
             $labelsize->delete();
             return redirect()->route('labelsize.index')

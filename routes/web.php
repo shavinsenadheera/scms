@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\TwoFactorController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -14,24 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
-
-Route::get('/dashboard', function () {
-    return view('Dashboard.index');
-})->middleware('auth');
-
-Route::get('/cache-clear', function(){
-    Artisan::call('route:cache');
-    Artisan::call('view:clear');
-    Artisan::call('config:clear');
-    Artisan::call('cache:clear');
-});
-
+Route::view('/', 'welcome')->name('welcome');
 Auth::routes();
-
-Route::group(['middleware' => 'auth','namespace'=>'App\Http\Controllers'],function(){
+Route::get('verify/resend', [TwoFactorController::class, 'resend'])->name('verify.resend');
+Route::resource('verify',TwoFactorController::class)->only(['index', 'store']);
+Route::group(['middleware' => ['auth', 'twofactor'],'namespace'=>'App\Http\Controllers'],function(){
     Route::group(['namespace'=>'Admin', 'prefix'=>'admin'],function(){
 
         //Permission
@@ -51,7 +39,7 @@ Route::group(['middleware' => 'auth','namespace'=>'App\Http\Controllers'],functi
 
 
         //Customer
-        Route::resource('customer','CustomerController');
+        Route::resource('customer','CustomerController')->except('edit');
         Route::get('customer/delete/{id}','CustomerController@delete')->name('customer.delete');
 
         //Department
@@ -112,7 +100,7 @@ Route::group(['middleware' => 'auth','namespace'=>'App\Http\Controllers'],functi
         Route::group(['namespace'=>'Planning','prefix'=>'planning'],function(){
             Route::get('planning','PlanningController@index')->name('planning.index');
             Route::get('planning/board','PlanningController@planningBoard')->name('planning.board');
-            Route::get('planning/scan', 'PlanningController@scanView')->name('planning.scanview');
+            Route::get('planning/scan', 'PlanningController@scanView')->name('planning.scan.view');
             Route::put('planning/{id}','PlanningController@priorityUpdate')->name('planning.scanUpdate');
             Route::post('planning','PlanningController@scan')->name('planning.scan');
         });
@@ -120,22 +108,20 @@ Route::group(['middleware' => 'auth','namespace'=>'App\Http\Controllers'],functi
         //Manufacturing
         Route::group(['namespace'=>'Manufacturing','prefix'=>'manufacturing'],function(){
             Route::post('manufacturing','ManufacturingController@scan')->name('manufacturing.scan');
-            Route::get('manufacturing/scan', 'ManufacturingController@scanView')->name('manufacturing.scanview');
+            Route::get('manufacturing/scan', 'ManufacturingController@scanView')->name('manufacturing.scan.view');
             Route::get('manufacturing/mr', 'ManufacturingController@mrIndex')->name('manufacturing.mrindex');
-            Route::get('manufacturing/order-concerns', 'ManufacturingController@orderConcerns')->name('manufacturing.orderconcerns');
-            Route::post('manufacturing/order-concerns', 'ManufacturingController@orderConcernsAdd')->name('manufacturing.orderconcernsadd');
         });
 
         //QA
         Route::group(['namespace'=>'QA','prefix'=>'qa'],function(){
             Route::post('qa','QAController@scan')->name('qa.scan');
-            Route::get('qa/scan', 'QAController@scanView')->name('qa.scanview');
+            Route::get('qa/scan', 'QAController@scanView')->name('qa.scan.view');
         });
 
         //Dispatch
         Route::group(['namespace'=>'Dispatch','prefix'=>'dispatch'],function(){
             Route::post('dispatch','DispatchController@scan')->name('dispatch.scan');
-            Route::get('dispatch/scan', 'DispatchController@scanView')->name('dispatch.scanview');
+            Route::get('dispatch/scan', 'DispatchController@scanView')->name('dispatch.scan.view');
             Route::post('dispatch/scandone','DispatchController@scanDone')->name('dispatch.scandone');
             Route::get('dispatch/scandone/view','DispatchController@scanDoneView')->name('dispatch.scandoneview');
         });

@@ -4,15 +4,20 @@
         <div class="row">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#!">{{ __('general.breadcrumb.dashboard') }}</a></li>
-                    <li class="breadcrumb-item"><a href="#!">{{ __('general.breadcrumb.user_management') }}</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ __('general.breadcrumb.role.role_handling') }}</li>
+                    <li class="breadcrumb-item">
+                        <a href="{{route('dashboard.index')}}">
+                            {!! trans('general.breadcrumb.dashboard')  !!}
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        {!! trans('general.breadcrumb.role.role_handling') !!}
+                    </li>
                 </ol>
             </nav>
             <div class="col-lg-12 col-md-12 col-sm-12 stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">{{ __('role.role_details') }}</h4>
+                        <h4 class="card-title">{!! trans('role.role_details') !!}</h4>
                         <div class="card-description">
                             <a class="btn btn-icons btn-rounded btn-primary" href="{{ route('role.create') }}">
                                 <i class="mdi mdi-plus"></i>
@@ -21,12 +26,18 @@
                         <table class="table table-striped table-hover" id="datatable-1" style="width:100%">
                             <thead>
                             <tr>
-                                <th> {{ __('general.form.general.action') }} </th>
-                                <th> # </th>
-                                <th> {{ __('role.name') }} </th>
-                                <th> {{ __('role.description') }} </th>
+                                <th>{!! trans('general.form.general.action') !!}</th>
+                                <th>{!! trans('role.name') !!}</th>
+                                <th>{!! trans('role.description') !!}</th>
                             </tr>
                             </thead>
+                            <tfoot>
+                            <tr>
+                                <th>{!! trans('general.form.general.action') !!}</th>
+                                <th>{!! trans('role.name') !!}</th>
+                                <th>{!! trans('role.description') !!}</th>
+                            </tr>
+                            </tfoot>
                             <tbody>
                             @if($roles)
                                 @foreach($roles as $data)
@@ -41,28 +52,18 @@
                                                 </a>
                                             </div>
                                         </td>
-                                        <td> {{ $data->id }} </td>
                                         <td> {{ $data->name }} </td>
                                         <td> {{ $data->description }} </td>
                                     </tr>
                                 @endforeach
                             @endif
                             </tbody>
-                            <tfoot>
-                            <tr>
-                                <th> {{ __('general.form.general.action') }} </th>
-                                <th> # </th>
-                                <th> {{ __('role.name') }} </th>
-                                <th> {{ __('role.description') }} </th
-                            </tr>
-                            </tfoot>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 @endsection
 @section('custom-js')
     @if (session()->has('success_msg'))

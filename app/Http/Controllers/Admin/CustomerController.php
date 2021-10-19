@@ -5,70 +5,42 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\City;
 use App\Models\Customer\Customer;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class CustomerController extends Controller
-{
+class CustomerController extends Controller{
     public $title = "Customer handling";
 
-    public function __construct()
-    {
+    public function __construct(){
         $this->middleware(['role:super_admin|cs_manager|cs_coordinator','permission:customer_handling']);
     }
 
     public $admin_statuses = [
-        [
-            'id'    => 0,
-            'name'  => 'Deactivate',
-        ],
-        [
-            'id'    => 1,
-            'name'  => 'Activate',
-        ],
-        [
-            'id'    => 2,
-            'name'  => 'Suspended',
-        ],
+        ['id'    => 0, 'name'  => 'Deactivate',],
+        ['id'    => 1, 'name'  => 'Activate',],
+        ['id'    => 2, 'name'  => 'Suspended',],
     ];
 
-    public function index()
-    {
-        try
-        {
-            $customers = Customer::all();
-            $params = [
-                'customers' => $customers,
-                'title'     => $this->title,
-            ];
+    public function index(){
+        try {
+            $customers = Customer::select(['name', 'email', 'telephone_no', 'telephone_land', 'telephone_fax', 'admin_status'])->get();
+            $params = ['customers' => $customers, 'title' => $this->title,];
             return view('admin.customer.index')->with($params);
-        }
-        catch(ModelNotFoundException $exception)
-        {
-            if($exception instanceof ModelNotFoundException)
-            {
-                return response()->view('errors'.'404');
-            }
+        } catch(ModelNotFoundException $exception) {
+            abort_if($exception instanceof ModelNotFoundException, '404');
         }
     }
 
-    public function create()
-    {
-        $params = [
-            'admin_statuses'    => $this->admin_statuses,
-            'title'     => $this->title,
-            'cities'    => City::all(),
-        ];
+    public function create(){
+        $cities = City::select(['id', 'name'])->get();
+        $params = [ 'admin_statuses'=> $this->admin_statuses, 'title' => $this->title, 'cities' => $cities,];
         return view('admin.customer.create')->with($params);
     }
 
-    public function store(Request $request)
-    {
-        try
-        {
-            $this->validate($request, [
+    public function store(Request $request){
+        try {
+            $request->validate([
                 'name'              => 'required|unique:customer,name',
                 'email'             => 'required|unique:customer,email',
                 'telephone_no'      => 'required',
@@ -78,92 +50,48 @@ class CustomerController extends Controller
                 'cities_id'         => 'required',
                 'zipcode'           => 'required',
                 'password'          => 'required',
+                'admin_status'      => 'required',
             ]);
-            $name = $request->name;
-            $email = $request->email;
-            $telephone_no = $request->telephone_no;
-            $telephone_land = $request->telephone_land;
-            $telephone_fax = $request->telephone_fax;
-            $address_line_1 = $request->address_line_1;
-            $address_line_2 = $request->address_line_2;
-            $city = $request->cities_id;
-            $zipcode = $request->zipcode;
-            $admin_status = $request->admin_status;
-            $password = Hash::make($request->password);
-
             $customer = new Customer();
-            $customer->name = $name;
-            $customer->email = $email;
-            $customer->telephone_no = $telephone_no;
-            $customer->telephone_land = $telephone_land;
-            $customer->telephone_fax = $telephone_fax;
-            $customer->address_line_1 = $address_line_1;
-            $customer->address_line_2 = $address_line_2;
-            $customer->city = $city;
-            $customer->zipcode = $zipcode;
-            $customer->password = $password;
-            $customer->admin_status = $admin_status;
+            $customer->name = $request->name;
+            $customer->email = $request->email;
+            $customer->telephone_no = $request->telephone_no;
+            $customer->telephone_land = $request->telephone_land;
+            $customer->telephone_fax = $request->telephone_fax;
+            $customer->address_line_1 = $request->address_line_1;
+            $customer->address_line_2 = $request->address_line_2;
+            $customer->city = $request->cities_id;
+            $customer->zipcode = $request->zipcode;
+            $customer->password = Hash::make($request->password);
+            $customer->admin_status = $request->admin_status;
             $customer->save();
+            return back()->with('success_msg', 'Successfully added new customer ' . $request->name);
 
-            return back()->with('success_msg', 'Successfully added new customer ' . $name);
-
-        }
-        catch (ModelNotFoundException $exception)
-        {
-            if($exception instanceof ModelNotFoundException)
-            {
-                return response()->view('errors.'.'404');
-            }
+        } catch (ModelNotFoundException $exception) {
+            abort_if($exception instanceof ModelNotFoundException, '404');
         }
     }
 
-    public function show($id)
-    {
-        try
-        {
+    public function show($id){
+        try {
             $customer = Customer::findOrFail(decrypt($id));
-            $params = [
-                'customer' => $customer,
-                'admin_statuses' => $this->admin_statuses,
-                'title'     => $this->title,
-            ];
+            $params = ['customer' => $customer, 'admin_statuses' => $this->admin_statuses, 'title'     => $this->title,];
             return view('admin.customer.show')->with($params);
-        }
-        catch(ModelNotFoundException $exception)
-        {
-            if($exception instanceof ModelNotFoundException)
-            {
-                return response()->view('errors.'.'404');
-            }
+        } catch(ModelNotFoundException $exception) {
+            abort_if($exception instanceof ModelNotFoundException, '404');
         }
     }
 
-    public function edit($id)
-    {
 
-    }
-
-    public function update(Request $request, $id)
-    {
-        try
-        {
+    public function update(Request $request, $id){
+        try {
             $customer = Customer::findOrFail(decrypt($id));
             $name = $customer->name;
             $customer->admin_status = $request->admin_status;
             $customer->save();
             return back()->with('success_msg', 'Successfully updated department ' . $name);
+        } catch(ModelNotFoundException $exception) {
+            abort_if($exception instanceof ModelNotFoundException, '404');
         }
-        catch(ModelNotFoundException $exception)
-        {
-            if($exception instanceof ModelNotFoundException)
-            {
-                return response()->view('errors.'.'404');
-            }
-        }
-    }
-
-    public function destroy($id)
-    {
-        //
     }
 }

@@ -21,7 +21,7 @@
             <div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 justify-content-center text-center">
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                     @yield('content')
-                    <p class="footer-text text-center">Copyright © {{ \Carbon\Carbon::now()->year }} ABCTL. All rights reserved.</p>
+                    <p class="footer-text text-dark text-center">Copyright © {{ \Carbon\Carbon::now()->year }} ABCTL. All rights reserved.</p>
                 </div>
             </div>
         </div>

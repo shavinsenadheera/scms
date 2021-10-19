@@ -16,7 +16,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title"><i class="mdi mdi-pencil"></i> {{ __('general.breadcrumb.labelsize.labelsize_edit') }}</h4>
-                        <form class="needs-validation" action="{{ route('labelsize.update',$labelsize->id) }}" method="POST" novalidate>
+                        <form class="needs-validation" action="{{ route('labelsize.update',encrypt($labelsize->id)) }}" method="POST" novalidate>
                             @csrf
                             {{ method_field('PUT') }}
                             <div class="form-group{{ $errors->has('code') ? 'has-error' : ''}}">

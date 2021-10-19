@@ -129,14 +129,14 @@ class MaterialController extends Controller
         {
             $this->validate($request,[
                 'name'          => 'required',
-                'm_metrics_id'  => 'required',
+                'metrics_id'  => 'required',
                 'suppliers_id'  => 'required',
             ]);
 
             $material = Material::findOrFail(decrypt($id));
             $name = $request->name;
             $material->name = $name;
-            $material->m_metrics_id = $request->m_metrics_id;
+            $material->m_metrics_id = $request->metrics_id;
             $material->suppliers_id = $request->suppliers_id;
             $material->save();
 

@@ -225,7 +225,6 @@
     </script>
     <script type="text/javascript">
         $('#orderProduct').delegate('.price,.quantity','keyup',function(){
-            console.log("dsd");
             var tr = $(this).parent().parent();
             var qty = tr.find('.quantity').val() - 0;
             var price = tr.find('.price').val() - 0;

@@ -96,12 +96,12 @@ class EmployeeController extends Controller
     {
         try
         {
-            $employee = Employee::findOrFail($id);
+            $employee = Employee::findOrFail(decrypt($id));
 
             if ($employee->epfno != $request->epfno or !$request->epfno)
             {
                 $this->validate($request, [
-                    'epfno' => 'required|unique:employee,epfno'
+                    'epfno' => 'required|integer|unique:employee,epfno'
                 ]);
             }
             $this->validate($request, [
@@ -141,7 +141,7 @@ class EmployeeController extends Controller
     {
         try
         {
-            $employee = Employee::findOrFail($id);
+            $employee = Employee::findOrFail(decrypt($id));
             $name = $employee->name;
             $employee->delete();
             return redirect()->route('employee.index')->with('success_msg', 'Successfully deleted employee ' . $name);

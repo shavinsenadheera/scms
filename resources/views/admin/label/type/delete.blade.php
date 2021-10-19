@@ -17,7 +17,7 @@
                     <div class="card-body">
                         <h4 class="card-title"><i class="mdi mdi-trash-can"></i> Label type delete</h4>
                         <h4 class="card-description text-danger">Unrecoverable data. Confirm continue?</h4>
-                        <form class="needs-validation" action="{{ route('labeltype.destroy',$id) }}" method="POST">
+                        <form class="needs-validation" action="{{ route('labeltype.destroy', encrypt($id)) }}" method="POST">
                             @csrf
                             {{ method_field('DELETE') }}
                             <button type="submit" class="btn btn-success mr-2">Delete</button>

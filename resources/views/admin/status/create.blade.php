@@ -8,7 +8,7 @@
                         <li class="breadcrumb-item"><a href="#!">{{ __('general.breadcrumb.dashboard') }}</a></li>
                         <li class="breadcrumb-item"><a href="#!">{{ __('general.breadcrumb.general_management') }}</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('status.index') }}">{{ __('general.breadcrumb.status.status_handling') }}</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">{{ __('general.breadcrumb.status.status_create') }}}</li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ __('general.breadcrumb.status.status_create') }}</li>
                     </ol>
                 </nav>
             </div>

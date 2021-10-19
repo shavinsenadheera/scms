@@ -1,5 +1,6 @@
 <?php
 return [
+    'userCreate'        => 'User Create',
     'employee_details'  => 'Employee details',
     'epfno'             => 'Epf no',
     'contact_no'        => 'Contact no',
@@ -12,6 +13,7 @@ return [
     'password_confirm'  => 'Password confirm',
     'roles'             => 'Roles',
     'add'               => 'Add',
-    'employee'          => 'Employee'
+    'employee'          => 'Employee',
+    'backBtn'           => 'Back'
 ]
 ?>

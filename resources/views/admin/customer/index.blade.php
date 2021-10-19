@@ -4,8 +4,8 @@
         <div class="row">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#!">{{ __('general.breadcrumb.dashboard') }}</a></li>
-                    <li class="breadcrumb-item"><a href="#!">{{ __('general.breadcrumb.customer_management') }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">{{ __('general.breadcrumb.dashboard') }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('customer.index')}}">{{ __('general.breadcrumb.customer_management') }}</a></li>
                     <li  class="breadcrumb-item active" aria-current="page">{{ __('general.breadcrumb.customer.customer_handling') }}</li>
                 </ol>
             </nav>
@@ -21,24 +21,24 @@
                         <table class="table table-hover" id="datatable-1" style="width:100%">
                             <thead>
                             <tr>
-                                <th> {{ __('general.form.general.action') }}</th>
-                                <th> {{ __('customer.name') }}</th>
-                                <th> {{ __('customer.email') }}</th>
-                                <th> {{ __('customer.telephone_no') }}</th>
-                                <th> {{ __('customer.telephone_land') }}</th>
-                                <th> {{ __('customer.telephone_fax') }}</th>
-                                <th> {{ __('customer.activation') }}</th>
+                                <th> {!! trans('general.form.general.action') !!}</th>
+                                <th> {!! trans('customer.name') !!}</th>
+                                <th> {!! trans('customer.email') !!}</th>
+                                <th> {!! trans('customer.telephone_no') !!}</th>
+                                <th> {!! trans('customer.telephone_land') !!}</th>
+                                <th> {!! trans('customer.telephone_fax') !!}</th>
+                                <th> {!! trans('customer.activation') !!}</th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
-                                <th> {{ __('general.form.general.action') }}</th>
-                                <th> {{ __('customer.name') }}</th>
-                                <th> {{ __('customer.email') }}</th>
-                                <th> {{ __('customer.telephone_no') }}</th>
-                                <th> {{ __('customer.telephone_land') }}</th>
-                                <th> {{ __('customer.telephone_fax') }}</th>
-                                <th> {{ __('customer.activation') }}</th>
+                                <th> {!! trans('general.form.general.action') !!}</th>
+                                <th> {!! trans('customer.name') !!}</th>
+                                <th> {!! trans('customer.email') !!}</th>
+                                <th> {!! trans('customer.telephone_no') !!}</th>
+                                <th> {!! trans('customer.telephone_land') !!}</th>
+                                <th> {!! trans('customer.telephone_fax') !!}</th>
+                                <th> {!! trans('customer.activation') !!}</th>
                             </tr>
                             </tfoot>
                             <tbody>

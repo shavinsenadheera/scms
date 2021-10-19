@@ -16,7 +16,7 @@
                                         <div class="card-header p-3 bg-primary">
                                             <a href="{{ route('user.index') }}"
                                                class="text-white text-decoration-none font-weight-bold">
-                                                <i class="mdi mdi-link-plus"></i> User creation
+                                                <i class="mdi mdi-link-plus"></i> {!! trans('dashboard.userCreation') !!}
                                             </a>
                                         </div>
                                     </div>
@@ -70,21 +70,21 @@
                             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                                 <div class="card bg-transparent text-center text-white p-0">
                                     <div class="card-header p-3 bg-success font-weight-bold">
-                                        <i class="fa fa-toggle-on"></i> Online users {{ $onlineUsers }}
+                                        <i class="fa fa-toggle-on"></i> Online users @isset($onlineUsers) {{$onlineUsers}} @endisset
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                                 <div class="card bg-transparent text-center text-white p-0">
                                     <div class="card-header p-3 bg-primary font-weight-bold">
-                                        <i class="fa fa-users"></i> Users {{ $usersCount }}
+                                        <i class="fa fa-users"></i> Users @isset($usersCount) {{ $usersCount }} @endisset
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                                 <div class="card bg-transparent text-center text-white p-0">
                                     <div class="card-header p-3 bg-primary font-weight-bold">
-                                        <i class="fa fa-users"></i> Employee {{ $employeeCount }}
+                                        <i class="fa fa-users"></i> Employee @isset($employeeCount) {{ $employeeCount }} @endisset
                                     </div>
                                 </div>
                             </div>
@@ -100,7 +100,7 @@
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                                 <div class="card bg-transparent text-center text-white p-0">
                                     <div class="card-header p-3 bg-danger font-weight-bold">
-                                        <i class="fa fa-exclamation-triangle"></i> Error counts {{ $errorCount }}
+                                        <i class="fa fa-exclamation-triangle"></i> Error counts @isset($errorCount) {{ $errorCount }} @endisset
                                     </div>
                                 </div>
                             </div>
@@ -298,7 +298,7 @@
     <script type="text/javascript" src="{{ asset('assets/highcharts/accessibility.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/highcharts/export-data.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/highcharts/exporting.js') }}"></script>
-
+    @isset($dateTotalCount)
     <script type="text/javascript">
         var dateTotalCount = <?php echo json_encode($dateTotalCount) ?>;
         var dateOrders = <?php echo json_encode($dateOrders) ?>;
@@ -343,7 +343,7 @@
             colors: ['#064c7b']
         });
     </script>
-
+@endisset
     <script type="text/javascript">
         var mCustomerIds = <?php echo json_encode($mCustomerIds) ?>;
         var myProJobsCount = <?php echo json_encode($mTotalCount) ?>;

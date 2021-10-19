@@ -32,5 +32,7 @@ Route::group(['namespace'=>'App\Http\Controllers\Api\Customer'], function(){
     Route::get('get-orders/{id}','OrderController@getOrders')->name('customer.orders');
     Route::get('get-all-orders/{id}','OrderController@getAllOrders')->name('customer.allorders');
     //Customer info
-    Route::get('customer/info/{id}','CustomerInfoController@customerInfo')->name('customer.info');
+    Route::get('customer/info/{id}','CustomerInfoController@customerInfo')->name('customer.info');    //Customer info
+    //
+    Route::get('customer/concerns/{id}','OrderController@getConcerns')->name('customer.concerns');
 });

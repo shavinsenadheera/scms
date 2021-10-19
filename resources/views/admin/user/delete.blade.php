@@ -5,18 +5,17 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#!">{{ __('general.breadcrumb.dashboard') }}</a></li>
-                        <li class="breadcrumb-item"><a href="#!">{{ __('general.breadcrumb.user_management') }}</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('user.index') }}">{{ __('general.breadcrumb.user.user_handling') }}</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">{{ __('general.breadcrumb.user.user_delete') }}</li>
+                        <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">{!! trans('general.breadcrumb.dashboard') !!}</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('user.index')}}">{!! trans('general.breadcrumb.user.user_handling') !!}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{!! trans('general.breadcrumb.user.user_delete') !!}</li>
                     </ol>
                 </nav>
             </div>
             <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title"><i class="mdi mdi-trash-can"></i> {{ __('general.breadcrumb.user.user_delete') }}</h4>
-                        <h4 class="card-description text-danger">{{ __('general.form.delete_topic') }}</h4>
+                        <h4 class="card-title"><i class="mdi mdi-trash-can"></i> {!! trans('general.breadcrumb.user.user_delete') !!}</h4>
+                        <h4 class="card-description text-danger">{!! trans('general.form.delete_topic') !!}</h4>
                         <form class="needs-validation" action="{{ route('user.destroy',$id) }}" method="POST">
                             @csrf
                             {{ method_field('DELETE') }}

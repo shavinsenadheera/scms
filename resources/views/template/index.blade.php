@@ -222,7 +222,7 @@ if ($hour < 12) {
                             @endrole
                             @can('planning_scanning')
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('planning.scanview') }}"> Scanning orders </a>
+                                    <a class="nav-link" href="{{ route('planning.scan.view') }}"> Scanning orders </a>
                                 </li>
                             @endcan
                         </ul>
@@ -241,7 +241,7 @@ if ($hour < 12) {
                         <ul class="nav flex-column sub-menu">
                             @can('production_scanning')
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('manufacturing.scanview') }}"> Scanning
+                                    <a class="nav-link" href="{{ route('manufacturing.scan.view') }}"> Scanning
                                         orders </a>
                                 </li>
                             @endcan
@@ -251,8 +251,7 @@ if ($hour < 12) {
                                 </li>
                             @endcan
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('manufacturing.orderconcerns') }}"> Order
-                                    Concerns </a>
+                                <a class="nav-link" href="{{ route('concerns.index') }}"> Order Concerns </a>
                             </li>
                         </ul>
                     </div>
@@ -262,13 +261,13 @@ if ($hour < 12) {
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="collapse" href="#qa" aria-expanded="false" aria-controls="auth">
                         <i class="menu-icon typcn typcn-document-add"></i>
-                        <span class="menu-title">QA Management</span>
+                        <span class="menu-title">{!! trans('dashboard.qaManagement') !!}</span>
                         <i class="menu-arrow"></i>
                     </a>
                     <div class="collapse" id="qa">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('qa.scanview') }}"> Scanning orders </a>
+                                <a class="nav-link" href="{{ route('qa.scan.view') }}"> {!! trans('dashboard.scanOrder') !!} </a>
                             </li>
                         </ul>
                     </div>
@@ -286,7 +285,7 @@ if ($hour < 12) {
                         <ul class="nav flex-column sub-menu">
                             @can('dispatch_scanning')
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('dispatch.scanview') }}"> Scanning orders </a>
+                                    <a class="nav-link" href="{{ route('dispatch.scan.view') }}"> Scanning orders </a>
                                 </li>
                             @endcan
                             @can('dispatch_done_scanning')

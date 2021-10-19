@@ -7,15 +7,15 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#!">{{ __('general.breadcrumb.dashboard') }}</a></li>
                         <li class="breadcrumb-item"><a href="#!">{{ __('general.breadcrumb.general_management') }}</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('department.index') }}">{{ __('general.breadcrumb.department.department_handling') }}</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">{{ __('general.breadcrumb.department.department_edit') }}</li>
+                        <li class="breadcrumb-item"><a href="{{ route('designation.index') }}">{{ __('general.breadcrumb.designation.designation_handling') }}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ __('general.breadcrumb.designation.designation_edit') }}</li>
                     </ol>
                 </nav>
             </div>
             <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title"><i class="mdi mdi-pencil"></i> {{ __('general.breadcrumb.department.department_edit') }}</h4>
+                        <h4 class="card-title"><i class="mdi mdi-pencil"></i> {{ __('general.breadcrumb.designation.designation_edit') }}</h4>
                         <form class="needs-validation" action="{{ route('designation.update',$designation->id) }}" method="POST" novalidate>
                             @csrf
                             {{ method_field('PUT') }}

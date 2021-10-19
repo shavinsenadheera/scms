@@ -16,5 +16,10 @@ return [
     'failed' => 'These credentials do not match our records.',
     'password' => 'The provided password is incorrect.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'twoFactor' => [
+        'title' => 'Two factor verification',
+        'info' => 'You have received an email which contains two factor login code. <br/>If you have not received it, press',
+        'btnVerify' => 'Verify'
+    ]
 
 ];

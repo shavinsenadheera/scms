@@ -7,7 +7,7 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#!">{{ __('general.breadcrumb.dashboard') }}</a></li>
                         <li class="breadcrumb-item"><a href="#!">{{ __('general.breadcrumb.general_management') }}</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('department.index') }}">{{ __('general.breadcrumb.designation.designation_handling') }}</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('designation.index') }}">{{ __('general.breadcrumb.designation.designation_handling') }}</a></li>
                         <li class="breadcrumb-item active" aria-current="page">{{ __('general.breadcrumb.designation.designation_delete') }}</li>
                     </ol>
                 </nav>

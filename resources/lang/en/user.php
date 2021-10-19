@@ -4,6 +4,7 @@
         'name'              => 'Name',
         'email'             => 'Email',
         'employee'          => 'Employee',
+        'description'       => 'Description',
         'roles'             => 'Roles',
         'password'          => 'Password',
         'confirm_password'  => 'Confirm password',
@@ -12,5 +13,8 @@
         'change_password'   => 'Change Password',
         'btn_change_pwd'    => 'Change password',
         'btn_change_profile'=> 'Change profile',
+        'createBtn'         => 'Add',
+        'cancelBtn'         => 'Cancel',
+        'newUser'           => 'New User'
     ];
 ?>

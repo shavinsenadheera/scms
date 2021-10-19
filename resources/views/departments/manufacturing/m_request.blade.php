@@ -14,7 +14,7 @@
             <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">{{ __('planning.planning_orderscan') }}</h4>
+                        <h4 class="card-title">{{ __('planning.material_request') }}</h4>
                         <form action="{{ route('request.store') }}" method="POST" class="needs-validation" novalidate>
                             @csrf
                             <div class="form-group{{ $errors->has('materials_id') ? 'has-error' : '' }}">

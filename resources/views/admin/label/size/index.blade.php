@@ -34,10 +34,10 @@
                                     <tr>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a class="btn btn-primary" href="{{ route('labelsize.show',$data->id) }}">
+                                                <a class="btn btn-primary" href="{{ route('labelsize.show',encrypt($data->id)) }}">
                                                     <i class="mdi mdi-pencil"></i>
                                                 </a>
-                                                <a class="btn btn-danger" href="{{ route('labelsize.delete',$data->id) }}">
+                                                <a class="btn btn-danger" href="{{ route('labelsize.delete',encrypt($data->id)) }}">
                                                     <i class="mdi mdi-delete"></i>
                                                 </a>
                                             </div>

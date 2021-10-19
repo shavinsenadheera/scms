@@ -36,9 +36,6 @@ class DashboardController extends Controller
             $delayedOrderCount = Order::whereDate('delivery_date','<',now()->toDate())
                                         ->count();
 
-//            $delayedOrders = Order::whereDate('delivery_date','<',now()->toDate())
-//                                  ->get();
-
             $finishedJobs = Order::where('current_status_id','=',6)
                                  ->count();
 
