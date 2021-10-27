@@ -10,16 +10,11 @@ use Illuminate\Support\Facades\Mail;
 class RemindDueOrders extends Command
 {
     protected $signature = 'command:dueorder';
-
-    protected $description = 'Command description';
-
-    public function __construct()
-    {
+    protected $description = 'This executes every day at 6.00am to identify the due orders!';
+    public function __construct(){
         parent::__construct();
     }
-
-    public function handle()
-    {
+    public function handle(){
         $dueOrders = Order::with([
             'employee' => function($query) {
                 $query->select('id');
@@ -34,15 +29,11 @@ class RemindDueOrders extends Command
             $deliveryDate = $order->delivery_date;
             $orderNo = $order->order_no;
             $data = array('orderNo'=>$orderNo, 'deliveryDate'=> $deliveryDate, 'url' => $order->id);
-            if(isset($order->taken_by))
-            {
+            if(isset($order->taken_by)) {
                 Mail::to($order->employee->user->email)->send(new RemindDueOrder($data));
-            }
-            else
-            {
+            } else {
                 Mail::to('csmanager@abctl.com')->send(new RemindDueOrder($data));
             }
         }
-
     }
 }

@@ -312,6 +312,9 @@ if ($hour < 12) {
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('customer.index') }}"> Customer registration </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('customer-profile-request.index') }}"> Customer Requests </a>
+                                </li>
                             @endcan
                         </ul>
                     </div>

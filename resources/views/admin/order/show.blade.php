@@ -116,9 +116,15 @@
                             </tbody>
                         </table>
                         @if(!$order->taken_by)
-                        <a class="btn btn-sm btn-primary mt-3" href="{{ route('order.cs.confirmation', encrypt($order->id)) }}"><i class="mdi mdi-content-save"></i> {{ __('order.confirm_order') }}</a>
-                        @endisset
-                        <a class="btn btn-sm btn-primary mt-3" href="{{ route('orders.export',encrypt($order->id)) }}"><i class="mdi mdi-file-excel"></i> {{ __('order.make_report') }}</a>
+                        <a class="btn btn-sm btn-primary mt-3" href="{{ route('order.cs.confirmation', encrypt($order->id)) }}">
+                            <i class="mdi mdi-content-save"></i> {{ __('order.confirm_order') }}
+                        </a>
+                        @endif
+                        @if($order->taken_by)
+                        <a class="btn btn-sm btn-primary mt-3" href="{{ route('orders.export',encrypt($order->id)) }}">
+                            <i class="mdi mdi-file-excel"></i> {{ __('order.make_report') }}
+                        </a>
+                        @endif
                     </div>
                 </div>
             </div>

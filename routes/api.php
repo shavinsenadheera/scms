@@ -33,6 +33,8 @@ Route::group(['namespace'=>'App\Http\Controllers\Api\Customer'], function(){
     Route::get('get-all-orders/{id}','OrderController@getAllOrders')->name('customer.allorders');
     //Customer info
     Route::get('customer/info/{id}','CustomerInfoController@customerInfo')->name('customer.info');    //Customer info
+    Route::PUT('customer/info/{id}/update','CustomerInfoController@updateInfo')->name('customer.update.info');    //Customer Update info
+    Route::PUT('customer/password/{id}/update','CustomerInfoController@changePassword')->name('customer.update.password');    //Customer Update info
     //
     Route::get('customer/concerns/{id}','OrderController@getConcerns')->name('customer.concerns');
 });

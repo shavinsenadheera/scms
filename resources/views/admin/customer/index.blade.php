@@ -57,7 +57,8 @@
                                         <td> {{ $data->telephone_no }} </td>
                                         <td> {{ $data->telephone_land }} </td>
                                         <td> {{ $data->telephone_fax }} </td>
-                                        <td class="text-white @if($data->admin_status==0) bg-success @elseif($data->admin_status==1) bg-primary @else bg-warning @endif ">
+                                        <td
+                                            class="text-white @if($data->admin_status==0) bg-success @elseif($data->admin_status==1) bg-primary @else bg-warning @endif ">
                                             @if($data->admin_status==0)
                                                 {{ __('customer.deactivate') }}
                                             @elseif($data->admin_status==1)

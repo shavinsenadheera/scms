@@ -4,6 +4,9 @@ use App\Http\Controllers\Auth\TwoFactorController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ {
+    CustomerProfileRequestController
+};
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,6 +44,9 @@ Route::group(['middleware' => ['auth', 'twofactor'],'namespace'=>'App\Http\Contr
         //Customer
         Route::resource('customer','CustomerController')->except('edit');
         Route::get('customer/delete/{id}','CustomerController@delete')->name('customer.delete');
+
+        //Customer Request Info
+        Route::resource('customer-profile-request','CustomerProfileRequestController')->only('index', 'show', 'update');
 
         //Department
         Route::resource('department','DepartmentController');

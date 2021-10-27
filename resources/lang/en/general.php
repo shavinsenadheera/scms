@@ -66,6 +66,12 @@
                 'customer_edit'         => 'Customer edit',
                 'customer_delete'       => 'Customer delete',
             ],
+            'customer-request' =>[
+                'customer_handling'     => 'Customer request handling',
+                'customer_create'       => 'Customer request create',
+                'customer_edit'         => 'Customer request edit',
+                'customer_delete'       => 'Customer request delete',
+            ],
             'supplier' =>[
                 'supplier_handling'     => 'Supplier handling',
                 'supplier_create'       => 'Supplier create',
