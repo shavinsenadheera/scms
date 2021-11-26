@@ -21,6 +21,7 @@ class CustomerProfileRequestController extends Controller{
             }else {
                 $customerProfileRequests = $query->where('status', 'LIKE', '%pending%')->get();
             }
+
             $params = ['customerProfileRequests'  => $customerProfileRequests, 'searchVal' => $searchVal];
             return view('admin.customer.requests.index')->with($params);
         }catch(ModelNotFoundException $exception) {
@@ -31,8 +32,27 @@ class CustomerProfileRequestController extends Controller{
     public function show($id){
         try{
             $customerProfileRequest = CustomerProfileRequest::findOrFail(decrypt($id));
+            $customerDetail = Customer::findOrFail(decrypt($id));
             $cities = City::select('id', 'name')->get();
-            $params = ['customerProfileRequest'  => $customerProfileRequest, 'cities'  => $cities];
+            $changes=array();
+            if($customerDetail->name!=$customerProfileRequest->name){
+                array_push($changes, 'name');
+            }else if($customerDetail->address_line_1!=$customerProfileRequest->address_line_1){
+                array_push($changes, 'address_line_1');
+            }else if($customerDetail->address_line_2!=$customerProfileRequest->address_line_2){
+                array_push($changes, 'address_line_2');
+            }else if($customerDetail->city!=$customerProfileRequest->city){
+                array_push($changes, 'city');
+            }else if($customerDetail->zipcode!=$customerProfileRequest->zipcode){
+                array_push($changes, 'zipcode');
+            }else if($customerDetail->telephone_no!=$customerProfileRequest->telephone_no){
+                array_push($changes, 'telephone_no');
+            }else if($customerDetail->telephone_fax!=$customerProfileRequest->telephone_fax){
+                array_push($changes, 'telephone_fax');
+            }else if($customerDetail->email!=$customerProfileRequest->email){
+                array_push($changes, 'email');
+            }
+            $params = ['customerProfileRequest'  => $customerProfileRequest, 'cities'  => $cities, 'changes' => $changes];
             return view('admin.customer.requests.show')->with($params);
         }catch(ModelNotFoundException $exception) {
             abort_if($exception instanceof ModelNotFoundException, 404);

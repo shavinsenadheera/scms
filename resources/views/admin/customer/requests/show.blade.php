@@ -41,7 +41,7 @@
                                         <label for="name">{{ __('customer.name') }} *</label>
                                         <input
                                             type="text"
-                                            class="form-control"
+                                            class="form-control {{in_array('name', $changes) ? 'bg-warning' : ''}}"
                                             id="name" name="name"
                                             placeholder="Customer name"
                                             value="{{ $customerProfileRequest->name }}" required disabled>
@@ -55,7 +55,7 @@
                                         <label for="description">{{ __('customer.email') }} *</label>
                                         <input
                                             type="text"
-                                            class="form-control"
+                                            class="form-control {{in_array('email', $changes) ? 'bg-warning' : ''}}"
                                             id="email" name="email"
                                             placeholder="Customer email"
                                             value="{{ $customerProfileRequest->email }}" required disabled>
@@ -72,7 +72,7 @@
                                         <label for="telephone_no">{{ __('customer.telephone_no') }} *</label>
                                         <input
                                             type="text"
-                                            class="form-control"
+                                            class="form-control {{in_array('telephone_no', $changes) ? 'bg-warning' : ''}}"
                                             id="telephone_no" name="telephone_no"
                                             placeholder="Customer telephone no"
                                             value="{{ $customerProfileRequest->telephone_no }}" required disabled>
@@ -86,7 +86,7 @@
                                         <label for="telephone_land">{{ __('customer.telephone_land') }} *</label>
                                         <input
                                             type="text"
-                                            class="form-control"
+                                            class="form-control {{in_array('telephone_land', $changes) ? 'bg-warning' : ''}}"
                                             id="telephone_land" name="telephone_land"
                                             placeholder="Customer telephone land"
                                             value="{{ $customerProfileRequest->telephone_land }}" required disabled>
@@ -100,7 +100,7 @@
                                         <label for="telephone_fax">{{ __('customer.telephone_fax') }} *</label>
                                         <input
                                             type="text"
-                                            class="form-control"
+                                            class="form-control {{in_array('telephone_fax', $changes) ? 'bg-warning' : ''}}"
                                             id="telephone_fax" name="telephone_fax"
                                             placeholder="Customer telephone fax"
                                             value="{{ $customerProfileRequest->telephone_fax }}" required disabled>
@@ -116,7 +116,7 @@
                                         <label for="address_line_1">{{ __('customer.address_line_1') }} *</label>
                                         <input
                                             type="text"
-                                            class="form-control"
+                                            class="form-control {{in_array('address_line_1', $changes) ? 'bg-warning' : ''}}"
                                             id="address_line_1"
                                             name="address_line_1"
                                             placeholder="Customer address line 1"
@@ -134,7 +134,7 @@
                                         <label for="address_line_2">{{ __('customer.address_line_2') }}</label>
                                         <input
                                             type="text"
-                                            class="form-control"
+                                            class="form-control {{in_array('address_line_2', $changes) ? 'bg-warning' : ''}}"
                                             id="address_line_2" name="address_line_2"
                                             placeholder="Customer address line 2"
                                             value="{{ $customerProfileRequest->address_line_2 }}" disabled>
@@ -149,7 +149,7 @@
                                     <div class="form-group{{ $errors->has('city') ? 'has-error' : '' }}">
                                         <label for="cities_id">{{ __('customer.city') }} *</label>
                                         <select
-                                            class="form-control js-example-basic-single"
+                                            class="form-control {{in_array('city', $changes) ? 'bg-warning' : ''}}"
                                             name="cities_id" id="cities_id"
                                             data-live-search="true" disabled>
                                             @foreach($cities as $city)
@@ -162,7 +162,7 @@
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                                    <div class="form-group{{ $errors->has('zipcode') ? 'has-error' : '' }}">
+                                    <div class="form-group{{ $errors->has('zipcode') ? 'has-error' : '' }} {{in_array('zipcode', $changes) ? 'bg-warning' : ''}}">
                                         <label for="zipcode">{{ __('customer.zipcode') }} *</label>
                                         <input
                                             type="text"
