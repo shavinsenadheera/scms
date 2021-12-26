@@ -10,11 +10,15 @@
             'metric'        => 'Metric',
             'supplier'      => 'Supplier',
             'code'          => 'Code',
+            'threshold'     => 'Threshold',
+            'generate_transaction_pdf' => 'Generate All Mat. Transaction',
         ],
         'edit'  => [
             'name'      => 'Material name',
             'supplier'  => 'Supplier name',
-            'metric'    => 'Metric name'
+            'threshold'  => 'Threshold',
+            'metric'    => 'Metric name',
+            'currentCount'    => 'Current Count'
         ],
         'delete' => [
             'warning'   => 'Please make sure to remember these deleted material data cannot be recovered!'

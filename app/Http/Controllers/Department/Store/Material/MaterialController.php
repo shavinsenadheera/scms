@@ -27,19 +27,16 @@ class MaterialController extends Controller
     {
         try
         {
-            $materials = Material::all();
+            $materials = Material::all()->sortBy('name');
             $metrics = MMetric::all();
             $suppliers = Supplier::all();
-            $mtransactions = MTransaction::orderByDesc('created_at')->get();
 
             $params = [
                 'materials'     => $materials,
                 'metrics'       => $metrics,
                 'suppliers'     => $suppliers,
-                'mtransactions' => $mtransactions,
                 'title'         => $this->title
             ];
-
             return view('departments.stores.material.index')->with($params);
         }
         catch(ModelNotFoundException $exception)
@@ -51,34 +48,24 @@ class MaterialController extends Controller
         }
     }
 
-    public function create()
-    {
-        //
-    }
-
-    public function store(Request $request)
-    {
-        try
-        {
+    public function store(Request $request){
+        try {
             $this->validate($request,[
                 'name'          => 'required',
                 'm_metrics_id'  => 'required',
                 'suppliers_id'  => 'required',
+                'threshold'  => 'required|numeric',
             ]);
-
             $material = new Material();
             $name = $request->name;
             $material->name = $name;
             $material->m_metrics_id = $request->m_metrics_id;
             $material->suppliers_id = $request->suppliers_id;
+            $material->threshold = $request->threshold;
             $material->save();
-
             return back()->with('success_msg', 'Successfully added new metric ' . $name);
-        }
-        catch(ModelNotFoundException $exception)
-        {
-            if($exception instanceof ModelNotFoundException)
-            {
+        } catch(ModelNotFoundException $exception) {
+            if($exception instanceof ModelNotFoundException) {
                 $error = new Error();
                 $error->description = $exception->getMessage();
                 $error->users_id = Auth::id();
@@ -88,10 +75,8 @@ class MaterialController extends Controller
         }
     }
 
-    public function show($id)
-    {
-        try
-        {
+    public function show($id){
+        try {
             $material = Material::findOrFail(decrypt($id));
             $suppliers = Supplier::all();
             $metrics = MMetric::all();
@@ -118,11 +103,6 @@ class MaterialController extends Controller
         }
     }
 
-    public function edit($id)
-    {
-        //
-    }
-
     public function update(Request $request, $id)
     {
         try
@@ -131,6 +111,7 @@ class MaterialController extends Controller
                 'name'          => 'required',
                 'metrics_id'  => 'required',
                 'suppliers_id'  => 'required',
+                'threshold'  => 'required|numeric',
             ]);
 
             $material = Material::findOrFail(decrypt($id));
@@ -138,6 +119,7 @@ class MaterialController extends Controller
             $material->name = $name;
             $material->m_metrics_id = $request->metrics_id;
             $material->suppliers_id = $request->suppliers_id;
+            $material->threshold = $request->threshold;
             $material->save();
 
             return back()->with('success_msg', 'Successfully updated material ' . $name);
@@ -155,20 +137,14 @@ class MaterialController extends Controller
         }
     }
 
-    public function destroy($id)
-    {
-        try
-        {
+    public function destroy($id){
+        try {
             $material = Material::findOrFail(decrypt($id));
             $name = $material->name;
             $material->delete();
-
             return redirect()->route('material.index')->with('success_msg', 'Successfully deleted material ' . $name);
-        }
-        catch(QueryException $exception)
-        {
-            if($exception instanceof QueryException)
-            {
+        } catch(QueryException $exception) {
+            if($exception instanceof QueryException) {
                 $error = new Error();
                 $error->description = $exception->getMessage();
                 $error->users_id = Auth::id();
@@ -178,13 +154,11 @@ class MaterialController extends Controller
         }
     }
 
-    public function delete($id)
-    {
+    public function delete($id){
         $params = [
             'id'    => decrypt($id),
             'title'     => $this->title
         ];
         return view('departments.stores.material.delete')->with($params);
     }
-
 }

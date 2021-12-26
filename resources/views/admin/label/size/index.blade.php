@@ -22,14 +22,14 @@
                             <thead>
                             <tr>
                                 <th> {{ __('general.form.general.action') }}</th>
-                                <th> # </th>
                                 <th> {{ __('labelsize.code') }}</th>
                                 <th> {{ __('labelsize.name') }}</th>
+                                <th> {{ __('labelsize.width') }}</th>
+                                <th> {{ __('labelsize.height') }}</th>
                             </tr>
                             </thead>
                             <tbody>
                             @if($labelsizes)
-                                <span hidden>{{ $i=1 }}</span>
                                 @foreach($labelsizes as $data)
                                     <tr>
                                         <td>
@@ -42,9 +42,10 @@
                                                 </a>
                                             </div>
                                         </td>
-                                        <td> {{ $i++ }} </td>
                                         <td> {{ $data->code }} </td>
                                         <td> {{ $data->name }} </td>
+                                        <td> {{ $data->width }} </td>
+                                        <td> {{ $data->height }} </td>
                                     </tr>
                                 @endforeach
                             @endif
@@ -52,9 +53,10 @@
                             <tfoot>
                             <tr>
                                 <th> {{ __('general.form.general.action') }}</th>
-                                <th> # </th>
                                 <th> {{ __('labelsize.code') }}</th>
                                 <th> {{ __('labelsize.name') }}</th>
+                                <th> {{ __('labelsize.width') }}</th>
+                                <th> {{ __('labelsize.height') }}</th>
                             </tr>
                             </tfoot>
                         </table>

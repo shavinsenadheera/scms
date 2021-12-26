@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\City;
+use App\Models\Admin\Industry;
 use App\Models\Customer\Customer;
 use App\Models\CustomerProfileRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -34,25 +35,28 @@ class CustomerProfileRequestController extends Controller{
             $customerProfileRequest = CustomerProfileRequest::findOrFail(decrypt($id));
             $customerDetail = Customer::findOrFail(decrypt($id));
             $cities = City::select('id', 'name')->get();
+            $industries = Industry::select('id', 'name')->get();
             $changes=array();
-            if($customerDetail->name!=$customerProfileRequest->name){
+            if($customerProfileRequest->name!=null && $customerDetail->name!=$customerProfileRequest->name){
                 array_push($changes, 'name');
-            }else if($customerDetail->address_line_1!=$customerProfileRequest->address_line_1){
+            }else if($customerProfileRequest->address_line_1!=null  && $customerDetail->address_line_1!=$customerProfileRequest->address_line_1){
                 array_push($changes, 'address_line_1');
-            }else if($customerDetail->address_line_2!=$customerProfileRequest->address_line_2){
+            }else if($customerProfileRequest->address_line_2!=null && $customerDetail->address_line_2!=$customerProfileRequest->address_line_2){
                 array_push($changes, 'address_line_2');
-            }else if($customerDetail->city!=$customerProfileRequest->city){
+            }else if($customerProfileRequest->city!=null && $customerDetail->city!=$customerProfileRequest->city){
                 array_push($changes, 'city');
-            }else if($customerDetail->zipcode!=$customerProfileRequest->zipcode){
+            }else if($customerProfileRequest->zipcode!=null && $customerDetail->zipcode!=$customerProfileRequest->zipcode){
                 array_push($changes, 'zipcode');
-            }else if($customerDetail->telephone_no!=$customerProfileRequest->telephone_no){
+            }else if($customerProfileRequest->telephone_no!=null && $customerDetail->telephone_no!=$customerProfileRequest->telephone_no){
                 array_push($changes, 'telephone_no');
-            }else if($customerDetail->telephone_fax!=$customerProfileRequest->telephone_fax){
+            }else if($customerProfileRequest->telephone_fax!=null && $customerDetail->telephone_fax!=$customerProfileRequest->telephone_fax){
                 array_push($changes, 'telephone_fax');
-            }else if($customerDetail->email!=$customerProfileRequest->email){
+            }else if($customerProfileRequest->email!=null && $customerDetail->email!=$customerProfileRequest->email){
                 array_push($changes, 'email');
+            }else if($customerProfileRequest->industry!=null && $customerDetail->industry!=$customerProfileRequest->industry){
+                array_push($changes, 'industry');
             }
-            $params = ['customerProfileRequest'  => $customerProfileRequest, 'cities'  => $cities, 'changes' => $changes];
+            $params = ['customerProfileRequest'  => $customerProfileRequest, 'cities'  => $cities, 'changes' => $changes, 'industries' => $industries];
             return view('admin.customer.requests.show')->with($params);
         }catch(ModelNotFoundException $exception) {
             abort_if($exception instanceof ModelNotFoundException, 404);
@@ -75,6 +79,8 @@ class CustomerProfileRequestController extends Controller{
                     $customer->telephone_no = $customerProfileRequest->telephone_no;
                     $customer->telephone_land = $customerProfileRequest->telephone_land;
                     $customer->telephone_fax = $customerProfileRequest->telephone_fax;
+                    $customer->telephone_fax = $customerProfileRequest->telephone_fax;
+                    $customer->industry = $customerProfileRequest->industry;
                     $customer->save();
                     break;
                 case 'rejected':

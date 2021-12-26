@@ -7,7 +7,8 @@
         'more'      => 'More',
         'my_job_sum'=> 'My job summary',
         'qaManagement' => 'QA Management',
-        'scanOrder' => 'Scan Order',
+        'scanOrder' => 'Scanning Order',
+        'scanDoneOrder' => 'Scanning Done Order',
         'userCreation' => 'User Creation',
     ]
 ?>

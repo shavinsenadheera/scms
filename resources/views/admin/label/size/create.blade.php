@@ -32,6 +32,20 @@
                                 <p class="text-small text-danger">{{ $errors->first() }}</p>
                                 @enderror
                             </div>
+                            <div class="form-group{{ $errors->has('name') ? 'has-error' : '' }}">
+                                <label for="width">{{ __('labelsize.width') }} *</label>
+                                <input type="number" class="form-control" id="width" name="width" placeholder="Label size width" value="@if(old('width')) {{ old('width') }} @endif" required>
+                                @error('width')
+                                <p class="text-small text-danger">{{ $errors->first() }}</p>
+                                @enderror
+                            </div>
+                            <div class="form-group{{ $errors->has('height') ? 'has-error' : '' }}">
+                                <label for="height">{{ __('labelsize.height') }} *</label>
+                                <input type="number" class="form-control" id="height" name="height" placeholder="Label size height" value="@if(old('height')) {{ old('height') }} @endif" required>
+                                @error('height')
+                                <p class="text-small text-danger">{{ $errors->first() }}</p>
+                                @enderror
+                            </div>
                             <button type="submit" class="btn btn-primary btn-fw">
                                 <i class="mdi mdi-file-document"></i>{{ __('general.form.add_details') }}
                             </button>

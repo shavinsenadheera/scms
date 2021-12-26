@@ -21,6 +21,7 @@ class Customer extends Model
         'telephone_fax',
         'email',
         'password',
-        'admin_status'
+        'admin_status',
+        'industry'
     ];
 }

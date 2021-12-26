@@ -16,5 +16,6 @@
         'activate'          => 'Activate',
         'deactivate'        => 'Deactivate',
         'suspended'         => 'Suspended',
+        'industry'          => 'Industry'
     ];
 ?>

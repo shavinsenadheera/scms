@@ -36,26 +36,6 @@
                                      @enderror
                                  </div>
 
-                                <div class="form-group{{ $errors->has('suppliers_id') ? 'has-error' : '' }}">
-                                    <label for="suppliers_id">{{ __('material.edit.supplier') }} *</label>
-                                    <select
-                                        class="form-control js-example-basic-single"
-                                        name="suppliers_id"
-                                        id="suppliers_id"
-                                        required
-                                    >
-                                        <option selected disabled value="">{{ __('general.form.selector.disabled_option') }}</option>
-                                        @foreach($suppliers as $data)
-                                            <option
-                                                {{ $data->id==$material->suppliers_id ? 'selected' : '' }}
-                                                value="{{ $data->id }}">{{ $data->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('phone_no')
-                                        <p class="text-small text-danger">{{ $errors->first() }}</p>
-                                    @enderror
-                                </div>
-
                                 <div class="form-group{{ $errors->has('metrics_id') ? 'has-error' : '' }}">
                                     <label for="metrics_id">{{ __('material.edit.metric') }} *</label>
                                     <select
@@ -70,6 +50,57 @@
                                                 {{ $data->id==$material->m_metrics_id ? 'selected' : '' }}
                                                 value="{{ $data->id }}"
                                             >{{ $data->name }} ({{ $data->code }})</option>
+                                        @endforeach
+                                    </select>
+                                    @error('phone_no')
+                                    <p class="text-small text-danger">{{ $errors->first() }}</p>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group{{ $errors->has('threshold') ? 'has-error' : '' }}">
+                                    <label for="name">{{ __('material.edit.threshold') }} *</label>
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        id="threshold"
+                                        name="threshold"
+                                        placeholder="Threshold"
+                                        value="{{ $material->threshold }}"
+                                        min="1"
+                                        required
+                                    >
+                                    @error('threshold')
+                                    <p class="text-small text-danger">{{ $errors->first() }}</p>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="name">{{ __('material.edit.currentCount') }} *</label>
+                                    <input
+                                        type="number"
+                                        class="form-control {{$material->current_count ? ($material->current_count < $material->threshold) ? 'bg-warning' : '' : 'bg-danger'}}"
+                                        value="{{ $material->current_count ? $material->current_count : 0 }}"
+                                        min="1"
+                                        readonly
+                                    >
+                                    <p class="{{$material->current_count ? ($material->current_count < $material->threshold) ? 'text-warning' : '' : 'text-danger'}}">
+                                        {{$material->current_count ? ($material->current_count < $material->threshold) ? 'This material should minimum have '.$material->threshold.' '.$material->metrics->code : '' : 'This material has 0 count!'}}
+                                    </p>
+                                </div>
+
+                                <div class="form-group{{ $errors->has('suppliers_id') ? 'has-error' : '' }}">
+                                    <label for="suppliers_id">{{ __('material.edit.supplier') }} *</label>
+                                    <select
+                                        class="form-control js-example-basic-single"
+                                        name="suppliers_id"
+                                        id="suppliers_id"
+                                        required
+                                    >
+                                        <option selected disabled value="">{{ __('general.form.selector.disabled_option') }}</option>
+                                        @foreach($suppliers as $data)
+                                            <option
+                                                {{ $data->id==$material->suppliers_id ? 'selected' : '' }}
+                                                value="{{ $data->id }}">{{ $data->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('phone_no')

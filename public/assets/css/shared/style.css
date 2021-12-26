@@ -9773,7 +9773,7 @@ ul {
 .auth {
   min-height: 100vh; }
   .auth.auth-bg-1 {
-    background: url("../../images/auth/login_3.jpg");
+    background: url("public/assets/images/myImages/welcome.png");
     background-size: cover;
       opacity: 1;
   }

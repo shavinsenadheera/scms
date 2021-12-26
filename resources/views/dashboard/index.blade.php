@@ -1,4 +1,8 @@
 @extends('template.index')
+@section('head-css')
+    <link href="{{asset('assets/css/custom/smartProduction.css')}}" rel="stylesheet"/>
+    <link href="{{asset('assets/css/custom/quickLinkCard1.css')}}" rel="stylesheet"/>
+@endsection
 @section('content')
     <div class="content-wrapper">
         <div class="row justify-content-center">
@@ -115,6 +119,22 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                @endhasanyrole
+                @hasanyrole('cs_manager|cs_coordinator')
+                <div class="card bg-transparent mb-3">
+                    <div class="card-header p-2 font-weight-bold">
+                        <i class="mdi mdi-link"></i> Quick links
+                    </div>
+                    <div class="ql-cards">
+                        <x-common.quick-link-card1
+                            cardNo="3"
+                            faIcon="bolt"
+                            title="Scan Now"
+                            routeName="planning.scan.view"
+                            linkName="Go Now"
+                        ></x-common.quick-link-card1>
                     </div>
                 </div>
                 @endhasanyrole
@@ -284,9 +304,291 @@
                     </div>
                 </div>
                 @endhasanyrole
-                @hasanyrole('super_admin|store_manager|store_coordinator')
+                @hasanyrole('store_manager|store_coordinator')
                 <div class="mt-3">
-
+                    <div class="col-12">
+                        @foreach($actualMaterial as $material)
+                            @if($material->current_count < $material->threshold)
+                                <div class="alert alert-danger" role="alert">
+                                    <i class="fa fa-warning"></i> Attention to the threshold of material count!
+                                    <a href="{{route('material.show', encrypt($material->id))}}" class="alert-link">{{$material->name}}</a>.
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <div id="smartMaterials" class="col-12 p-0 m-0 bg-white">
+                        <div class="p-3">
+                            <table class="w-100">
+                                <tr>
+                                    <th class="text-left" colspan="3">
+                                        <span style="font-size: 20px;text-transform: uppercase">
+                                            Total Upcoming Orders Stat
+                                        </span>
+                                    </th>
+                                </tr>
+                                <tr class="blank_row">
+                                    <td colspan="3"></td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left border-bottom border-dark" colspan="3"></th>
+                                </tr>
+                                <tr class="blank_row">
+                                    <td colspan="3"></td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left" colspan="3">Polyester</th>
+                                </tr>
+                                <tr class="blank_row">
+                                    <td colspan="3"></td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left border-bottom border-dark" colspan="3"></th>
+                                </tr>
+                                <tr class="blank_row">
+                                    <td colspan="3"></td>
+                                </tr>
+                                <tr>
+                                    <th>Size</th>
+                                    <th>{!! __('smartDashboard.expected') !!}</th>
+                                    <th class="text-right">{!! __('smartDashboard.actual') !!}</th>
+                                </tr>
+                                <tr>
+                                    <td class="text-left">{!! __('smartDashboard.expectedSmall') !!}</td>
+                                    <td class="text-left">~ {{round($stSmallLabelCount)}} m</td>
+                                    <td class="text-right">{{$polyesterSmall ? $polyesterSmall : 0}} m</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left">{!! __('smartDashboard.expectedMedium') !!}</td>
+                                    <td class="text-left">~ {{round($stMediumLabelCount)}} m</td>
+                                    <td class="text-right">{{$polyesterMedium ? $polyesterMedium : 0}} m</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left">{!! __('smartDashboard.expectedLarge') !!}</td>
+                                    <td class="text-left">~ {{round($stLargeLabelCount)}} m</td>
+                                    <td class="text-right">{{$polyesterLarge ? $polyesterLarge : 0}} m</td>
+                                </tr>
+                                <tr class="blank_row">
+                                    <td colspan="3"></td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left text-danger" style="font-size: 30px">Total</th>
+                                    <th class="text-left text-danger" style="font-size: 30px">
+                                        ~ {{round($stickerTotalCount)}} m
+                                    </th>
+                                    @if(round($wovenTotalCount) < ($polyesterSmall+$polyesterMedium+$polyesterLarge))
+                                        <th class="text-right text-danger"
+                                            style="font-size: 30px">{{$polyesterSmall+$polyesterMedium+$polyesterLarge}}
+                                            m
+                                        </th>
+                                    @else
+                                        <th class="text-right text-danger" style="font-size: 30px">
+                                            {{$polyesterSmall+$polyesterMedium+$polyesterLarge}} m
+                                            <img src="{{asset('assets/images/myImages/warning.gif')}}"/>
+                                        </th>
+                                    @endif
+                                </tr>
+                                <tr class="blank_row">
+                                    <td colspan="3"></td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left border-bottom border-dark" colspan="3"></th>
+                                </tr>
+                                <tr class="blank_row">
+                                    <td colspan="3"></td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left" colspan="4">Cotton</th>
+                                </tr>
+                                <tr class="blank_row">
+                                    <td colspan="3"></td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left border-bottom border-dark" colspan="4"></th>
+                                </tr>
+                                <tr class="blank_row">
+                                    <td colspan="3"></td>
+                                </tr>
+                                <tr>
+                                    <th>Size</th>
+                                    <th>{!! __('smartDashboard.expected') !!}</th>
+                                    <th class="text-right">{!! __('smartDashboard.actual') !!}</th>
+                                </tr>
+                                <tr>
+                                    <td class="text-left">{!! __('smartDashboard.expectedSmall') !!}</td>
+                                    <td class="text-left">~ {{round($wovSmallLabelCount)}} m</td>
+                                    <td class="text-right">{{$cottonSmall ? $cottonSmall : 0}} m</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left">{!! __('smartDashboard.expectedMedium') !!}</td>
+                                    <td class="text-left">~ {{round($wovMediumLabelCount)}} m</td>
+                                    <td class="text-right">{{$cottonMedium ? $cottonMedium : 0}} m</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left">{!! __('smartDashboard.expectedLarge') !!}</td>
+                                    <td class="text-left">~ {{round($wovLargeLabelCount)}} m</td>
+                                    <td class="text-right">{{$cottonLarge ? $cottonLarge : 0}} m</td>
+                                </tr>
+                                <tr class="blank_row">
+                                    <td colspan="4"></td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left text-danger" style="font-size: 30px">Total</th>
+                                    <th class="text-left text-danger" style="font-size: 30px">
+                                        ~ {{round($wovenTotalCount)}} m
+                                    </th>
+                                    @if(round($wovenTotalCount) < ($cottonSmall+$cottonMedium+$cottonLarge))
+                                        <th class="text-right text-danger"
+                                            style="font-size: 30px">{{$cottonSmall+$cottonMedium+$cottonLarge}} m
+                                        </th>
+                                    @else
+                                        <th class="text-right text-danger" style="font-size: 30px">
+                                            {{$cottonSmall+$cottonMedium+$cottonLarge}} m
+                                            <img src="{{asset('assets/images/myImages/warning.gif')}}"/>
+                                        </th>
+                                    @endif
+                                </tr>
+                                <tr class="blank_row">
+                                    <td colspan="3"></td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left border-bottom border-dark" colspan="3"></th>
+                                </tr>
+                                <tr class="blank_row">
+                                    <td colspan="3"></td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left" colspan="4">Heat Transfer</th>
+                                </tr>
+                                <tr class="blank_row">
+                                    <td colspan="3"></td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left border-bottom border-dark" colspan="4"></th>
+                                </tr>
+                                <tr class="blank_row">
+                                    <td colspan="3"></td>
+                                </tr>
+                                <tr>
+                                    <th>Size</th>
+                                    <th>{!! __('smartDashboard.expected') !!}</th>
+                                    <th class="text-right">{!! __('smartDashboard.actual') !!}</th>
+                                </tr>
+                                <tr>
+                                    <td class="text-left">{!! __('smartDashboard.expectedSmall') !!}</td>
+                                    <td class="text-left">~ {{round($cSmallLabelCount)}} m</td>
+                                    <td class="text-right">{{$htSmall ? $htSmall : 0}} m</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left">{!! __('smartDashboard.expectedMedium') !!}</td>
+                                    <td class="text-left">~ {{round($cMediumLabelCount)}} m</td>
+                                    <td class="text-right">{{$htMedium ? $htMedium : 0}} m</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left">{!! __('smartDashboard.expectedLarge') !!}</td>
+                                    <td class="text-left">~ {{round($cLargeLabelCount)}} m</td>
+                                    <td class="text-right">{{$htLarge ? $htLarge : 0}} m</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left text-danger" style="font-size: 30px">Total</th>
+                                    <th class="text-left text-danger" style="font-size: 30px">
+                                        ~ {{round($careTotalCount)}} m
+                                    </th>
+                                    @if(round($careTotalCount) < ($htSmall+$htMedium+$htLarge))
+                                        <th class="text-right text-danger"
+                                            style="font-size: 30px">{{$htSmall+$htMedium+$htLarge}} m
+                                        </th>
+                                    @else
+                                        <th class="text-right text-danger" style="font-size: 30px">
+                                            {{round($htSmall+$htMedium+$htLarge)}} m
+                                            <img src="{{asset('assets/images/myImages/warning.gif')}}"/>
+                                        </th>
+                                    @endif
+                                </tr>
+                                <tr class="blank_row">
+                                    <td colspan="3"></td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left border-bottom border-dark" colspan="3"></th>
+                                </tr>
+                                <tr class="blank_row">
+                                    <td colspan="3"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                @endhasanyrole
+                @hasanyrole('production_manager|production_coordinator')
+                <div class="card bg-transparent mb-3">
+                    <div class="card-header p-2 font-weight-bold">
+                        <i class="mdi mdi-link"></i> Quick links
+                    </div>
+                    <div class="ql-cards">
+                        <x-common.quick-link-card1
+                            cardNo="1"
+                            faIcon="bolt"
+                            title="Smart Dashboard"
+                            routeName="smart_production.index"
+                            linkName="Go Now"
+                        ></x-common.quick-link-card1>
+                        <x-common.quick-link-card1
+                            cardNo="3"
+                            faIcon="bolt"
+                            title="Scan Now"
+                            routeName="qa.scan.view"
+                            linkName="Go Now"
+                        ></x-common.quick-link-card1>
+                    </div>
+                </div>
+                @endhasanyrole
+                @hasanyrole('planning_manager|planning_coordinator')
+                <div class="card bg-transparent mb-3">
+                    <div class="card-header p-2 font-weight-bold">
+                        <i class="mdi mdi-link"></i> Quick links
+                    </div>
+                    <div class="ql-cards">
+                        <x-common.quick-link-card1
+                            cardNo="3"
+                            faIcon="bolt"
+                            title="Scan Now"
+                            routeName="manufacturing.scan.view"
+                            linkName="Go Now"
+                        ></x-common.quick-link-card1>
+                    </div>
+                </div>
+                @endhasanyrole
+                @hasanyrole('qa_manager|qa_coordinator')
+                <div class="card bg-transparent mb-3">
+                    <div class="card-header p-2 font-weight-bold">
+                        <i class="mdi mdi-link"></i> Quick links
+                    </div>
+                    <div class="ql-cards">
+                        <x-common.quick-link-card1
+                            cardNo="3"
+                            faIcon="bolt"
+                            title="Scan Now"
+                            routeName="dispatch.scan.view"
+                            linkName="Go Now"
+                        ></x-common.quick-link-card1>
+                    </div>
+                </div>
+                @endhasanyrole
+                @hasanyrole('dispatch_manager|dispatch_coordinator')
+                <div class="card bg-transparent mb-3">
+                    <div class="card-header p-2 font-weight-bold">
+                        <i class="mdi mdi-link"></i> Quick links
+                    </div>
+                    <div class="ql-cards">
+                        <x-common.quick-link-card1
+                            cardNo="3"
+                            faIcon="bolt"
+                            title="Scan Now"
+                            routeName="dispatch.scandoneview"
+                            linkName="Go Now"
+                        ></x-common.quick-link-card1>
+                    </div>
                 </div>
                 @endhasanyrole
             </div>

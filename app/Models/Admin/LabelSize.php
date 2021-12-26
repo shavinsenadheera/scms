@@ -11,6 +11,8 @@ class LabelSize extends Model
     protected $table = "label_sizes";
     protected $fillable = [
         'code',
-        'name'
+        'name',
+        'width',
+        'height'
     ];
 }

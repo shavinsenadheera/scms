@@ -29,7 +29,6 @@
                             <tfoot>
                                 <tr>
                                     <th> {{ __('general.form.general.action') }} </th>
-                                    <th> # </th>
                                     <th> {{ __('labeltype.code') }} </th>
                                     <th> {{ __('labeltype.name') }} </th>
                                 </tr>

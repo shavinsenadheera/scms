@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="bg-white shadow border-0 rounded border-light p-4 p-lg-5 w-100 fmxw-500">
+    <div class="bg-light shadow border-0 rounded border-light p-4 p-lg-5 w-100 fmxw-500">
         <div class="btn-group" role="group" aria-label="Basic example">
             <a href="{{ route('welcome') }}" type="button" class="btn btn-outline-primary"><i class="fa fa-desktop"></i>Welcome</a>
             <a href="{{ route('login') }}" type="button" class="btn btn-primary"><i class="fa fa-unlock"></i>Login</a>

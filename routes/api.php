@@ -1,8 +1,5 @@
 <?php
 namespace App\Http\Controllers;
-
-use App\Http\Controllers\Api\Customer\LoginController;
-use App\Http\Controllers\Api\Customer\RegisterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +18,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::group(['namespace'=>'App\Http\Controllers\Api\Customer'], function(){
+
+    //New Customers
+    Route::post('new-customer', 'NewCustomerController@store')->name('new-customer.store');
     //Customer register api
     Route::apiResource('customer-register', 'RegisterController');
     //Customer login check api

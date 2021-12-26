@@ -21,6 +21,8 @@
         "sass-loader": "^8.0.0"
     },
     "dependencies": {
-        "highcharts": "^9.0.1"
+        "highcharts": "^9.0.1",
+        "laravel-echo": "^1.11.3",
+        "pusher-js": "^7.0.3"
     }
 }

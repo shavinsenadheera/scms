@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\NewCustomer\NewCustomerStatusAlert;
 use App\Models\Admin\City;
+use App\Models\Admin\Industry;
 use App\Models\Customer\Customer;
+use App\Models\NewCustomer;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class CustomerController extends Controller{
     public $title = "Customer handling";
@@ -33,8 +37,13 @@ class CustomerController extends Controller{
     }
 
     public function create(){
+        $newCustomer = [];
+        if(isset($_GET['newCustomer'])){
+            $newCustomer = NewCustomer::findOrFail($_GET['newCustomer']);
+        }
         $cities = City::select(['id', 'name'])->get();
-        $params = [ 'admin_statuses'=> $this->admin_statuses, 'title' => $this->title, 'cities' => $cities,];
+        $industries = Industry::select(['id', 'name'])->get();
+        $params = ['admin_statuses'=> $this->admin_statuses, 'title' => $this->title, 'cities' => $cities, 'newCustomer' => $newCustomer, 'industries'=>$industries];
         return view('admin.customer.create')->with($params);
     }
 
@@ -43,14 +52,15 @@ class CustomerController extends Controller{
             $request->validate([
                 'name'              => 'required|unique:customer,name',
                 'email'             => 'required|unique:customer,email',
-                'telephone_no'      => 'required',
-                'telephone_land'    => 'required',
-                'telephone_fax'     => 'required',
+                'telephone_no'      => 'required|regex:/(01)[0-9]{9}/',
+                'telephone_land'    => 'regex:/(01)[0-9]{9}/',
+                'telephone_fax'     => 'regex:/(01)[0-9]{9}/',
                 'address_line_1'    => 'required',
                 'cities_id'         => 'required',
                 'zipcode'           => 'required',
                 'password'          => 'required',
                 'admin_status'      => 'required',
+                'industry'          => 'required'
             ]);
             $customer = new Customer();
             $customer->name = $request->name;
@@ -65,6 +75,11 @@ class CustomerController extends Controller{
             $customer->password = Hash::make($request->password);
             $customer->admin_status = $request->admin_status;
             $customer->save();
+            $details = [
+                'status' => 'Register',
+                'name' => $request->name
+            ];
+            Mail::to($request->email)->cc('newcustomers@abctl.com')->send(new NewCustomerStatusAlert($details));
             return back()->with('success_msg', 'Successfully added new customer ' . $request->name);
 
         } catch (ModelNotFoundException $exception) {
@@ -81,7 +96,6 @@ class CustomerController extends Controller{
             abort_if($exception instanceof ModelNotFoundException, '404');
         }
     }
-
 
     public function update(Request $request, $id){
         try {

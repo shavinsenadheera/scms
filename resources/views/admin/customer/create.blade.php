@@ -7,7 +7,7 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">{!! trans('general.breadcrumb.dashboard') !!}</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('customer.index') }}">{!! trans('general.breadcrumb.customer.customer_handling') !!}</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">{!! trans('general.breadcrumb.customer.customer_create') !!}}</li>
+                        <li class="breadcrumb-item active" aria-current="page">{!! trans('general.breadcrumb.customer.customer_create') !!}</li>
                     </ol>
                 </nav>
             </div>
@@ -29,22 +29,35 @@
                         <div class="card-body">
                             @csrf
                             <div class="form-row">
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group @error('name') 'has-error' @enderror">
                                         <label for="name">{!! trans('customer.name') !!} *</label>
                                         <input type="text" class="form-control" id="name" name="name"
-                                               placeholder="Customer name" value="@if(old('name')) {{ old('name') }} @endif" required>
+                                               placeholder="Customer name" value="@if(old('name')){{old('name')}}@elseif($newCustomer){{$newCustomer->name}}@endif" required>
                                         @error('name')
                                         <p class="text-small text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group @error('email') 'has-error' @enderror">
                                         <label for="email">{!! trans('customer.email') !!} *</label>
                                         <input type="text" class="form-control" id="email" name="email"
-                                               placeholder="Customer email" value="@if(old('email')) {{ old('email') }} @endif" required>
+                                               placeholder="Customer email" value="@if(old('email')){{ old('email') }}@elseif($newCustomer){{$newCustomer->email}}@endif" required>
                                         @error('email')
+                                        <p class="text-small text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group @error('industry') 'has-error' @enderror">
+                                        <label for="industry">{!! trans('customer.industry') !!} *</label>
+                                        <select class="form-control js-example-basic-single" name="industry" id="industry" data-live-search="true">
+                                            @foreach($industries as $data)
+                                                <option value="{{ $data->id }}">{{ $data->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('industry')
                                         <p class="text-small text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
@@ -56,7 +69,7 @@
                                     <div class="form-group @error('telephone_no') 'has-error' @enderror }}">
                                         <label for="telephone_no">{!! trans('customer.telephone_no') !!} *</label>
                                         <input type="text" class="form-control" id="telephone_no" name="telephone_no"
-                                               placeholder="Customer telephone no" value="@if(old('telephone_no')) {{ old('telephone_no') }} @endif" required>
+                                               placeholder="Customer telephone no" value="@if(old('telephone_no')){{ old('telephone_no')}}@elseif($newCustomer){{$newCustomer->contactNo}}@endif" required>
                                         @error('telephone_no')
                                         <p class="text-small text-danger">{{ $message }}</p>
                                         @enderror
@@ -64,7 +77,7 @@
                                 </div>
                                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group @error('telephone_land') 'has-error' @enderror">
-                                        <label for="telephone_land">{!! trans('customer.telephone_land') !!} *</label>
+                                        <label for="telephone_land">{!! trans('customer.telephone_land') !!}</label>
                                         <input type="text" class="form-control" id="telephone_land" name="telephone_land"
                                                placeholder="Customer telephone land" value="@if(old('telephone_land')) {{ old('telephone_land') }} @endif" required>
                                         @error('telephone_land')
@@ -74,7 +87,7 @@
                                 </div>
                                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group @error('telephone_fax') 'has-error' @enderror">
-                                        <label for="telephone_fax">{!! trans('customer.telephone_fax') !!} *</label>
+                                        <label for="telephone_fax">{!! trans('customer.telephone_fax') !!}</label>
                                         <input type="text" class="form-control" id="telephone_fax" name="telephone_fax"
                                                placeholder="Customer telephone fax" value="@if(old('telephone_fax')) {{ old('telephone_land') }} @endif" required>
                                         @error('telephone_fax')

@@ -4,9 +4,7 @@ use App\Http\Controllers\Auth\TwoFactorController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ {
-    CustomerProfileRequestController
-};
+use App\Http\Controllers\{CustomerProfileRequestController, Department\CS\NewCustomerController};
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,6 +17,9 @@ use App\Http\Controllers\ {
 */
 
 Route::view('/', 'welcome')->name('welcome');
+Route::get('/test-event', function(){
+    event(new \App\Events\MyTestEvent('Shavindu'));
+});
 Auth::routes();
 Route::get('verify/resend', [TwoFactorController::class, 'resend'])->name('verify.resend');
 Route::resource('verify',TwoFactorController::class)->only(['index', 'store']);
@@ -116,6 +117,7 @@ Route::group(['middleware' => ['auth', 'twofactor'],'namespace'=>'App\Http\Contr
             Route::post('manufacturing','ManufacturingController@scan')->name('manufacturing.scan');
             Route::get('manufacturing/scan', 'ManufacturingController@scanView')->name('manufacturing.scan.view');
             Route::get('manufacturing/mr', 'ManufacturingController@mrIndex')->name('manufacturing.mrindex');
+            Route::resource('smart_production', 'SmartProductionController');
         });
 
         //QA
@@ -132,6 +134,11 @@ Route::group(['middleware' => ['auth', 'twofactor'],'namespace'=>'App\Http\Contr
             Route::get('dispatch/scandone/view','DispatchController@scanDoneView')->name('dispatch.scandoneview');
         });
 
+        //Customer Service
+        Route::group(['namespace'=>'CS','prefix'=>'cs'],function(){
+            Route::resource('new_customer', 'NewCustomerController')->except('edit', 'destroy');
+        });
+
         //Stores - include suppliers, materials, metrics, transactions, request logs
         Route::group(['namespace'=>'Store','prefix'=>'store'],function(){
 
@@ -143,9 +150,11 @@ Route::group(['middleware' => ['auth', 'twofactor'],'namespace'=>'App\Http\Contr
 
             // Material
             Route::group(['namespace' => 'Material'], function() {
-
                 Route::resource('material','MaterialController');
                 Route::get('material/delete/{id}','MaterialController@delete')->name('material.delete');
+
+                // Transactions
+                Route::resource('material-transactions','TransactionController')->only('index');
 
                 // Order
                 Route::group(['namespace' => 'Order', 'prefix' => 'm_order'], function(){
@@ -160,6 +169,7 @@ Route::group(['middleware' => ['auth', 'twofactor'],'namespace'=>'App\Http\Contr
 
                 //MRN Request
                 Route::group(['namespace' => 'Request', 'prefix' => 'request'], function(){
+                    Route::post('smart-request','RequestController@smartStore')->name('material.smart.request');
                     Route::resource('request', 'RequestController');
                     Route::get('log/fullindex', 'LogsController@fullIndex')->name('log.fullindex');
                     Route::resource('log', 'LogsController');
@@ -174,4 +184,10 @@ Route::group(['middleware' => ['auth', 'twofactor'],'namespace'=>'App\Http\Contr
     Route::get('concerns/inform', 'ConcernController@informConcern')->name('concerns.inform');
     Route::post('concern/production','ConcernController@productionInsert')->name('concern.productioninsert');
     Route::put('concern/{id}/customer-care','ConcernController@csInsert')->name('concern.csinsert');
+
+    //Exports
+    Route::group(['namespace' => 'Exports', 'prefix' => 'exports'], function(){
+        Route::get('material-transactions/pdf', 'MaterialTransactionController@downloadPdf')->name('material-transactions.downloadPdf');
+        Route::get('material-transactions/filter-date/pdf', 'MaterialTransactionController@downloadDateFilterPdf')->name('material-transactions.downloadDateFilterPdf');
+    });
 });

@@ -24,10 +24,13 @@
                         </div>
                     </div>
                     <div class="card-body table-responsive">
+                        @hasanyrole('super_admin|store_manager|store_coordinator|production_manager|production_coordinator')
                         <table class="table table-striped">
                             <thead>
                             <tr>
+                                @hasanyrole('super_admin|store_manager|store_coordinator')
                                 <th>Actions</th>
+                                @endhasanyrole
                                 <th>Employee name</th>
                                 <th>Material name</th>
                                 <th>Request count</th>
@@ -37,6 +40,7 @@
                             <tbody>
                             @foreach($mrlogs as $data)
                                 <tr>
+                                    @hasanyrole('super_admin|store_manager|store_coordinator')
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Basic example">
                                             <a
@@ -47,6 +51,7 @@
                                             </a>
                                         </div>
                                     </td>
+                                    @endhasanyrole
                                     <td>{{ $data->users->name }}</td>
                                     <td>{{ $data->materials->name }}</td>
                                     <td>{{ $data->request_count }} {{ $data->materials->metrics->code }}</td>
@@ -55,6 +60,7 @@
                             @endforeach
                             </tbody>
                         </table>
+                        @endhasanyrole
                     </div>
                 </div>
             </div>

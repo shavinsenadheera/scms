@@ -90,7 +90,7 @@
                                     >
                                         <option value="" selected disabled>Choose product</option>
                                         @foreach($materials as $data)
-                                            <option data-price="{{ $data->id }}" value="{{ $data->id }}">{{ $data->name }} - {{ $data->metrics->code }} - {{$data->suppliers->name}}}</option>
+                                            <option data-price="{{ $data->id }}" value="{{ $data->id }}">{{ $data->name }} - {{ $data->metrics->code }} - {{$data->suppliers->name}}</option>
                                         @endforeach
                                     </select>
                                 </td>

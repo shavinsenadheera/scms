@@ -1,0 +1,76 @@
+
+.card-container{
+    width: 100%;
+    background: #FFF;
+    border-radius: 6px;
+    top: 50%;
+    left: 50%;
+    box-shadow: 0 0 0 0.25rem rgba(231, 231, 231, 0.25);
+}
+.upper-container{
+    height: 150px;
+    background-image: url("../../images/myImages/company.png");
+}
+.upper-container-large{
+    height: 150px;
+    background-image: url("../../images/myImages/newCustomerLarge.png");
+}
+.image-container{
+    background: white;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+.image-container-large{
+    width: 100%;
+    height: 80px;
+    border-radius: 50%;
+}
+.image-container img{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+.image-container-large img{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    transform: translate(50%, 100px);
+}
+.lower-container{
+    background: #FFF;
+    padding: 20px;
+    padding-top: 40px;
+    text-align: center;
+}
+.lower-container h3, h4{
+    box-sizing: border-box;
+    line-height: .6;
+    font-weight: lighter;
+}
+.lower-container h4{
+    color: #007BFFFF;
+    opacity: .6;
+    font-weight: bold;
+}
+.lower-container p{
+    font-size: 16px;
+    color: gray;
+    margin-bottom: 30px;
+}
+.lower-container .btn_user_profile{
+    padding: 12px 20px;
+    background: #7F00FF;
+    border: none;
+    color: white;
+    border-radius: 30px;
+    font-size: 12px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all .3s ease-in;
+}
+.lower-container .btn_user_profile:hover{
+    background: transparent;
+    color: #7F00FF;
+    border: 2px solid #7F00FF;
+}

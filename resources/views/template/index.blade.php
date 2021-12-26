@@ -35,6 +35,7 @@ if ($hour < 12) {
     <link rel="stylesheet" href="{{ asset('assets/select2/css/select2.min.css') }}">
     <link rel="shortcut icon" href="{{ asset('assets/logo/logo.png') }}"/>
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans"/>
+    @yield('head-css')
     @yield('head-js')
 </head>
 <body>
@@ -48,17 +49,17 @@ if ($hour < 12) {
                 ABCTL
             </a>
         </div>
-        <div class="navbar-menu-wrapper d-flex align-items-center">
+        <div class="navbar-menu-wrapper d-flex align-items-center" style="background: black">
             <div class="ml-auto d-none d-md-block" action="#">
                 <h3 class="text-primary" style="font-family: 'Britannic Bold'">
                     @if($mood==1)
-                        {{ $status }} &#128526;
+                        {{ $status }}
                     @elseif($mood==2)
-                        {{ $status }} &#128522;
+                        {{ $status }}
                     @elseif($mood==3)
-                        {{ $status }} &#128528;
+                        {{ $status }}
                     @else
-                        {{ $status }} &#128564;
+                        {{ $status }}
                     @endif
                 </h3>
             </div>
@@ -96,7 +97,6 @@ if ($hour < 12) {
                 <li class="nav-item nav-profile">
                     <a href="#" class="nav-link">
                         <div class="profile-image">
-                            <img src="{{ Avatar::create(Auth::user()->name)->toBase64() }}" width="30px"/>
                             <div class="dot-indicator bg-success"></div>
                         </div>
                         <div class="text-wrapper">
@@ -170,20 +170,23 @@ if ($hour < 12) {
                     </div>
                 </li>
                 @endrole
+                @unlessrole('store_manager|store_coordinator')
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#order-concerns" aria-expanded="false" aria-controls="auth">
+                    <a class="nav-link" data-toggle="collapse" href="#order-concerns" aria-expanded="false"
+                       aria-controls="auth">
                         <i class="menu-icon typcn typcn-document-add"></i>
-                        <span class="menu-title">Common</span>
+                        <span class="menu-title">Common Functions</span>
                         <i class="menu-arrow"></i>
                     </a>
                     <div class="collapse" id="order-concerns">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('concerns.index') }}"> Order Concerns </a>
+                                <a class="nav-link" href="{{ route('concerns.index') }}"> Order Concerns Request </a>
                             </li>
                         </ul>
                     </div>
                 </li>
+                @endunlessrole
                 @hasanyrole('super_admin|cs_manager|cs_coordinator')
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="collapse" href="#order" aria-expanded="false" aria-controls="auth">
@@ -199,13 +202,20 @@ if ($hour < 12) {
                                 </li>
                             @endcan
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('order.concerns') }}"> Order Concerns </a>
+                                <a class="nav-link" href="{{ route('order.concerns') }}"> Order Concerns View </a>
                             </li>
                         </ul>
                     </div>
                 </li>
                 @endrole
-                @hasanyrole('super_admin|planning_manager|cs_manager|planning_coordinator|cs_coordinator')
+                @can('planning_scanning')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('planning.scan.view') }}">
+                            {!! trans('dashboard.scanOrder') !!}
+                        </a>
+                    </li>
+                @endcan
+                @hasanyrole('super_admin|planning_manager|planning_coordinator')
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="collapse" href="#planning" aria-expanded="false"
                        aria-controls="auth">
@@ -220,16 +230,21 @@ if ($hour < 12) {
                                 <a class="nav-link" href="{{ route('planning.index') }}"> Order Planning </a>
                             </li>
                             @endrole
-                            @can('planning_scanning')
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('planning.scan.view') }}"> Scanning orders </a>
-                                </li>
-                            @endcan
                         </ul>
                     </div>
                 </li>
                 @endrole
-                @hasanyrole('super_admin|production_manager|production_coordinator|planning_manager|planning_coordinator')
+                @can('production_scanning')
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('manufacturing.scan.view') }}">
+                        <i class="menu-icon typcn typcn-document-text"></i>
+                        <span class="menu-title">
+                            {!! trans('dashboard.scanOrder') !!}
+                        </span>
+                    </a>
+                </li>
+                @endcan
+                @hasanyrole('super_admin|production_manager|production_coordinator')
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="collapse" href="#manufacturing" aria-expanded="false"
                        aria-controls="auth">
@@ -239,65 +254,40 @@ if ($hour < 12) {
                     </a>
                     <div class="collapse" id="manufacturing">
                         <ul class="nav flex-column sub-menu">
-                            @can('production_scanning')
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('manufacturing.scan.view') }}"> Scanning
-                                        orders </a>
-                                </li>
-                            @endcan
                             @can('material_request_handling')
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('request.index') }}"> Material request </a>
+                                    <a class="nav-link" href="{{ route('request.index') }}"> Material Request </a>
                                 </li>
                             @endcan
+                            @role('super_admin|production_manager')
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('concerns.index') }}"> Order Concerns </a>
+                                <a class="nav-link" href="{{ route('smart_production.index') }}"> Smart Production </a>
                             </li>
+                            @endrole
                         </ul>
                     </div>
                 </li>
                 @endrole
-                @hasanyrole('super_admin|production_manager|production_coordinator')
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#qa" aria-expanded="false" aria-controls="auth">
-                        <i class="menu-icon typcn typcn-document-add"></i>
-                        <span class="menu-title">{!! trans('dashboard.qaManagement') !!}</span>
-                        <i class="menu-arrow"></i>
-                    </a>
-                    <div class="collapse" id="qa">
-                        <ul class="nav flex-column sub-menu">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('qa.scan.view') }}"> {!! trans('dashboard.scanOrder') !!} </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                @endrole
-                @hasanyrole('super_admin|dispatch_manager|dispatch_coordinator|qa_manager|qa_coordinator')
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#dispatch" aria-expanded="false"
-                       aria-controls="auth">
-                        <i class="menu-icon typcn typcn-document-add"></i>
-                        <span class="menu-title">Dispatch Management</span>
-                        <i class="menu-arrow"></i>
-                    </a>
-                    <div class="collapse" id="dispatch">
-                        <ul class="nav flex-column sub-menu">
-                            @can('dispatch_scanning')
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('dispatch.scan.view') }}"> Scanning orders </a>
-                                </li>
-                            @endcan
-                            @can('dispatch_done_scanning')
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('dispatch.scandoneview') }}"> Scanning done
-                                        orders </a>
-                                </li>
-                            @endcan
-                        </ul>
-                    </div>
-                </li>
-                @endrole
+                @can('qa_scanning')
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="{{ route('qa.scan.view') }}"> {!! trans('dashboard.scanOrder') !!} </a>
+                    </li>
+                @endcan
+                @can('dispatch_scanning')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('dispatch.scan.view') }}">
+                            {!! trans('dashboard.scanOrder') !!}
+                        </a>
+                    </li>
+                @endcan
+                @can('dispatch_done_scanning')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('dispatch.scandoneview') }}">
+                            {!! trans('dashboard.scanOrder') !!}
+                        </a>
+                    </li>
+                @endcan
                 @role('super_admin|cs_manager|cs_coordinator')
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="collapse" href="#customer" aria-expanded="false"
@@ -310,17 +300,22 @@ if ($hour < 12) {
                         <ul class="nav flex-column sub-menu">
                             @can('customer_handling')
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('customer.index') }}"> Customer registration </a>
+                                    <a class="nav-link" href="{{ route('customer.index') }}"> Customer Registration </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('customer-profile-request.index') }}"> Customer Requests </a>
+                                    <a class="nav-link" href="{{ route('customer-profile-request.index') }}"> Profile
+                                        Change Requests </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('new_customer.index') }}"> New Customer
+                                        Requests</a>
                                 </li>
                             @endcan
                         </ul>
                     </div>
                 </li>
                 @endrole
-                @role('super_admin|store_manager|store_coordinator|production_manager|production_coordinator')
+                @role('super_admin|store_manager|store_coordinator')
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="collapse" href="#store" aria-expanded="false" aria-controls="auth">
                         <i class="menu-icon typcn typcn-document-add"></i>
@@ -347,6 +342,11 @@ if ($hour < 12) {
                             @can('logs_handling')
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('log.index') }}"> MRN handling </a>
+                                </li>
+                            @endcan
+                            @can('material_handling')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('material-transactions.index') }}"> Material Transactions </a>
                                 </li>
                             @endcan
                         </ul>

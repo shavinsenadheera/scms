@@ -15,7 +15,7 @@
 </head>
 <body>
 
-<div class="container-scroller">
+<div class="container-scroller" style="background: url(/assets/images/myImages/welcome.png)">
     <div class="container-fluid page-body-wrapper full-page-wrapper">
         <div class="content-wrapper d-flex align-items-center auth auth-bg-1 theme-one">
             <div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 justify-content-center text-center">

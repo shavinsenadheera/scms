@@ -36,7 +36,7 @@
                         </div>
                         <div class="card-body">
                             <div class="form-row">
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group{{ $errors->has('name') ? 'has-error' : '' }}">
                                         <label for="name">{{ __('customer.name') }} *</label>
                                         <input
@@ -50,7 +50,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group{{ $errors->has('email') ? 'has-error' : '' }}">
                                         <label for="description">{{ __('customer.email') }} *</label>
                                         <input
@@ -60,6 +60,22 @@
                                             placeholder="Customer email"
                                             value="{{ $customerProfileRequest->email }}" required disabled>
                                         @error('email')
+                                        <p class="text-small text-danger">{{ $errors->first() }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group{{ $errors->has('industry') ? 'has-error' : '' }}">
+                                        <label for="cities_id">{{ __('customer.industry') }} *</label>
+                                        <select
+                                            class="form-control {{in_array('industry', $changes) ? 'bg-warning' : ''}}"
+                                            name="industry" id="industry"
+                                            data-live-search="true" disabled>
+                                            @foreach($industries as $industry)
+                                                <option {{$industry->id==$customerProfileRequest->industry ? 'selected' : ''}} value="{{$industry->id}}">{{$industry->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('industry')
                                         <p class="text-small text-danger">{{ $errors->first() }}</p>
                                         @enderror
                                     </div>

@@ -33,6 +33,20 @@
                                 <p class="text-small text-danger">{{ $errors->first() }}</p>
                                 @enderror
                             </div>
+                            <div class="form-group{{ $errors->has('height') ? 'has-error' : ''}}">
+                                <label for="width">{{ __('labelsize.width') }} *</label>
+                                <input type="text" class="form-control" name="width" id="width" placeholder="Enter size width" value="{{ $labelsize->width }}" required>
+                                @error('width')
+                                <p class="text-small text-danger">{{ $errors->first() }}</p>
+                                @enderror
+                            </div>
+                            <div class="form-group{{ $errors->has('height') ? 'has-error' : ''}}">
+                                <label for="height">{{ __('labelsize.height') }} *</label>
+                                <input type="text" class="form-control" name="height" id="height" placeholder="Enter size height" value="{{ $labelsize->height }}" required>
+                                @error('height')
+                                <p class="text-small text-danger">{{ $errors->first() }}</p>
+                                @enderror
+                            </div>
                             <button type="submit" class="btn btn-success mr-2">
                                 <i class="mdi mdi-content-save"></i>{{ __('general.form.save_changes') }}
                             </button>

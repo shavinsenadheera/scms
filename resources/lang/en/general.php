@@ -65,6 +65,7 @@
                 'customer_create'       => 'Customer create',
                 'customer_edit'         => 'Customer edit',
                 'customer_delete'       => 'Customer delete',
+                'new_customer_requests' => 'New Customer Requests',
             ],
             'customer-request' =>[
                 'customer_handling'     => 'Customer request handling',
@@ -148,7 +149,8 @@
             'production'  =>[
                 'production_scan'       => 'Production order scan',
                 'material_request'      => 'Material request',
-                'order_concerns'        => 'Order Concerns'
+                'order_concerns'        => 'Order Concerns',
+                'smart_production_dashboard'        => 'Smart Production Dashboard'
             ],
             'qa'  =>[
                 'qa_scan'               => 'QA order scan',

@@ -52,6 +52,10 @@
                             </select>
                         </div>
                         <div class="form-group">
+                            <label for="threshold">{{__('material.index.threshold')}}</label>
+                            <input type="number" name="threshold" id="threshold" class="form-control" min="1" required />
+                        </div>
+                        <div class="form-group">
                             <label for="suppliers_id">{{__('material.index.supplier')}}</label>
                             <select name="suppliers_id" id="suppliers_id" class="form-control" required>
                                 <option selected disabled value="">{{ __('general.form.selector.disabled_option') }}</option>
@@ -113,6 +117,7 @@
                     <th>Mat. name</th>
                     <th>Metric</th>
                     <th>Sup. name</th>
+                    <th>Threshold</th>
                     <th>Current count</th>
                 </tr>
                 </thead>
@@ -140,41 +145,10 @@
                         <td>{{ $data->name  }}</td>
                         <td>{{ $data->metrics->name  }}</td>
                         <td>{{ $data->suppliers->name  }}</td>
-                        <td class="{{ $data->current_count ? 'bg-primary' : 'bg-danger' }} text-white">
-                            {{ $data->current_count ? $data->current_count : 0 }} {{ $data->metrics->code }}
+                        <td>{{ $data->threshold  }}</td>
+                        <td class="{{ $data->current_count ? $data->current_count < $data->threshold ? 'bg-warning' : 'bg-primary' : 'bg-danger' }} text-white">
+                            {{ $data->current_count ? ($data->current_count < $data->threshold) ? 'Out of Stock ('. $data->current_count.''.$data->metrics->code.')' : $data->current_count.' '.$data->metrics->code : '0 '.$data->metrics->code }}
                         </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="card mt-5">
-        <div class="card-header p-3">
-            Latest Order Transactions
-        </div>
-        <div class="card-body p-3">
-            <table class="table table-striped" id="datatable-2">
-                <thead>
-                <tr>
-                    <th>Mat. name</th>
-                    <th>Sup. name</th>
-                    <th>Tot. count</th>
-                    <th>Price/Item</th>
-                    <th>Total Price</th>
-                    <th><i class="fa fa-clock-o"></i></th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($mtransactions as $data)
-                    <tr>
-                        <td>{{ $data->materials->name  }}</td>
-                        <td>{{ $data->materials->suppliers->name  }}</td>
-                        <td>{{ $data->total_count  }} {{ $data->materials->metrics->code  }}</td>
-                        <td>{{ $data->item_price  }}/{{ $data->materials->metrics->code  }}</td>
-                        <td>{{ $data->total_price  }} {{ $data->materials->metrics->code  }}</td>
-                        <td>{{ $data->created_at  }}</td>
                     </tr>
                 @endforeach
                 </tbody>
