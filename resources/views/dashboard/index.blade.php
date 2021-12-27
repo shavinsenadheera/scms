@@ -146,6 +146,39 @@
                     <div class="class-body">
                         <div class="row">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <form class="form-inline"  action="{{route('dashboard.index')}}">
+                                            @csrf
+                                            <div class="form-group mr-3">
+                                                <label for="fromDate" class="mr-3">From Date</label>
+                                                <input
+                                                    type="date"
+                                                    name="fromDate"
+                                                    id="fromDate"
+                                                    class="form-control"
+                                                    value="@isset($_GET['fromDate']) {{$_GET['fromDate']}} @endisset"
+                                                />
+                                            </div>
+                                            <div class="form-group mr-3">
+                                                <label for="toDate" class="mr-3">To Date</label>
+                                                <input
+                                                    type="date"
+                                                    name="toDate"
+                                                    id="toDate"
+                                                    class="form-control"
+                                                    value="@isset($_GET['toDate']) {{$_GET['toDate']}} @endisset"
+                                                />
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="btn-group">
+                                                    <button type="submit" name="beginAnalysis" class="btn btn-primary">Begin Analysis</button>
+                                                    <button type="submit" name="generateReport" class="btn btn-danger"><i class="fa fa-file-pdf-o"></i>Generate Report</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                                 <div id="orderscomparison"></div>
                             </div>
                         </div>

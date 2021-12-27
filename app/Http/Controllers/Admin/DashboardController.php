@@ -14,19 +14,34 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class DashboardController extends Controller{
     public $title = "Dashboard";
 
-    public function index(){
+    public function index(Request $request){
         try {
             $usersCount = User::all()->count();
             $employeeCount = Employee::all()->count();
             $onlineUsers = User::where('is_online', '=', 1)->count();
             $errorCount = Error::all()->count();
-            $ordersDateTotal = Order::selectRaw('order_date,count(*) as totalCount')
-                ->groupBy('order_date')
-                ->get();
+            if($request->fromDate && $request->toDate){
+                $ordersDateTotal = Order::selectRaw('order_date,count(*) as totalCount')
+                    ->groupBy('order_date')
+                    ->whereBetween('order_date', [$request->fromDate, $request->toDate])
+                    ->get();
+            }else{
+                $ordersDateTotal = Order::selectRaw('order_date,count(*) as totalCount')
+                    ->groupBy('order_date')
+                    ->get();
+            }
+            if(isset($_GET['generateReport'])){
+                $fromDate = $request->fromDate ? $request->fromDate : date('Y-m-d', time() - 60 * 60 * 24);
+                $toDate = $request->toDate ? $request->toDate : date('Y-m-d');
+                $ordersDateTotalReport = Order::all()->whereBetween('order_date', [$fromDate, $toDate]);
+                $pdf = PDF::loadView('reports.pdf.orderDetailsByDate', compact('ordersDateTotalReport', 'fromDate', 'toDate'))->setPaper('a4', 'portrait');
+                return $pdf->download('order-details.pdf');
+            }
             $jobsCustomerTotal = Order::selectRaw('customer_id,count(*) as totalCount')
                 ->groupBy('customer_id')
                 ->get();
