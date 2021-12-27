@@ -172,7 +172,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <div class="btn-group">
-                                                    <button type="submit" name="beginAnalysis" class="btn btn-primary">Begin Analysis</button>
+                                                    <button type="submit" name="beginAnalysis" class="btn btn-primary">Start Analysis</button>
                                                     <button type="submit" name="generateReport" class="btn btn-danger"><i class="fa fa-file-pdf-o"></i>Generate Report</button>
                                                 </div>
                                             </div>

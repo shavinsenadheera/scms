@@ -37,4 +37,6 @@ Route::group(['namespace'=>'App\Http\Controllers\Api\Customer'], function(){
     Route::PUT('customer/password/{id}/update','CustomerInfoController@changePassword')->name('customer.update.password');    //Customer Update info
     //
     Route::get('customer/concerns/{id}','OrderController@getConcerns')->name('customer.concerns');
+    //Industries
+    Route::get('industries','IndustryController@index')->name('industry.index');
 });
