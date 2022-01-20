@@ -5,8 +5,7 @@ namespace App\Models\Customer;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Customer extends Model
-{
+class Customer extends Model {
     use HasFactory;
     protected $table = 'customer';
     protected $hidden = ['password'];

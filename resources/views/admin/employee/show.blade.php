@@ -67,7 +67,7 @@
                             <button type="submit" class="btn btn-success mr-2">
                                 <i class="mdi mdi-content-save"></i>{{ __('general.form.save_changes') }}
                             </button>
-                            <a class="btn btn-light" href="{{ route('designation.index') }}">{{ __('general.form.back') }}</a>
+                            <a class="btn btn-light" href="{{ route('employee.index') }}">{{ __('general.form.back') }}</a>
                         </form>
                     </div>
                 </div>

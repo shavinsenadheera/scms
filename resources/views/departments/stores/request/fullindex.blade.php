@@ -23,31 +23,31 @@
                         <table class="table table-striped" id="datatable-1">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Employee name</th>
                                     <th>Material name</th>
                                     <th>Request count</th>
                                     <th>Request time</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
                             @foreach($mrlogs as $data)
                                 <tr>
-                                    <td>{{ $data->id }}</td>
                                     <td>{{ $data->users->name }}</td>
                                     <td>{{ $data->materials->name }}</td>
                                     <td>{{ $data->request_count }} {{ $data->materials->metrics->code }}</td>
                                     <td>{{ $data->created_at }}</td>
+                                    <td class="{{$data->status==1 ? 'bg-success' : 'bg-warning'}} text-white">{{ $data->status==1 ? 'Accepted' : 'Pending'}}</td>
                                 </tr>
                             @endforeach
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Employee name</th>
                                     <th>Material name</th>
                                     <th>Request count</th>
                                     <th>Request time</th>
+                                    <th>Status</th>
                                 </tr>
                             </tfoot>
                         </table>

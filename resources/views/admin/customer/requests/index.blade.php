@@ -20,10 +20,10 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">{{ __('customer.customer_details') }}</h4>
-                        <div class="card-description">
+                        <p>Sort By Status</p>
+                        <div class="card-description form-inline">
                             <form action="{{route('customer-profile-request.index')}}" method="GET">
                                 @csrf
-                                <label for="sort">Sort By Status</label>
                                 <select id="sort" class="form-control" name="sort">
                                     @foreach(Lang::get('customer-requests.status') as $status)
                                     <option {{$searchVal==$status['value'] ? 'selected' : ''}} value="{{$status['value']}}">{{$status['name']}}</option>

@@ -76,7 +76,7 @@
                                         <span hidden>{{ $nowdays = round($diffNowDate / (60 * 60 * 24)) }}</span>
                                         <td class="{{ $nowdays > 10 ? 'bg-success text-white' : 'bg-danger text-white' }}">
                                             <div class="progress">
-                                                <div class="progress-bar" role="progressbar" style="width: {{ ($nowdays/$origindays)*100 }}%" aria-valuenow="{{ $nowdays }}" aria-valuemin="0" aria-valuemax="{{ $origindays }}"><span style="font-size: 10px">{{ $nowdays }} days</span></div>
+                                                <div class="progress-bar" role="progressbar" style="width: {{ ($nowdays/$origindays)*100 }}%" aria-valuenow="{{ $nowdays < 0 ? 0 : $nowdays }}" aria-valuemin="0" aria-valuemax="{{ $origindays < 0 ? 0 : $origindays }}"><span style="font-size: 10px">{{ $nowdays < 0 ? 0 : $nowdays  }}</span></div>
                                             </div>
                                         </td>
                                         </form>

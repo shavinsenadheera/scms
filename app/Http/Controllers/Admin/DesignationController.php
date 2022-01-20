@@ -11,13 +11,11 @@ class DesignationController extends Controller
 {
     public $title = "Designation";
 
-    public function __construct()
-    {
+    public function __construct(){
         $this->middleware(['role:super_admin|it_admin','permission:designation_handling']);
     }
 
-    public function index()
-    {
+    public function index(){
         try
         {
             $designations = Designation::all();

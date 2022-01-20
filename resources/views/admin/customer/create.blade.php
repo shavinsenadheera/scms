@@ -69,7 +69,7 @@
                                     <div class="form-group @error('telephone_no') 'has-error' @enderror }}">
                                         <label for="telephone_no">{!! trans('customer.telephone_no') !!} *</label>
                                         <input type="text" class="form-control" id="telephone_no" name="telephone_no"
-                                               placeholder="Customer telephone no" value="@if(old('telephone_no')){{ old('telephone_no')}}@elseif($newCustomer){{$newCustomer->contactNo}}@endif" required>
+                                               placeholder="Customer telephone no" value="@if(old('telephone_no')){{old('telephone_no')}}@elseif($newCustomer){{$newCustomer->contactNo}}@endif" required>
                                         @error('telephone_no')
                                         <p class="text-small text-danger">{{ $message }}</p>
                                         @enderror
@@ -79,7 +79,7 @@
                                     <div class="form-group @error('telephone_land') 'has-error' @enderror">
                                         <label for="telephone_land">{!! trans('customer.telephone_land') !!}</label>
                                         <input type="text" class="form-control" id="telephone_land" name="telephone_land"
-                                               placeholder="Customer telephone land" value="@if(old('telephone_land')) {{ old('telephone_land') }} @endif" required>
+                                               placeholder="Customer telephone land" value="@if(old('telephone_land')) {{old('telephone_land')}}@endif" required>
                                         @error('telephone_land')
                                         <p class="text-small text-danger">{{ $message }}</p>
                                         @enderror
@@ -89,7 +89,7 @@
                                     <div class="form-group @error('telephone_fax') 'has-error' @enderror">
                                         <label for="telephone_fax">{!! trans('customer.telephone_fax') !!}</label>
                                         <input type="text" class="form-control" id="telephone_fax" name="telephone_fax"
-                                               placeholder="Customer telephone fax" value="@if(old('telephone_fax')) {{ old('telephone_land') }} @endif" required>
+                                               placeholder="Customer telephone fax" value="@if(old('telephone_fax')) {{old('telephone_land') }}@endif">
                                         @error('telephone_fax')
                                         <p class="text-small text-danger">{{ $message }}</p>
                                         @enderror

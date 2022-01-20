@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class RequestController extends Controller{
-    public $title = "MRN handling";
+    public $title = "MRN Handling";
 
     public function __construct(){
         $this->middleware(['role:super_admin|production_manager|production_coordinator','permission:material_request_handling']);

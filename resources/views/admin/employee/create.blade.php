@@ -6,7 +6,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#!">{{ __('general.breadcrumb.dashboard') }}</a></li>
-                        <li class="breadcrumb-item"><a href="#!">{{ __('general.breadcrumb.general_management') }}</a></li>
+                        <li class="breadcrumb-item"><a href="#!">{{ __('general.breadcrumb.user_management') }}</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('employee.index') }}">{{ __('general.breadcrumb.employee.employee_handling') }}</a></li>
                         <li class="breadcrumb-item active" aria-current="page">{{ __('general.breadcrumb.employee.employee_create') }}</li>
                     </ol>

@@ -22,7 +22,6 @@
                             <thead>
                             <tr>
                                 <th> {{ __('general.form.general.action') }}</th>
-                                <th> # </th>
                                 <th> {{ __('employee.epfno') }}</th>
                                 <th> {{ __('employee.name') }}</th>
                                 <th> {{ __('employee.contact_no') }}</th>
@@ -31,7 +30,6 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <span hidden>{{ $i=1 }}</span>
                             @if($employees)
                                 @foreach($employees as $data)
                                     <tr>
@@ -45,7 +43,6 @@
                                                 </a>
                                             </div>
                                         </td>
-                                        <td> {{ $i++ }} </td>
                                         <td> {{ $data->epfno }} </td>
                                         <td> {{ $data->name }} </td>
                                         <td> {{ $data->contact_no }} </td>
@@ -58,7 +55,6 @@
                             <tfoot>
                             <tr>
                                 <th> {{ __('general.form.general.action') }}</th>
-                                <th> # </th>
                                 <th> {{ __('employee.epfno') }}</th>
                                 <th> {{ __('employee.name') }}</th>
                                 <th> {{ __('employee.contact_no') }}</th>

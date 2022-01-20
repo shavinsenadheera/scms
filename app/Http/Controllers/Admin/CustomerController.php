@@ -28,7 +28,7 @@ class CustomerController extends Controller{
 
     public function index(){
         try {
-            $customers = Customer::select(['name', 'email', 'telephone_no', 'telephone_land', 'telephone_fax', 'admin_status'])->get();
+            $customers = Customer::select(['id', 'name', 'email', 'telephone_no', 'telephone_land', 'telephone_fax', 'admin_status'])->get();
             $params = ['customers' => $customers, 'title' => $this->title,];
             return view('admin.customer.index')->with($params);
         } catch(ModelNotFoundException $exception) {
@@ -52,9 +52,9 @@ class CustomerController extends Controller{
             $request->validate([
                 'name'              => 'required|unique:customer,name',
                 'email'             => 'required|unique:customer,email',
-                'telephone_no'      => 'required|regex:/(01)[0-9]{9}/',
-                'telephone_land'    => 'regex:/(01)[0-9]{9}/',
-                'telephone_fax'     => 'regex:/(01)[0-9]{9}/',
+                'telephone_no'      => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
+                'telephone_land'    => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
+                'telephone_fax'     => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
                 'address_line_1'    => 'required',
                 'cities_id'         => 'required',
                 'zipcode'           => 'required',
@@ -81,7 +81,6 @@ class CustomerController extends Controller{
             ];
             Mail::to($request->email)->cc('newcustomers@abctl.com')->send(new NewCustomerStatusAlert($details));
             return back()->with('success_msg', 'Successfully added new customer ' . $request->name);
-
         } catch (ModelNotFoundException $exception) {
             abort_if($exception instanceof ModelNotFoundException, '404');
         }
@@ -90,7 +89,7 @@ class CustomerController extends Controller{
     public function show($id){
         try {
             $customer = Customer::findOrFail(decrypt($id));
-            $params = ['customer' => $customer, 'admin_statuses' => $this->admin_statuses, 'title'     => $this->title,];
+            $params = ['customer' => $customer, 'admin_statuses' => $this->admin_statuses, 'title' => $this->title];
             return view('admin.customer.show')->with($params);
         } catch(ModelNotFoundException $exception) {
             abort_if($exception instanceof ModelNotFoundException, '404');
@@ -103,7 +102,7 @@ class CustomerController extends Controller{
             $name = $customer->name;
             $customer->admin_status = $request->admin_status;
             $customer->save();
-            return back()->with('success_msg', 'Successfully updated department ' . $name);
+            return back()->with('success_msg', 'Successfully updated customer ' . $name);
         } catch(ModelNotFoundException $exception) {
             abort_if($exception instanceof ModelNotFoundException, '404');
         }

@@ -7,17 +7,14 @@ use App\Models\Admin\LabelStyle;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
-class LabelStyleController extends Controller
-{
-    public $title = "Label styles";
+class LabelStyleController extends Controller{
+    public $title = "Label Styles";
 
-    public function __construct()
-    {
+    public function __construct(){
         $this->middleware(['role:super_admin','permission:labelstyle_handling']);
     }
 
-    public function index()
-    {
+    public function index(){
         try {
             $labelstyles = LabelStyle::all();
             $params = [
@@ -32,8 +29,7 @@ class LabelStyleController extends Controller
         }
     }
 
-    public function create()
-    {
+    public function create(){
         try {
             $labelstyles = LabelStyle::all();
             $params = [
@@ -48,8 +44,7 @@ class LabelStyleController extends Controller
         }
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         try {
             $this->validate($request, [
                 'code' => 'required|unique:label_styles,code',
@@ -68,8 +63,7 @@ class LabelStyleController extends Controller
         }
     }
 
-    public function show($id)
-    {
+    public function show($id){
         try {
             $labelstyle = LabelStyle::findOrFail(decrypt($id));
             $params = [
@@ -84,8 +78,7 @@ class LabelStyleController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
         try {
             $labelstyle = LabelStyle::findOrFail(decrypt($id));
 
@@ -111,8 +104,7 @@ class LabelStyleController extends Controller
         }
     }
 
-    public function delete($id)
-    {
+    public function delete($id){
         $params = [
             'id'    => $id,
             'title' => $this->title,
@@ -120,8 +112,7 @@ class LabelStyleController extends Controller
         return view('admin.label.style.delete')->with($params);
     }
 
-    public function destroy($id)
-    {
+    public function destroy($id){
         try {
             $labelstyle = LabelStyle::findOrFail(decrypt($id));
             $name = $labelstyle->name;

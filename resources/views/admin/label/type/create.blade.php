@@ -5,7 +5,7 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#!">{{ __('general.breadcrumb.dashboard') }}</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">{{ __('general.breadcrumb.dashboard') }}</a></li>
                         <li class="breadcrumb-item"><a href="#!">{{ __('general.breadcrumb.label_management') }}</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('labeltype.index') }}">{{ __('general.breadcrumb.labeltype.labeltype_handling') }}</a></li>
                         <li class="breadcrumb-item active" aria-current="page">{{ __('general.breadcrumb.labeltype.labeltype_create') }}</li>

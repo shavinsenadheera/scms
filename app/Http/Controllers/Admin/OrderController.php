@@ -23,7 +23,7 @@ class OrderController extends Controller{
     public function index(){
         try {
             $orders = Order::all()
-                           ->where('current_status_id','!=',6)
+                           ->where('current_status_id','<',6)
                            ->sortByDesc('created_at');
             $done_orders = Order::all()
                                 ->where('current_status_id','=',6)

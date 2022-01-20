@@ -4,8 +4,8 @@
         <div class="row">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#!">{{ __('general.breadcrumb.dashboard') }}</a></li>
-                    <li class="breadcrumb-item"><a href="#!">{{ __('general.breadcrumb.general_management') }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">{{ __('general.breadcrumb.dashboard') }}</a></li>
+                    <li class="breadcrumb-item"><a href="#!">{{ __('general.breadcrumb.general_management')}}</a></li>
                     <li  class="breadcrumb-item active" aria-current="page">{{ __('general.breadcrumb.status.status_handling') }}</li>
                 </ol>
             </nav>

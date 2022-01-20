@@ -4,8 +4,8 @@
         <div class="row">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#!">{{ __('general.breadcrumb.dashboard') }}</a></li>
-                    <li class="breadcrumb-item"><a href="#!">{{ __('general.breadcrumb.general_management') }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">{{ __('general.breadcrumb.dashboard') }}</a></li>
+                    <li class="breadcrumb-item"><a href="#!">{{ __('general.breadcrumb.general_management')}}</a></li>
                     <li class="breadcrumb-item active"
                         aria-current="page">{{ __('general.breadcrumb.prioritytype.prioritytype_handling') }}</li>
                 </ol>
@@ -23,7 +23,6 @@
                             <thead>
                             <tr>
                                 <th> {{ __('general.form.general.action') }} </th>
-                                <th> #</th>
                                 <th> {{ __('prioritytype.code') }}</th>
                                 <th> {{ __('prioritytype.name') }}</th>
                             </tr>
@@ -31,13 +30,11 @@
                             <tfoot>
                             <tr>
                                 <th> {{ __('general.form.general.action') }} </th>
-                                <th> #</th>
                                 <th> {{ __('prioritytype.code') }}</th>
                                 <th> {{ __('prioritytype.name') }}</th>
                             </tr>
                             </tfoot>
                             <tbody>
-                            <span hidden>{{ $i=1 }}</span>
                             @if($prioritytypes)
                                 @foreach($prioritytypes as $data)
                                     <tr>
@@ -57,7 +54,6 @@
                                                 @endcan
                                             </div>
                                         </td>
-                                        <td> {{ $i++ }} </td>
                                         <td> {{ $data->code }} </td>
                                         <td> {{ $data->name }} </td>
                                     </tr>

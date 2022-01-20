@@ -390,6 +390,7 @@ if ($hour < 12) {
         </nav>
 
         <div class="main-panel">
+            @yield('head-content')
             <div class="content-wrapper">
                 @yield('content')
                 <script>

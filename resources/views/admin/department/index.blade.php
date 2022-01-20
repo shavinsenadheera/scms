@@ -4,8 +4,8 @@
         <div class="row">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#!">{{ __('general.breadcrumb.dashboard') }}</a></li>
-                    <li class="breadcrumb-item"><a href="#!">{{ __('general.breadcrumb.general_management') }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">{{ __('general.breadcrumb.dashboard') }}</a></li>
+                    <li class="breadcrumb-item"><a href="#!">{{ __('general.breadcrumb.general_management')}}</a></li>
                     <li  class="breadcrumb-item active" aria-current="page">{{ __('general.breadcrumb.department.department_handling') }}</li>
                 </ol>
             </nav>
@@ -22,14 +22,12 @@
                             <thead>
                             <tr>
                                 <th> {{ __('general.form.general.action') }}</th>
-                                <th> # </th>
                                 <th> {{ __('department.code') }}</th>
                                 <th> {{ __('department.name') }}</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <span hidden>{{ $i=1 }}</span>
-                            @if($departments)
+                            @if(count($departments) > 0)
                                 @foreach($departments as $data)
                                     <tr>
                                         <td>
@@ -42,7 +40,6 @@
                                                 </a>
                                             </div>
                                         </td>
-                                        <td> {{ $i++ }} </td>
                                         <td> {{ $data->code }} </td>
                                         <td> {{ $data->name }} </td>
                                     </tr>
@@ -52,7 +49,6 @@
                             <tfoot>
                             <tr>
                                 <th> {{ __('general.form.general.action') }}</th>
-                                <th> # </th>
                                 <th> {{ __('department.code') }}</th>
                                 <th> {{ __('department.name') }}</th>
                             </tr>

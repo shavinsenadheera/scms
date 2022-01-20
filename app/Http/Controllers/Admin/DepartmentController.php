@@ -8,65 +8,51 @@ use App\Models\Admin\Employee;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
-class DepartmentController extends Controller
-{
+class DepartmentController extends Controller{
     public $title = "Departments";
 
-    public function __construct()
-    {
+    public function __construct(){
         $this->middleware(['role:super_admin|it_admin','permission:department_handling']);
     }
 
-    public function index()
-    {
-        try
-        {
+    public function index(){
+        try {
             $departments = Department::all();
             $params = [
                 'departments' => $departments,
                 'title' => $this->title,
             ];
             return view('admin.department.index')->with($params);
-        }
-        catch (ModelNotFoundException $ex)
-        {
-            if ($ex instanceof ModelNotFoundException)
-            {
+        } catch (ModelNotFoundException $ex) {
+            if ($ex instanceof ModelNotFoundException) {
                 return response()->view('errors.'.'404');
             }
         }
     }
 
-    public function store(Request $request)
-    {
-        try
-        {
+    public function store(Request $request){
+        try {
             $this->validate($request, [
                 'code' => 'required|unique:department,code',
                 'name' => 'required|unique:department,name',
                 'departmenthead_id' => 'required',
             ]);
-            $department = new Department();
             $name = $request->name;
+            $department = new Department();
             $department->code = $request->code;
             $department->name = $name;
             $department->departmenthead_id = $request->departmenthead_id;
             $department->save();
             return back()->with('success_msg', 'Successfully added new department ' . $name);
-        }
-        catch (ModelNotFoundException $ex)
-        {
-            if ($ex instanceof ModelNotFoundException)
-            {
+        } catch (ModelNotFoundException $ex) {
+            if ($ex instanceof ModelNotFoundException) {
                 return response()->view('errors.'.'404');
             }
         }
     }
 
-    public function show($id)
-    {
-        try
-        {
+    public function show($id){
+        try {
             $department = Department::findOrFail(decrypt($id));
             $employees = Employee::all();
             $params = [
@@ -75,30 +61,22 @@ class DepartmentController extends Controller
                 'title'     => $this->title,
             ];
             return view('admin.department.show')->with($params);
-        }
-        catch (ModelNotFoundException $ex)
-        {
-            if ($ex instanceof ModelNotFoundException)
-            {
+        } catch (ModelNotFoundException $ex) {
+            if ($ex instanceof ModelNotFoundException) {
                 return response()->view('errors.'.'404');
             }
         }
     }
 
-    public function update(Request $request, $id)
-    {
-        try
-        {
+    public function update(Request $request, $id){
+        try {
             $department = Department::findOrFail($id);
-
-            if ($department->code != $request->code or !$request->code)
-            {
+            if ($department->code != $request->code or !$request->code) {
                 $this->validate($request, [
                     'code' => 'required|unique:department,code'
                 ]);
             }
-            if ($department->name != $request->name or !$request->name)
-            {
+            if ($department->name != $request->name or !$request->name) {
                 $this->validate($request, [
                     'name' => 'required|unique:department,name'
                 ]);
@@ -112,18 +90,14 @@ class DepartmentController extends Controller
             $department->departmenthead_id = $request->departmenthead_id;
             $department->save();
             return back()->with('success_msg', 'Successfully updated department ' . $name);
-        }
-        catch (ModelNotFoundException $ex)
-        {
-            if ($ex instanceof ModelNotFoundException)
-            {
+        } catch (ModelNotFoundException $ex) {
+            if ($ex instanceof ModelNotFoundException) {
                 return response()->view('errors.'.'404');
             }
         }
     }
 
-    public function delete($id)
-    {
+    public function delete($id){
         $params = [
             'id'    => decrypt($id),
             'title' => $this->title,
@@ -131,39 +105,29 @@ class DepartmentController extends Controller
         return view('admin.department.delete')->with($params);
     }
 
-    public function destroy($id)
-    {
-        try
-        {
+    public function destroy($id){
+        try {
             $department = Department::findOrFail($id);
             $name = $department->name;
             $department->delete();
             return redirect()->route('department.index')->with('success_msg', 'Successfully deleted department ' . $name);
-        }
-        catch (ModelNotFoundException $ex)
-        {
-            if ($ex instanceof ModelNotFoundException)
-            {
+        } catch (ModelNotFoundException $ex) {
+            if ($ex instanceof ModelNotFoundException) {
                 return response()->view('errors.'.'404');
             }
         }
     }
 
-    public function create()
-    {
-        try
-        {
+    public function create(){
+        try {
             $employees = Employee::all();
             $params = [
                 'employees' => $employees,
-                'title' => $this->title,
+                'title' => $this->title
             ];
             return view('admin.department.create')->with($params);
-        }
-        catch (ModelNotFoundException $ex)
-        {
-            if ($ex instanceof ModelNotFoundException)
-            {
+        } catch (ModelNotFoundException $ex) {
+            if ($ex instanceof ModelNotFoundException) {
                 return response()->view('errors.'.'404');
             }
         }

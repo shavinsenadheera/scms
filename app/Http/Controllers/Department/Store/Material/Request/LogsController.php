@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Admin\MRLogs;
 
 class LogsController extends Controller{
-    public $title = "Logs";
+    public $title = "MRN Logs";
 
     public function __construct(){
         $this->middleware(['role:super_admin|store_manager|store_coordinator|production_manager|production_coordinator','permission:logs_handling']);
@@ -32,7 +32,7 @@ class LogsController extends Controller{
 
     public function fullIndex(){
         try {
-            $mrlogs = MRLogs::all();
+            $mrlogs = MRLogs::orderBy('status')->get();
             $params = [
                 'mrlogs' => $mrlogs,
                 'title'  => $this->title,
