@@ -219,7 +219,7 @@ class DashboardController extends Controller{
                     $cLargeLabelCount = $cLargeLabelQuantity * ($data->width * $data->height);
                 }
             }
-            $stickerTotalCount = ($stSmallLabelQuantity + $stMediumLabelQuantity + $stLargeLabelQuantity) / 1000;
+            $stickerTotalCount = ($stSmallLabelCount + $stMediumLabelCount + $stLargeLabelCount) / 1000;
             $wovenTotalCount = ($wovSmallLabelCount + $wovMediumLabelCount + $wovLargeLabelCount) / 1000;
             $careTotalCount = ($cSmallLabelCount + $cMediumLabelCount + $cLargeLabelCount) / 1000;
             $totalRibbonCount = ($smallRibbonsCount + $mediumRibbonsCount + $largeRibbonsCount) / 1000;
@@ -246,7 +246,6 @@ class DashboardController extends Controller{
                                 $processingLargeQty += json_decode($ribbon->quantity)[$i];
                         }
                     }
-                    // TODO
                 }
             }
             $processingTotalQty = $processingSmallQty + $processingMediumQty + $processingLargeQty;

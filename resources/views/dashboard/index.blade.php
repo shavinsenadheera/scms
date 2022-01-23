@@ -74,21 +74,24 @@
                             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                                 <div class="card bg-transparent text-center text-white p-0">
                                     <div class="card-header p-3 bg-success font-weight-bold">
-                                        <i class="fa fa-toggle-on"></i> Online users @isset($onlineUsers) {{$onlineUsers}} @endisset
+                                        <i class="fa fa-toggle-on"></i> Online
+                                        users @isset($onlineUsers) {{$onlineUsers}} @endisset
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                                 <div class="card bg-transparent text-center text-white p-0">
                                     <div class="card-header p-3 bg-primary font-weight-bold">
-                                        <i class="fa fa-users"></i> Users @isset($usersCount) {{ $usersCount }} @endisset
+                                        <i class="fa fa-users"></i>
+                                        Users @isset($usersCount) {{ $usersCount }} @endisset
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                                 <div class="card bg-transparent text-center text-white p-0">
                                     <div class="card-header p-3 bg-primary font-weight-bold">
-                                        <i class="fa fa-users"></i> Employee @isset($employeeCount) {{ $employeeCount }} @endisset
+                                        <i class="fa fa-users"></i>
+                                        Employee @isset($employeeCount) {{ $employeeCount }} @endisset
                                     </div>
                                 </div>
                             </div>
@@ -104,7 +107,8 @@
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                                 <div class="card bg-transparent text-center text-white p-0">
                                     <div class="card-header p-3 bg-danger font-weight-bold">
-                                        <i class="fa fa-exclamation-triangle"></i> Error counts @isset($errorCount) {{ $errorCount }} @endisset
+                                        <i class="fa fa-exclamation-triangle"></i> Error
+                                        counts @isset($errorCount) {{ $errorCount }} @endisset
                                     </div>
                                 </div>
                             </div>
@@ -122,22 +126,6 @@
                     </div>
                 </div>
                 @endhasanyrole
-                @hasanyrole('cs_manager|cs_coordinator')
-                <div class="card bg-transparent mb-3">
-                    <div class="card-header p-2 font-weight-bold">
-                        <i class="mdi mdi-link"></i> Quick links
-                    </div>
-                    <div class="ql-cards">
-                        <x-common.quick-link-card1
-                            cardNo="3"
-                            faIcon="bolt"
-                            title="Scan Now"
-                            routeName="planning.scan.view"
-                            linkName="Go Now"
-                        ></x-common.quick-link-card1>
-                    </div>
-                </div>
-                @endhasanyrole
                 @role('cs_manager')
                 <div class="card">
                     <div class="card-header p-2">
@@ -148,7 +136,7 @@
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <form class="form-inline"  action="{{route('dashboard.index')}}">
+                                        <form class="form-inline" action="{{route('dashboard.index')}}">
                                             @csrf
                                             <div class="form-group mr-3">
                                                 <label for="fromDate" class="mr-3">From Date</label>
@@ -172,8 +160,12 @@
                                             </div>
                                             <div class="form-group">
                                                 <div class="btn-group">
-                                                    <button type="submit" name="beginAnalysis" class="btn btn-primary">Start Analysis</button>
-                                                    <button type="submit" name="generateReport" class="btn btn-danger"><i class="fa fa-file-pdf-o"></i>Generate Report</button>
+                                                    <button type="submit" name="beginAnalysis" class="btn btn-primary">
+                                                        Start Analysis
+                                                    </button>
+                                                    <button type="submit" name="generateReport" class="btn btn-danger">
+                                                        <i class="fa fa-file-pdf-o"></i>Generate Report
+                                                    </button>
                                                 </div>
                                             </div>
                                         </form>
@@ -344,7 +336,8 @@
                             @if($material->current_count < $material->threshold)
                                 <div class="alert alert-danger" role="alert">
                                     <i class="fa fa-warning"></i> Attention to the threshold of material count!
-                                    <a href="{{route('material.show', encrypt($material->id))}}" class="alert-link">{{$material->name}}</a>.
+                                    <a href="{{route('material.show', encrypt($material->id))}}"
+                                       class="alert-link">{{$material->name}}</a>.
                                 </div>
                             @endif
                         @endforeach
@@ -566,17 +559,11 @@
                             routeName="smart_production.index"
                             linkName="Go Now"
                         ></x-common.quick-link-card1>
-                        <x-common.quick-link-card1
-                            cardNo="3"
-                            faIcon="bolt"
-                            title="Scan Now"
-                            routeName="qa.scan.view"
-                            linkName="Go Now"
-                        ></x-common.quick-link-card1>
                     </div>
                 </div>
                 @endhasanyrole
-                @hasanyrole('planning_manager|planning_coordinator')
+
+                @hasanyrole('scanning_point_production')
                 <div class="card bg-transparent mb-3">
                     <div class="card-header p-2 font-weight-bold">
                         <i class="mdi mdi-link"></i> Quick links
@@ -592,7 +579,40 @@
                     </div>
                 </div>
                 @endhasanyrole
-                @hasanyrole('qa_manager|qa_coordinator')
+
+                @hasanyrole('scanning_point_planning')
+                <div class="card bg-transparent mb-3">
+                    <div class="card-header p-2 font-weight-bold">
+                        <i class="mdi mdi-link"></i> Quick links
+                    </div>
+                    <div class="ql-cards">
+                        <x-common.quick-link-card1
+                            cardNo="3"
+                            faIcon="bolt"
+                            title="Scan Now"
+                            routeName="planning.scan.view"
+                            linkName="Go Now"
+                        ></x-common.quick-link-card1>
+                    </div>
+                </div>
+                @endhasanyrole
+                @hasanyrole('scanning_point_qa')
+                <div class="card bg-transparent mb-3">
+                    <div class="card-header p-2 font-weight-bold">
+                        <i class="mdi mdi-link"></i> Quick links
+                    </div>
+                    <div class="ql-cards">
+                        <x-common.quick-link-card1
+                            cardNo="3"
+                            faIcon="bolt"
+                            title="Scan Now"
+                            routeName="qa.scan.view"
+                            linkName="Go Now"
+                        ></x-common.quick-link-card1>
+                    </div>
+                </div>
+                @endhasanyrole
+                @hasanyrole('scanning_point_dispatch')
                 <div class="card bg-transparent mb-3">
                     <div class="card-header p-2 font-weight-bold">
                         <i class="mdi mdi-link"></i> Quick links
@@ -605,10 +625,17 @@
                             routeName="dispatch.scan.view"
                             linkName="Go Now"
                         ></x-common.quick-link-card1>
+                        <x-common.quick-link-card1
+                            cardNo="3"
+                            faIcon="bolt"
+                            title="Scan Now (Delivered)"
+                            routeName="dispatch.scandoneview"
+                            linkName="Go Now"
+                        ></x-common.quick-link-card1>
                     </div>
                 </div>
                 @endhasanyrole
-                @hasanyrole('dispatch_manager|dispatch_coordinator')
+                @hasanyrole('planning_coordinator|planning_manager')
                 <div class="card bg-transparent mb-3">
                     <div class="card-header p-2 font-weight-bold">
                         <i class="mdi mdi-link"></i> Quick links
@@ -617,8 +644,8 @@
                         <x-common.quick-link-card1
                             cardNo="3"
                             faIcon="bolt"
-                            title="Scan Now"
-                            routeName="dispatch.scandoneview"
+                            title="Planning Board"
+                            routeName="planning.board"
                             linkName="Go Now"
                         ></x-common.quick-link-card1>
                     </div>
@@ -634,51 +661,51 @@
     <script type="text/javascript" src="{{ asset('assets/highcharts/export-data.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/highcharts/exporting.js') }}"></script>
     @isset($dateTotalCount)
-    <script type="text/javascript">
-        var dateTotalCount = <?php echo json_encode($dateTotalCount) ?>;
-        var dateOrders = <?php echo json_encode($dateOrders) ?>;
-        Highcharts.chart('orderscomparison', {
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Total orders per day'
-            },
-            xAxis: {
-                categories: dateOrders,
-                crosshair: true
-            },
-            yAxis: {
-                min: 0,
+        <script type="text/javascript">
+            var dateTotalCount = <?php echo json_encode($dateTotalCount) ?>;
+            var dateOrders = <?php echo json_encode($dateOrders) ?>;
+            Highcharts.chart('orderscomparison', {
+                chart: {
+                    type: 'column'
+                },
                 title: {
-                    text: 'Order count'
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr>  ' +
-                    '               <td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    '               <td style="padding:0"><b>{point.y}</b></td>' +
-                    '         </tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            series: [{
-                name: 'Total orders',
-                data: dateTotalCount
+                    text: 'Total orders per day'
+                },
+                xAxis: {
+                    categories: dateOrders,
+                    crosshair: true
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Order count'
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '<tr>  ' +
+                        '               <td style="color:{series.color};padding:0">{series.name}: </td>' +
+                        '               <td style="padding:0"><b>{point.y}</b></td>' +
+                        '         </tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                series: [{
+                    name: 'Total orders',
+                    data: dateTotalCount
 
-            }],
-            colors: ['#064c7b']
-        });
-    </script>
-@endisset
+                }],
+                colors: ['#064c7b']
+            });
+        </script>
+    @endisset
     <script type="text/javascript">
         var mCustomerIds = <?php echo json_encode($mCustomerIds) ?>;
         var myProJobsCount = <?php echo json_encode($mTotalCount) ?>;

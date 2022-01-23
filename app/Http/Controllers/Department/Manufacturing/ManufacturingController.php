@@ -64,9 +64,9 @@ class ManufacturingController extends Controller
                         return response()->json(['success' => 'Successfully scanned the order!']);
                     }
                 } elseif ($order[0]->current_status_id == 2) {
-                    return response()->json(['orderno_invalid' => 'Order is not scanned at Planning!']);
+                    return response()->json(['orderno_invalid' => 'Order is not scanned by Planning!']);
                 } else {
-                    return response()->json(['orderno_invalid' => 'Order is not confirmed at Customer Service!']);
+                    return response()->json(['orderno_invalid' => 'Order is not confirmed by Customer Service!']);
                 }
             } else {
                 return response()->json(['orderno_invalid' => 'Order no is not valid!']);

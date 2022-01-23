@@ -19,7 +19,7 @@ class PlanningController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['role:super_admin|planning_coordinator|planning_manager|cs_manager|cs_coordinator']);
+        $this->middleware(['role:super_admin|planning_coordinator|planning_manager|scanning_point_planning']);
     }
 
     public function index()
@@ -128,9 +128,9 @@ class PlanningController extends Controller
                         $order_status->status_2 = 2;
                         $order_status->status_2_empid = $employee_id;
                         $order_status->status_2_datetime = now();
-                        $order_status->save();
                         $order[0]->current_status_id = 2;
                         $order[0]->save();
+                        $order_status->save();
                         $details = [
                             'order_no'      => $order_no,
                             'status'        => $order[0]->status->description,
@@ -141,7 +141,7 @@ class PlanningController extends Controller
                 }
                 else
                 {
-                    return response()->json(['orderno_invalid' => 'Order is not confirmed at Customer Service!']);
+                    return response()->json(['orderno_invalid' => 'Order is not confirmed by Customer Service!']);
                 }
             }
             else

@@ -10,6 +10,7 @@ use App\Models\Admin\Order;
 use App\Models\Admin\OrderStatus;
 use App\Models\Concern;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
@@ -106,7 +107,9 @@ class OrderController extends Controller{
         }
     }
 
-    public function concerns(){
+    public function concerns(Request $request){
+        $searchVal = "";
+        $filterVal = "";
         try {
             $concerns = Concern::with([
                 'concernedFrom' => function ($query) {
@@ -123,9 +126,13 @@ class OrderController extends Controller{
                 }
             ])
             ->select('id', 'orderId', 'concernedBy', 'replyBy', 'status', 'concern', 'reason')
-            ->where('replyBy', '=', Auth::id())
-            ->paginate(5);
-            $params = ['concerns' => $concerns];
+            ->where('replyBy', '=', Auth::id());
+            if ($request->input('filter')) {
+                if($request->get('filter')!="all"){
+                    $concerns->where('status', 'LIKE', '%'.$request->get('filter').'%');
+                }
+            }
+            $params = ['concerns' => $concerns->paginate(5)];
             return view('departments.cs.concern')->with($params);
         } catch(ModelNotFoundException $exception) {
             abort_if($exception instanceof ModelNotFoundException, 404);

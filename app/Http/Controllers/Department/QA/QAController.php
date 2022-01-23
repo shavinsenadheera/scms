@@ -17,7 +17,7 @@ class QAController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['role:super_admin|production_manager|production_coordinator','permission:qa_scanning']);
+        $this->middleware(['role:super_admin|scanning_point_qa','permission:qa_scanning|scanning_point_qa']);
     }
 
     public function scanView()
@@ -79,15 +79,15 @@ class QAController extends Controller
                 }
                 elseif($order[0]->current_status_id==2)
                 {
-                    return response()->json(['orderno_invalid' => 'Order is not scanned at Planning Department!']);
+                    return response()->json(['orderno_invalid' => 'Order is not scanned by Planning Department!']);
                 }
                 elseif($order[0]->current_status_id==3)
                 {
-                    return response()->json(['orderno_invalid' => 'Order is not scanned at Manufacturing Department!']);
+                    return response()->json(['orderno_invalid' => 'Order is not scanned by Manufacturing Department!']);
                 }
                 else
                 {
-                    return response()->json(['orderno_invalid' => 'Order is not confirmed at Customer Service!']);
+                    return response()->json(['orderno_invalid' => 'Order is not confirmed by Customer Service!']);
                 }
             }
             else

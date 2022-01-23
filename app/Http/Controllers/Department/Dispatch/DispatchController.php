@@ -17,7 +17,7 @@ class DispatchController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['role:super_admin|dispatch_manager|dispatch_coordinator|qa_manager|qa_coordinator','permission:dispatch_handling|dispatch_scanning|dispatch_done_scanning']);
+        $this->middleware(['role:super_admin|dispatch_manager|dispatch_coordinator|scanning_point_dispatch','permission:dispatch_handling|dispatch_scanning|dispatch_done_scanning|scanning_point_dispatch']);
     }
 
 
@@ -80,19 +80,19 @@ class DispatchController extends Controller
                 }
                 elseif($order[0]->current_status_id==2)
                 {
-                    return response()->json(['orderno_invalid' => 'Order is not scanned at Planning Department!']);
+                    return response()->json(['orderno_invalid' => 'Order is not scanned by Planning Department!']);
                 }
                 elseif($order[0]->current_status_id==3)
                 {
-                    return response()->json(['orderno_invalid' => 'Order is not scanned at Manufacturing Department!']);
+                    return response()->json(['orderno_invalid' => 'Order is not scanned by Manufacturing Department!']);
                 }
                 elseif($order[0]->current_status_id==4)
                 {
-                    return response()->json(['orderno_invalid' => 'Order is not scanned at QA Department!']);
+                    return response()->json(['orderno_invalid' => 'Order is not scanned by QA Department!']);
                 }
                 else
                 {
-                    return response()->json(['orderno_invalid' => 'Order is not confirmed at Customer Service!']);
+                    return response()->json(['orderno_invalid' => 'Order is not confirmed by Customer Service!']);
                 }
             }
             else
@@ -167,23 +167,23 @@ class DispatchController extends Controller
                 }
                 elseif($order[0]->current_status_id==2)
                 {
-                    return response()->json(['orderno_invalid' => 'Order is not scanned at Planning Department!']);
+                    return response()->json(['orderno_invalid' => 'Order is not scanned by Planning Department!']);
                 }
                 elseif($order[0]->current_status_id==3)
                 {
-                    return response()->json(['orderno_invalid' => 'Order is not scanned at Manufacturing Department!']);
+                    return response()->json(['orderno_invalid' => 'Order is not scanned by Manufacturing Department!']);
                 }
                 elseif($order[0]->current_status_id==4)
                 {
-                    return response()->json(['orderno_invalid' => 'Order is not scanned at QA Department!']);
+                    return response()->json(['orderno_invalid' => 'Order is not scanned by QA Department!']);
                 }
                 elseif($order[0]->current_status_id==5)
                 {
-                    return response()->json(['orderno_invalid' => 'Order is not scanned at Dispatch Department!']);
+                    return response()->json(['orderno_invalid' => 'Order is not scanned by Dispatch Department!']);
                 }
                 else
                 {
-                    return response()->json(['orderno_invalid' => 'Order is not confirmed at Customer Service!']);
+                    return response()->json(['orderno_invalid' => 'Order is not confirmed by Customer Service!']);
                 }
             }
             else

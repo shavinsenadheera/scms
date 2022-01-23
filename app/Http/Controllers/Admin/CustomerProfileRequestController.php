@@ -33,7 +33,7 @@ class CustomerProfileRequestController extends Controller{
     public function show($id){
         try{
             $customerProfileRequest = CustomerProfileRequest::findOrFail(decrypt($id));
-            $customerDetail = Customer::findOrFail(decrypt($id));
+            $customerDetail = Customer::findOrFail($customerProfileRequest->customerID);
             $cities = City::select('id', 'name')->get();
             $industries = Industry::select('id', 'name')->get();
             $changes=array();
@@ -80,7 +80,6 @@ class CustomerProfileRequestController extends Controller{
                     $customer->telephone_land = $customerProfileRequest->telephone_land;
                     $customer->telephone_fax = $customerProfileRequest->telephone_fax;
                     $customer->telephone_fax = $customerProfileRequest->telephone_fax;
-                    $customer->industry = $customerProfileRequest->industry;
                     $customer->save();
                     break;
                 case 'rejected':

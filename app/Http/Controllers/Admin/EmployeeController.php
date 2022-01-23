@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\Department;
 use App\Models\Admin\Designation;
 use App\Models\Admin\Employee;
+use App\Models\Admin\Error;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
 {
@@ -59,10 +61,14 @@ class EmployeeController extends Controller
             $employee->save();
             return back()->with('success_msg', 'Successfully added new employee ' . $name);
         }
-        catch (ModelNotFoundException $ex)
+        catch (ModelNotFoundException $exception)
         {
-            if ($ex instanceof ModelNotFoundException)
+            if ($exception instanceof ModelNotFoundException)
             {
+                $error = new Error();
+                $error->description = $exception->getMessage();
+                $error->users_id = Auth::id();
+                $error->save();
                 return response()->view('errors.'.'404');
             }
         }
@@ -98,7 +104,7 @@ class EmployeeController extends Controller
         {
             $employee = Employee::findOrFail(decrypt($id));
 
-            if ($employee->epfno != $request->epfno or !$request->epfno)
+            if ($employee->epfno != $request->epfno && !$request->epfno)
             {
                 $this->validate($request, [
                     'epfno' => 'required|integer|unique:employee,epfno'
@@ -158,11 +164,9 @@ class EmployeeController extends Controller
     {
         try
         {
-            $employees = Employee::all();
             $designations = Designation::all();
             $departments = Department::all();
             $params = [
-                'employees' => $employees,
                 'departments' => $departments,
                 'designations' => $designations,
                 'title' => $this->title,

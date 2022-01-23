@@ -66,7 +66,7 @@
                                 </div>
                                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                                     <div class="form-group{{ $errors->has('industry') ? 'has-error' : '' }}">
-                                        <label for="cities_id">{{ __('customer.industry') }} *</label>
+                                        <label for="industry">{{ __('customer.industry') }} *</label>
                                         <select
                                             class="form-control {{in_array('industry', $changes) ? 'bg-warning' : ''}}"
                                             name="industry" id="industry"

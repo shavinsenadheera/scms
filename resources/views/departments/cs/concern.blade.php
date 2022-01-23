@@ -11,7 +11,20 @@
                     </ol>
                 </nav>
             </div>
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 stretch-card">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <form method="GET" action="{{route('order.concerns')}}" class="mt-3">
+                    @csrf
+                    <div role="group" aria-label="Basic radio toggle button group">
+                        <input type="radio" class="btn-check" name="filter" id="all" autocomplete="off" value="all" @isset($_GET['filter']) {{ $_GET['filter']=='all' ? 'checked' : ''}} @endisset onclick="this.form.submit();">
+                        <label class="btn btn-secondary" for="all">All</label>
+
+                        <input type="radio" class="btn-check" name="filter" id="pending" autocomplete="off" value="pending" @isset($_GET['filter']) {{ $_GET['filter']=='pending' ? 'checked' : ''}} @endisset onclick="this.form.submit();">
+                        <label class="btn btn-warning" for="pending">Pending</label>
+
+                        <input type="radio" class="btn-check" name="filter" id="review" autocomplete="off" value="review" @isset($_GET['filter']) {{ $_GET['filter']=='reviewed' ? 'checked' : ''}} @endisset onclick="this.form.submit();">
+                        <label class="btn btn-primary" for="review">Reviewed</label>
+                    </div>
+                </form>
                 <div class="card">
                     <div class="card-header py-2">
                         <h4 class="card-title">{{ __('general.breadcrumb.production.order_concerns') }}</h4>

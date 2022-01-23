@@ -170,7 +170,7 @@ if ($hour < 12) {
                     </div>
                 </li>
                 @endrole
-                @unlessrole('store_manager|store_coordinator')
+                @unlessrole('cs_manager|cs_coordinator|store_manager|store_coordinator|scanning_point_planning|scanning_point_production|scanning_point_qa|scanning_point_dispatch')
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="collapse" href="#order-concerns" aria-expanded="false"
                        aria-controls="auth">
@@ -208,7 +208,7 @@ if ($hour < 12) {
                     </div>
                 </li>
                 @endrole
-                @can('planning_scanning')
+                @can('scanning_point_planning')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('planning.scan.view') }}">
                             {!! trans('dashboard.scanOrder') !!}
@@ -234,7 +234,7 @@ if ($hour < 12) {
                     </div>
                 </li>
                 @endrole
-                @can('production_scanning')
+                @can('scanning_point_production')
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('manufacturing.scan.view') }}">
                         <i class="menu-icon typcn typcn-document-text"></i>
@@ -268,23 +268,23 @@ if ($hour < 12) {
                     </div>
                 </li>
                 @endrole
-                @can('qa_scanning')
+                @can('scanning_point_qa')
                     <li class="nav-item">
                         <a class="nav-link"
                            href="{{ route('qa.scan.view') }}"> {!! trans('dashboard.scanOrder') !!} </a>
                     </li>
                 @endcan
-                @can('dispatch_scanning')
+                @can('scanning_point_dispatch')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('dispatch.scan.view') }}">
                             {!! trans('dashboard.scanOrder') !!}
                         </a>
                     </li>
                 @endcan
-                @can('dispatch_done_scanning')
+                @can('scanning_point_dispatch')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('dispatch.scandoneview') }}">
-                            {!! trans('dashboard.scanOrder') !!}
+                            {!! trans('dashboard.scanDoneOrder') !!}
                         </a>
                     </li>
                 @endcan
